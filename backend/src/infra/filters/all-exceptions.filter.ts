@@ -5,9 +5,8 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyReply } from 'fastify';
 
-import { X_REQUEST_ID } from '@src/constants/rest.constant';
 import {
   BizException,
   ErrorCode,
@@ -19,11 +18,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
   catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const response = ctx.getResponse<FastifyReply>();
-    const request = ctx.getRequest<FastifyRequest>();
-
-    const requestId = request.headers[X_REQUEST_ID] as string;
-    const timestamp = new Date().toISOString();
-    const path = request.routeOptions.url ?? '';
 
     let statusCode = HttpStatus.INTERNAL_SERVER_ERROR;
     let errorDetails = {
@@ -54,9 +48,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const responsePayload: ApiResponse = {
       code: statusCode,
       message: errorDetails.message,
-      timestamp,
-      requestId,
-      path,
       error: errorDetails,
     };
 

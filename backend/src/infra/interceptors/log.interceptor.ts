@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 import { LOG_OPERATION } from '@src/constants/event-emitter-token.constant';
-import { USER_AGENT, X_REQUEST_ID } from '@src/constants/rest.constant';
+import { USER_AGENT } from '@src/constants/rest.constant';
 import { LOG_KEY } from '@src/infra/decorators/log.decorator';
 import { OperationLogProperties } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read-model';
 
@@ -39,9 +39,6 @@ export class LogInterceptor implements NestInterceptor {
     const { moduleName, description, logParams, logBody, logResponse } =
       logMetadata;
     const startTime = new Date();
-    const requestId = Array.isArray(request.headers[X_REQUEST_ID])
-      ? request.headers[X_REQUEST_ID][0]
-      : request.headers[X_REQUEST_ID] || '';
 
     return next.handle().pipe(
       tap((data) => {
@@ -53,7 +50,7 @@ export class LogInterceptor implements NestInterceptor {
           domain: domain,
           moduleName,
           description,
-          requestId,
+          requestId: 'TODO',
           method: request.method,
           url: request.routeOptions.url,
           ip: request.ip,

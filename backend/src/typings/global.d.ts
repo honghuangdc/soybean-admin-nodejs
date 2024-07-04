@@ -8,9 +8,9 @@ declare global {
   interface ApiResponse<T = any> {
     code: number;
     message: string;
-    timestamp: string;
-    requestId: string;
-    path: string;
+    // timestamp: string;
+    // requestId: string;
+    // path: string;
     error?: {
       code: number;
       message: string;

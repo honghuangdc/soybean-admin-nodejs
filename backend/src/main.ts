@@ -15,6 +15,7 @@ import { useContainer } from 'class-validator';
 import { initDocSwagger } from '@src/bootstrap/swagger/init-doc.swagger';
 import { ConfigKeyPaths, IAppConfig } from '@src/config';
 import { fastifyApp } from '@src/infra/adapter/fastify.adapter';
+import { RedisUtility } from '@src/shared/redis/services/redis.util';
 import { isMainProcess } from '@src/utils/env';
 
 import { AppModule } from './app.module';
@@ -55,6 +56,8 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await app.register(fastifyCompress);
+
+  await RedisUtility.client();
 
   await app.listen(port, '0.0.0.0', async () => {
     const url = await app.getUrl();

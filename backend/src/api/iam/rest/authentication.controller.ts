@@ -4,7 +4,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FastifyRequest } from 'fastify';
 
 import { CacheConstant } from '@src/constants/cache.constant';
-import { USER_AGENT, X_REQUEST_ID } from '@src/constants/rest.constant';
+import { USER_AGENT } from '@src/constants/rest.constant';
 import { Public } from '@src/infra/decorators/public.decorator';
 import { PasswordIdentifierDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
 import { AuthenticationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
@@ -33,21 +33,18 @@ export class AuthenticationController {
     @Request() request: FastifyRequest,
   ) {
     const { ip, port } = getClientIpAndPort(request);
-    const result = await this.authenticationService.execPasswordLogin(
+    return await this.authenticationService.execPasswordLogin(
       new PasswordIdentifierDTO(
         dto.identifier,
         dto.password,
         ip,
         'TODO',
         request.headers[USER_AGENT] ?? '',
-        Array.isArray(request.headers[X_REQUEST_ID])
-          ? request.headers[X_REQUEST_ID][0]
-          : request.headers[X_REQUEST_ID] ?? '',
+        'TODO',
         'PC',
         port,
       ),
     );
-    return result;
   }
 
   @Get('getUserInfo')

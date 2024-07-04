@@ -132,7 +132,7 @@ const strategies = [JwtStrategy];
     { provide: APP_INTERCEPTOR, useClass: LogInterceptor },
 
     { provide: APP_GUARD, useClass: JwtAuthGuard },
-    { provide: APP_GUARD, useClass: ThrottlerGuard },
+    // { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class AppModule {}
