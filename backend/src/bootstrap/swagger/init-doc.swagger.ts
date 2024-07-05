@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import gradient from 'gradient-string';
 
 import { appConfigToken, ConfigKeyPaths, IAppConfig } from '@src/config';
-import { Response } from '@src/infra/rest/res.response';
+import { ApiRes } from '@src/infra/rest/res.response';
 
 import * as packageJson from '../../../package.json';
 
@@ -46,7 +46,7 @@ export function initDocSwagger(
 
   const document = SwaggerModule.createDocument(app, documentBuilder.build(), {
     ignoreGlobalPrefix: false,
-    extraModels: [Response],
+    extraModels: [ApiRes],
   });
 
   SwaggerModule.setup(docSwaggerPath, app, document, {

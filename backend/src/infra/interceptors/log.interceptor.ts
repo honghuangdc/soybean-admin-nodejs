@@ -25,12 +25,13 @@ export class LogInterceptor implements NestInterceptor {
   ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    const request = context.switchToHttp().getRequest();
     const logMetadata = this.reflector.get(LOG_KEY, context.getHandler());
 
     if (!logMetadata) {
       return next.handle();
     }
+
+    const request = context.switchToHttp().getRequest();
 
     const { uid, username, domain }: IAuthentication = context
       .switchToHttp()

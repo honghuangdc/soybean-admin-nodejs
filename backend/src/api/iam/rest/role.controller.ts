@@ -4,6 +4,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import { RoleCreateDto } from '@src/api/iam/dto/role-create.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
+import { ApiRes } from '@src/infra/rest/res.response';
 import { RoleCreateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-create.command';
 import {
   RoleProperties,
@@ -29,7 +30,7 @@ export class RoleController {
   @ApiResponseDoc({ type: RoleReadModel, isPaged: true })
   async page(
     @Query() queryDto: PageRolesQueryDto,
-  ): Promise<PaginationResult<RoleProperties>> {
+  ): Promise<ApiRes<PaginationResult<RoleProperties>>> {
     const query = new PageRolesQuery({
       current: queryDto.current,
       size: queryDto.size,
@@ -37,10 +38,11 @@ export class RoleController {
       name: queryDto.name,
       status: queryDto.status,
     });
-    return this.queryBus.execute<
+    const result = await this.queryBus.execute<
       PageRolesQuery,
       PaginationResult<RoleProperties>
     >(query);
+    return ApiRes.success(result);
   }
 
   @Post()
@@ -50,7 +52,10 @@ export class RoleController {
     description: 'The role has been successfully created.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async createRole(@Body() dto: RoleCreateDto, @Request() req: any) {
+  async createRole(
+    @Body() dto: RoleCreateDto,
+    @Request() req: any,
+  ): Promise<ApiRes<null>> {
     await this.commandBus.execute(
       new RoleCreateCommand(
         dto.code,
@@ -60,5 +65,6 @@ export class RoleController {
         req.user.uid,
       ),
     );
+    return ApiRes.ok();
   }
 }

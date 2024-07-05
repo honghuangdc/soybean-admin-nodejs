@@ -1,11 +1,7 @@
-import {
-  ClassSerializerInterceptor,
-  ExecutionContext,
-  Module,
-} from '@nestjs/common';
+import { ExecutionContext, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule } from '@nestjs/throttler';
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
 import { ThrottlerStorageRedisService } from 'nestjs-throttler-storage-redis';
@@ -16,8 +12,6 @@ import { GlobalCqrsModule } from '@src/global/module/global.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';
 import { AllExceptionsFilter } from '@src/infra/filters/all-exceptions.filter';
 import { JwtAuthGuard } from '@src/infra/guards/jwt.auth-guard';
-import { LogInterceptor } from '@src/infra/interceptors/log.interceptor';
-import { TransformInterceptor } from '@src/infra/interceptors/transform.interceptor';
 import { JwtStrategy } from '@src/infra/strategies/jwt.passport-strategy';
 import { SharedModule } from '@src/shared/shared.module';
 
@@ -127,9 +121,10 @@ const strategies = [JwtStrategy];
 
     { provide: APP_FILTER, useClass: AllExceptionsFilter },
 
-    { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
-    { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
-    { provide: APP_INTERCEPTOR, useClass: LogInterceptor },
+    //TODO 拦截器极度影响性能 有需要自行开启 对性能有要求使用decorator形式 每个接口手动加虽然麻烦点或者app.use指定路由统一使用相对代码量少
+    // { provide: APP_INTERCEPTOR, useClass: ClassSerializerInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: TransformInterceptor },
+    // { provide: APP_INTERCEPTOR, useClass: LogInterceptor },
 
     { provide: APP_GUARD, useClass: JwtAuthGuard },
     // { provide: APP_GUARD, useClass: ThrottlerGuard },

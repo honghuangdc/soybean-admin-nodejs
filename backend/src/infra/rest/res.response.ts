@@ -5,7 +5,7 @@ import {
   RESPONSE_SUCCESS_MSG,
 } from '@src/constants/rest.constant';
 
-export class Response<T> {
+export class ApiRes<T> {
   @ApiProperty({ type: 'object', description: 'data' })
   data?: T;
 
@@ -36,15 +36,19 @@ export class Response<T> {
   static success<T>(
     data: T,
     message: string = RESPONSE_SUCCESS_MSG,
-  ): Response<T> {
-    return new Response(RESPONSE_SUCCESS_CODE, data, message);
+  ): ApiRes<T> {
+    return new ApiRes(RESPONSE_SUCCESS_CODE, data, message);
   }
 
-  static error<T = null>(code: number, message: string): Response<T> {
-    return new Response(code, null, message);
+  static ok(): ApiRes<null> {
+    return new ApiRes(RESPONSE_SUCCESS_CODE, null, RESPONSE_SUCCESS_MSG);
   }
 
-  static custom<T>(code: number, data: T, message: string): Response<T> {
-    return new Response(code, data, message);
+  static error<T = null>(code: number, message: string): ApiRes<T> {
+    return new ApiRes(code, null, message);
+  }
+
+  static custom<T>(code: number, data: T, message: string): ApiRes<T> {
+    return new ApiRes(code, data, message);
   }
 }

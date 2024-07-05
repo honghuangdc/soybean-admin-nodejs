@@ -23,11 +23,10 @@ export class MenuService {
       Readonly<MenuProperties[]> | []
     >(new MenusByRoleCodeQuery(roleCode, domain));
     if (userRoutes.length > 0) {
-      const userRoute: UserRoute = {
+      return {
         routes: buildMenuTree(userRoutes),
         home: 'home',
       };
-      return userRoute;
     }
     return { home: '', routes: [] };
   }
@@ -35,7 +34,7 @@ export class MenuService {
   async getConstantRoutes(): Promise<MenuRoute[]> {
     const constantMenus = await this.repository.getConstantRoutes();
 
-    const menuRoutes: MenuRoute[] = constantMenus.map((menu) => ({
+    return constantMenus.map((menu) => ({
       name: menu.menuName,
       path: menu.routePath,
       component: menu.component,
@@ -53,8 +52,6 @@ export class MenuService {
         multiTab: menu.multiTab,
       },
     }));
-
-    return menuRoutes;
   }
 }
 

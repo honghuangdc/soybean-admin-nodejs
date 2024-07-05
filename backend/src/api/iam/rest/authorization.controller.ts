@@ -11,8 +11,10 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AssignPermissionDto } from '@src/api/iam/dto/assign-permission.dto';
 import { CacheConstant } from '@src/constants/cache.constant';
+import { ApiRes } from '@src/infra/rest/res.response';
 import { AuthorizationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authorization.service';
 import { RoleAssignPermissionCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-permission.command';
+import { UserRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
@@ -30,10 +32,13 @@ export class AuthorizationController {
     description:
       'Assigns a set of permissions to a specified role within a domain.',
   })
-  async assignPermission(@Body() dto: AssignPermissionDto) {
+  async assignPermission(
+    @Body() dto: AssignPermissionDto,
+  ): Promise<ApiRes<null>> {
     await this.authorizationService.assignPermission(
       new RoleAssignPermissionCommand(dto.domain, dto.roleId, dto.permissions),
     );
+    return ApiRes.ok();
   }
 
   @Get('getUserRoutes')
@@ -42,7 +47,7 @@ export class AuthorizationController {
     description:
       'Retrieve user-specific routes based on their roles and domain.',
   })
-  async getUserRoutes(@Request() req: any) {
+  async getUserRoutes(@Request() req: any): Promise<ApiRes<UserRoute>> {
     const user: IAuthentication = req.user;
     const userRoleCode = await RedisUtility.instance.smembers(
       `${CacheConstant.AUTH_TOKEN_PREFIX}${user.uid}`,
@@ -53,6 +58,10 @@ export class AuthorizationController {
         HttpStatus.NOT_FOUND,
       );
     }
-    return this.menuService.getUserRoutes(userRoleCode, user.domain);
+    const routes = await this.menuService.getUserRoutes(
+      userRoleCode,
+      user.domain,
+    );
+    return ApiRes.success(routes);
   }
 }

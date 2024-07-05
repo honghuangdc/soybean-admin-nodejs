@@ -4,6 +4,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { PageEndpointsQueryDto } from '@src/api/endpoint/dto/page-endpoint.query-dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
+import { ApiRes } from '@src/infra/rest/res.response';
 import {
   EndpointProperties,
   EndpointReadModel,
@@ -23,7 +24,7 @@ export class EndpointController {
   @ApiResponseDoc({ type: EndpointReadModel, isPaged: true })
   async page(
     @Query() queryDto: PageEndpointsQueryDto,
-  ): Promise<PaginationResult<EndpointProperties>> {
+  ): Promise<ApiRes<PaginationResult<EndpointProperties>>> {
     const query = new PageEndpointsQuery({
       current: queryDto.current,
       size: queryDto.size,
@@ -32,9 +33,10 @@ export class EndpointController {
       action: queryDto.action,
       resource: queryDto.resource,
     });
-    return this.queryBus.execute<
+    const result = await this.queryBus.execute<
       PageEndpointsQuery,
       PaginationResult<EndpointProperties>
     >(query);
+    return ApiRes.success(result);
   }
 }

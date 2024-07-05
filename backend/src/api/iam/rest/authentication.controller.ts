@@ -6,6 +6,7 @@ import { FastifyRequest } from 'fastify';
 import { CacheConstant } from '@src/constants/cache.constant';
 import { USER_AGENT } from '@src/constants/rest.constant';
 import { Public } from '@src/infra/decorators/public.decorator';
+import { ApiRes } from '@src/infra/rest/res.response';
 import { PasswordIdentifierDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
 import { AuthenticationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
@@ -31,9 +32,9 @@ export class AuthenticationController {
   async login(
     @Body() dto: PasswordLoginDto,
     @Request() request: FastifyRequest,
-  ) {
+  ): Promise<ApiRes<any>> {
     const { ip, port } = getClientIpAndPort(request);
-    return await this.authenticationService.execPasswordLogin(
+    const token = await this.authenticationService.execPasswordLogin(
       new PasswordIdentifierDTO(
         dto.identifier,
         dto.password,
@@ -45,18 +46,19 @@ export class AuthenticationController {
         port,
       ),
     );
+    return ApiRes.success(token);
   }
 
   @Get('getUserInfo')
-  async getProfile(@Request() req: any) {
+  async getProfile(@Request() req: any): Promise<ApiRes<any>> {
     const user: IAuthentication = req.user;
     const userRoles = await RedisUtility.instance.smembers(
       `${CacheConstant.AUTH_TOKEN_PREFIX}${user.uid}`,
     );
-    return {
+    return ApiRes.success({
       userId: user.uid,
       userName: user.username,
       roles: userRoles,
-    };
+    });
   }
 }

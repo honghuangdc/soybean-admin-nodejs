@@ -4,6 +4,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { PageCasbinDomainsQueryDto } from '@src/api/iam/dto/page-casbin-domains.query-dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
+import { ApiRes } from '@src/infra/rest/res.response';
 import {
   CasbinDomainProperties,
   CasbinDomainReadModel,
@@ -23,16 +24,17 @@ export class CasbinDomainController {
   @ApiResponseDoc({ type: CasbinDomainReadModel, isPaged: true })
   async page(
     @Query() queryDto: PageCasbinDomainsQueryDto,
-  ): Promise<PaginationResult<CasbinDomainProperties>> {
+  ): Promise<ApiRes<PaginationResult<CasbinDomainProperties>>> {
     const query = new PageCasbinDomainsQuery({
       current: queryDto.current,
       size: queryDto.size,
       name: queryDto.name,
       status: queryDto.status,
     });
-    return this.queryBus.execute<
+    const result = await this.queryBus.execute<
       PageCasbinDomainsQuery,
       PaginationResult<CasbinDomainProperties>
     >(query);
+    return ApiRes.success(result);
   }
 }

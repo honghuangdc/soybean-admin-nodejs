@@ -3,6 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
+import { ApiRes } from '@src/infra/rest/res.response';
 import {
   UserProperties,
   UserReadModel,
@@ -24,7 +25,7 @@ export class UserController {
   @ApiResponseDoc({ type: UserReadModel, isPaged: true })
   async page(
     @Query() queryDto: PageUsersQueryDto,
-  ): Promise<PaginationResult<UserProperties>> {
+  ): Promise<ApiRes<PaginationResult<UserProperties>>> {
     const query = new PageUsersQuery({
       current: queryDto.current,
       size: queryDto.size,
@@ -32,9 +33,10 @@ export class UserController {
       nickName: queryDto.nickName,
       status: queryDto.status,
     });
-    return this.queryBus.execute<
+    const result = await this.queryBus.execute<
       PageUsersQuery,
       PaginationResult<UserProperties>
     >(query);
+    return ApiRes.success(result);
   }
 }
