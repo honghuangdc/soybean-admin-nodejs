@@ -34,7 +34,7 @@ export function initDocSwagger(
     )
     .setLicense(
       packageJson.license,
-      'https://github.com/ByteByteBrew/soybean-admin-nest/blob/main/LICENSE',
+      'https://github.com/soybeanjs/soybean-admin-nestjs/blob/main/LICENSE',
     );
 
   documentBuilder.addSecurity('', {
