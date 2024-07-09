@@ -1,6 +1,6 @@
-import {ICommand} from '@nestjs/cqrs';
+import { ICommand } from '@nestjs/cqrs';
 
-import {RoleCreateCommand} from './role-create.command';
+import { RoleCreateCommand } from './role-create.command';
 
 export class RoleUpdateCommand extends RoleCreateCommand implements ICommand {
   constructor(

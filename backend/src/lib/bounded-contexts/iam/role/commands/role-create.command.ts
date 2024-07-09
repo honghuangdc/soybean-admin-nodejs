@@ -1,4 +1,4 @@
-import {ICommand} from '@nestjs/cqrs';
+import { ICommand } from '@nestjs/cqrs';
 
 export class RoleCreateCommand implements ICommand {
   constructor(

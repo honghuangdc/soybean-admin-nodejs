@@ -1,19 +1,20 @@
-import {BadRequestException, Inject} from '@nestjs/common';
-import {CommandHandler, ICommandHandler} from '@nestjs/cqrs';
-import {Status} from '@prisma/client';
+import { BadRequestException, Inject } from '@nestjs/common';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Status } from '@prisma/client';
 
-import {ROOT_PID} from '@src/shared/prisma/db.constant';
+import { ROOT_PID } from '@src/shared/prisma/db.constant';
 
-import {RoleUpdateCommand} from '../../commands/role-update.command';
-import {RoleReadRepoPortToken, RoleWriteRepoPortToken} from '../../constants';
-import {Role} from '../../domain/role.model';
-import {RoleUpdateProperties} from '../../domain/role.read-model';
-import {RoleReadRepoPort} from '../../ports/role.read.repo-port';
-import {RoleWriteRepoPort} from '../../ports/role.write.repo-port';
+import { RoleUpdateCommand } from '../../commands/role-update.command';
+import { RoleReadRepoPortToken, RoleWriteRepoPortToken } from '../../constants';
+import { Role } from '../../domain/role.model';
+import { RoleUpdateProperties } from '../../domain/role.read-model';
+import { RoleReadRepoPort } from '../../ports/role.read.repo-port';
+import { RoleWriteRepoPort } from '../../ports/role.write.repo-port';
 
 @CommandHandler(RoleUpdateCommand)
 export class RoleUpdateHandler
-  implements ICommandHandler<RoleUpdateCommand, void> {
+  implements ICommandHandler<RoleUpdateCommand, void>
+{
   @Inject(RoleWriteRepoPortToken)
   private readonly roleWriteRepository: RoleWriteRepoPort;
   @Inject(RoleReadRepoPortToken)

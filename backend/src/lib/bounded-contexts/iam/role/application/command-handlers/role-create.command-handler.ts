@@ -1,16 +1,16 @@
-import {BadRequestException, Inject} from '@nestjs/common';
-import {CommandHandler, ICommandHandler} from '@nestjs/cqrs';
-import {Status} from '@prisma/client';
+import { BadRequestException, Inject } from '@nestjs/common';
+import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { Status } from '@prisma/client';
 
-import {ROOT_PID} from '@src/shared/prisma/db.constant';
-import {UlidGenerator} from '@src/utils/id.util';
+import { ROOT_PID } from '@src/shared/prisma/db.constant';
+import { UlidGenerator } from '@src/utils/id.util';
 
-import {RoleCreateCommand} from '../../commands/role-create.command';
-import {RoleReadRepoPortToken, RoleWriteRepoPortToken} from '../../constants';
-import {Role} from '../../domain/role.model';
-import {RoleCreateProperties} from '../../domain/role.read-model';
-import {RoleReadRepoPort} from '../../ports/role.read.repo-port';
-import {RoleWriteRepoPort} from '../../ports/role.write.repo-port';
+import { RoleCreateCommand } from '../../commands/role-create.command';
+import { RoleReadRepoPortToken, RoleWriteRepoPortToken } from '../../constants';
+import { Role } from '../../domain/role.model';
+import { RoleCreateProperties } from '../../domain/role.read-model';
+import { RoleReadRepoPort } from '../../ports/role.read.repo-port';
+import { RoleWriteRepoPort } from '../../ports/role.write.repo-port';
 
 @CommandHandler(RoleCreateCommand)
 export class RoleCreateHandler

@@ -1,8 +1,8 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
-import {Role} from '@src/lib/bounded-contexts/iam/role/domain/role.model';
-import {RoleWriteRepoPort} from '@src/lib/bounded-contexts/iam/role/ports/role.write.repo-port';
-import {PrismaService} from '@src/shared/prisma/prisma.service';
+import { Role } from '@src/lib/bounded-contexts/iam/role/domain/role.model';
+import { RoleWriteRepoPort } from '@src/lib/bounded-contexts/iam/role/ports/role.write.repo-port';
+import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
 export class RoleWritePostgresRepository implements RoleWriteRepoPort {
@@ -16,8 +16,8 @@ export class RoleWritePostgresRepository implements RoleWriteRepoPort {
 
   async update(role: Role): Promise<void> {
     await this.prisma.sysRole.update({
-      where: {id: role.id},
-      data: {...role},
+      where: { id: role.id },
+      data: { ...role },
     });
   }
 }

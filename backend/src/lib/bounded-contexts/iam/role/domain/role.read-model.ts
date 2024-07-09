@@ -1,5 +1,5 @@
-import {ApiProperty} from '@nestjs/swagger';
-import {Status} from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger';
+import { Status } from '@prisma/client';
 
 export type RoleEssentialProperties = Readonly<
   Required<{
