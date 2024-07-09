@@ -26,6 +26,8 @@ docker-compose -p soybean-admin-nest up -d
 
 ```bash
 cd $project/backend
+# 首次运行必须生成prisma相关
+pnpm prisma:generate
 pnpm start:dev
 cd $project/frontend
 pnpm dev
