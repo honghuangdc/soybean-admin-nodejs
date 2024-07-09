@@ -3,30 +3,28 @@ import {CommandHandler, ICommandHandler} from '@nestjs/cqrs';
 import {Status} from '@prisma/client';
 
 import {ROOT_PID} from '@src/shared/prisma/db.constant';
-import {UlidGenerator} from '@src/utils/id.util';
 
-import {RoleCreateCommand} from '../../commands/role-create.command';
+import {RoleUpdateCommand} from '../../commands/role-update.command';
 import {RoleReadRepoPortToken, RoleWriteRepoPortToken} from '../../constants';
 import {Role} from '../../domain/role.model';
-import {RoleCreateProperties} from '../../domain/role.read-model';
+import {RoleUpdateProperties} from '../../domain/role.read-model';
 import {RoleReadRepoPort} from '../../ports/role.read.repo-port';
 import {RoleWriteRepoPort} from '../../ports/role.write.repo-port';
 
-@CommandHandler(RoleCreateCommand)
-export class RoleCreateHandler
-  implements ICommandHandler<RoleCreateCommand, void>
-{
+@CommandHandler(RoleUpdateCommand)
+export class RoleUpdateHandler
+  implements ICommandHandler<RoleUpdateCommand, void> {
   @Inject(RoleWriteRepoPortToken)
   private readonly roleWriteRepository: RoleWriteRepoPort;
   @Inject(RoleReadRepoPortToken)
   private readonly roleReadRepoPort: RoleReadRepoPort;
 
-  async execute(command: RoleCreateCommand) {
+  async execute(command: RoleUpdateCommand) {
     const existingRole = await this.roleReadRepoPort.getRoleByCode(
       command.code,
     );
 
-    if (existingRole) {
+    if (existingRole && existingRole.id !== command.id) {
       throw new BadRequestException(
         `A role with code ${command.code} already exists.`,
       );
@@ -42,18 +40,18 @@ export class RoleCreateHandler
       }
     }
 
-    const roleCreateProperties: RoleCreateProperties = {
-      id: UlidGenerator.generate(),
+    const roleUpdateProperties: RoleUpdateProperties = {
+      id: command.id,
       code: command.code,
       name: command.name,
       pid: command.pid,
       status: Status.ENABLED,
       description: command.description,
-      createdAt: new Date(),
-      createdBy: command.uid,
+      updatedAt: new Date(),
+      updatedBy: command.uid,
     };
 
-    const role = Role.fromCreate(roleCreateProperties);
-    await this.roleWriteRepository.save(role);
+    const role = Role.fromUpdate(roleUpdateProperties);
+    await this.roleWriteRepository.update(role);
   }
 }

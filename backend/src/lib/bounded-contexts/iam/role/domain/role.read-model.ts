@@ -1,5 +1,5 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Status } from '@prisma/client';
+import {ApiProperty} from '@nestjs/swagger';
+import {Status} from '@prisma/client';
 
 export type RoleEssentialProperties = Readonly<
   Required<{
@@ -8,8 +8,7 @@ export type RoleEssentialProperties = Readonly<
     name: string;
     pid: string;
     status: Status;
-  }> &
-    CreationAuditInfoProperties
+  }>
 >;
 
 export type RoleOptionalProperties = Readonly<
@@ -20,6 +19,10 @@ export type RoleOptionalProperties = Readonly<
 
 export type RoleProperties = RoleEssentialProperties &
   Required<RoleOptionalProperties>;
+
+export type RoleCreateProperties = RoleProperties & CreationAuditInfoProperties;
+
+export type RoleUpdateProperties = RoleProperties & UpdateAuditInfoProperties;
 
 export class RoleReadModel {
   @ApiProperty({ description: 'The unique identifier of the role' })

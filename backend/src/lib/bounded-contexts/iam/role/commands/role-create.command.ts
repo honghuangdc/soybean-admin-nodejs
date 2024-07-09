@@ -1,4 +1,4 @@
-import { ICommand } from '@nestjs/cqrs';
+import {ICommand} from '@nestjs/cqrs';
 
 export class RoleCreateCommand implements ICommand {
   constructor(
@@ -6,6 +6,6 @@ export class RoleCreateCommand implements ICommand {
     readonly name: string,
     readonly pid: string,
     readonly description: string | null,
-    readonly createdBy: string,
+    readonly uid: string,
   ) {}
 }

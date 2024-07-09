@@ -1,6 +1,6 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {ApiProperty} from '@nestjs/swagger';
+import {Type} from 'class-transformer';
+import {IsNotEmpty, IsOptional, IsString} from 'class-validator';
 
 export class RoleCreateDto {
   @ApiProperty({ required: true })
@@ -23,4 +23,11 @@ export class RoleCreateDto {
   @IsString({ message: 'description must be a string or null' })
   @Type(() => String)
   description: string | null;
+}
+
+export class RoleUpdateDto extends RoleCreateDto {
+  @ApiProperty({required: true})
+  @IsString({message: 'id must be a string'})
+  @IsNotEmpty({message: 'id cannot be empty'})
+  id: string;
 }
