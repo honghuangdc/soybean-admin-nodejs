@@ -10,9 +10,7 @@ export type UserEssentialProperties = Readonly<
     domain: string;
     nickName: string;
     status: Status;
-  }> &
-    CreationAuditInfoProperties &
-    UpdateAuditInfoProperties
+  }>
 >;
 
 export type UserOptionalProperties = Readonly<
@@ -26,6 +24,10 @@ export type UserOptionalProperties = Readonly<
 
 export type UserProperties = UserEssentialProperties &
   Required<UserOptionalProperties>;
+
+export type UserCreateProperties = UserProperties & CreationAuditInfoProperties;
+
+export type UserUpdateProperties = UserProperties & UpdateAuditInfoProperties;
 
 export class UserReadModel extends UpdateAuditInfo {
   @ApiProperty({ description: 'The unique identifier of the user' })

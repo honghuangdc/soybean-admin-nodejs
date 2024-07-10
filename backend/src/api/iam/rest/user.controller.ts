@@ -1,9 +1,20 @@
-import { Controller, Get, Query } from '@nestjs/common';
-import { QueryBus } from '@nestjs/cqrs';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Put,
+  Query,
+  Request,
+} from '@nestjs/common';
+import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { UserCreateDto, UserUpdateDto } from '@src/api/iam/dto/user.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
+import { UserCreateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-create.command';
+import { UserUpdateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-update.command';
 import {
   UserProperties,
   UserReadModel,
@@ -16,7 +27,10 @@ import { PageUsersQueryDto } from '../dto/page-users.query-dto';
 @ApiTags('User - Module')
 @Controller('user')
 export class UserController {
-  constructor(private queryBus: QueryBus) {}
+  constructor(
+    private queryBus: QueryBus,
+    private commandBus: CommandBus,
+  ) {}
 
   @Get()
   @ApiOperation({
@@ -38,5 +52,58 @@ export class UserController {
       PaginationResult<UserProperties>
     >(query);
     return ApiRes.success(result);
+  }
+
+  @Post()
+  @ApiOperation({ summary: 'Create a New User' })
+  @ApiResponse({
+    status: 201,
+    description: 'The user has been successfully created.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async createUser(
+    @Body() dto: UserCreateDto,
+    @Request() req: any,
+  ): Promise<ApiRes<null>> {
+    await this.commandBus.execute(
+      new UserCreateCommand(
+        dto.username,
+        dto.password,
+        dto.domain,
+        dto.nickName,
+        dto.avatar,
+        dto.email,
+        dto.phoneNumber,
+        req.user.uid,
+      ),
+    );
+    return ApiRes.ok();
+  }
+
+  @Put()
+  @ApiOperation({ summary: 'Update a User' })
+  @ApiResponse({
+    status: 201,
+    description: 'The user has been successfully updated.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async updateUser(
+    @Body() dto: UserUpdateDto,
+    @Request() req: any,
+  ): Promise<ApiRes<null>> {
+    await this.commandBus.execute(
+      new UserUpdateCommand(
+        dto.id,
+        dto.username,
+        dto.password,
+        dto.domain,
+        dto.nickName,
+        dto.avatar,
+        dto.email,
+        dto.phoneNumber,
+        req.user.uid,
+      ),
+    );
+    return ApiRes.ok();
   }
 }

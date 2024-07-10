@@ -1,6 +1,7 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
+import { UserCreatedEvent } from './events/user-created.event';
 import { Password } from './password.value-object';
 import { UserProperties } from './user.read-model';
 
@@ -11,12 +12,18 @@ export interface IUser {
   commit(): void;
 }
 
-export class UserModel extends AggregateRoot implements IUser {
-  private readonly id: string;
-  private username: string;
-  private password: Password;
-  private status: Status;
-  private domain: string;
+export class User extends AggregateRoot implements IUser {
+  readonly id: string;
+  readonly username: string;
+  readonly nickName: string;
+  readonly password: Password;
+  readonly status: Status;
+  readonly domain: string;
+  readonly avatar: string | null;
+  readonly email: string | null;
+  readonly phoneNumber: string | null;
+  createdAt: Date;
+  createdBy: string;
 
   constructor(properties: UserProperties) {
     super();
@@ -48,5 +55,9 @@ export class UserModel extends AggregateRoot implements IUser {
     }
 
     return { success: true, message: 'Login successful' };
+  }
+
+  async created() {
+    this.apply(new UserCreatedEvent(this.id, this.username, this.domain));
   }
 }

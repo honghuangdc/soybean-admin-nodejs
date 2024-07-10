@@ -12,8 +12,8 @@ import { ISecurityConfig, SecurityConfig } from '@src/config';
 import { PasswordIdentifierDTO } from '../../application/dto/password-identifier.dto';
 import { UserReadRepoPortToken } from '../../constants';
 import { UserLoggedInEvent } from '../../domain/events/user-logged-in.event';
-import { UserModel } from '../../domain/user.model';
-import { UserReadRepoPort } from '../../ports/user-read.repo-port';
+import { User } from '../../domain/user';
+import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 
 @Injectable()
 export class AuthenticationService {
@@ -33,7 +33,7 @@ export class AuthenticationService {
     if (!user) {
       throw new NotFoundException('User not found.');
     }
-    const userAggregate = new UserModel(user);
+    const userAggregate = new User(user);
     const loginResult = await userAggregate.loginUser(password);
 
     if (!loginResult.success) {

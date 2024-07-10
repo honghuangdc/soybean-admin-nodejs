@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
 import { UserProperties } from '@src/lib/bounded-contexts/iam/authentication/domain/user.read-model';
-import { UserReadRepoPort } from '@src/lib/bounded-contexts/iam/authentication/ports/user-read.repo-port';
+import { UserReadRepoPort } from '@src/lib/bounded-contexts/iam/authentication/ports/user.read.repo-port';
 import { PageUsersQuery } from '@src/lib/bounded-contexts/iam/authentication/queries/page-users.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
-export class UserReadPostgresRepository implements UserReadRepoPort {
+export class UserReadRepository implements UserReadRepoPort {
   constructor(private prisma: PrismaService) {}
 
   private readonly USER_ESSENTIAL_FIELDS = {
@@ -77,5 +77,13 @@ export class UserReadPostgresRepository implements UserReadRepoPort {
       total,
       users,
     );
+  }
+
+  async getUserByUsername(
+    username: string,
+  ): Promise<Readonly<UserProperties> | null> {
+    return this.prisma.sysUser.findUnique({
+      where: { username },
+    });
   }
 }

@@ -7,4 +7,6 @@ export interface UserReadRepoPort {
   findUserByIdentifier(identifier: string): Promise<UserProperties | null>;
 
   pageUsers(query: PageUsersQuery): Promise<PaginationResult<UserProperties>>;
+
+  getUserByUsername(username: string): Promise<Readonly<UserProperties> | null>;
 }

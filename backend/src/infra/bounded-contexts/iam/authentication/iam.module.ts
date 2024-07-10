@@ -4,12 +4,17 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { ConfigKeyPaths, ISecurityConfig, securityRegToken } from '@src/config';
 import { AuthenticationModule } from '@src/lib/bounded-contexts/iam/authentication/authentication.module';
-import { UserReadRepoPortToken } from '@src/lib/bounded-contexts/iam/authentication/constants';
+import {
+  UserReadRepoPortToken,
+  UserWriteRepoPortToken,
+} from '@src/lib/bounded-contexts/iam/authentication/constants';
 
-import { UserReadPostgresRepository } from './repository/user-read.pg.repository';
+import { UserReadRepository } from './repository/user.read.pg.repository';
+import { UserWriteRepository } from './repository/user.write.pg.repository';
 
 const providers = [
-  { provide: UserReadRepoPortToken, useClass: UserReadPostgresRepository },
+  { provide: UserReadRepoPortToken, useClass: UserReadRepository },
+  { provide: UserWriteRepoPortToken, useClass: UserWriteRepository },
 ];
 
 @Module({
