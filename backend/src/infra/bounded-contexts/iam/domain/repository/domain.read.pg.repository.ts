@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { CasbinDomainProperties } from '@src/lib/bounded-contexts/iam/casbin-domain/domain/casbin-domain.read-model';
-import { CasbinDomainReadRepoPort } from '@src/lib/bounded-contexts/iam/casbin-domain/ports/casbin-domain.read.repo-port';
-import { PageCasbinDomainsQuery } from '@src/lib/bounded-contexts/iam/casbin-domain/queries/page-casbin-domains.query';
+import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
+import { DomainReadRepoPort } from '@src/lib/bounded-contexts/iam/domain/ports/domain.read.repo-port';
+import { PageDomainsQuery } from '@src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
-export class CasbinDomainReadRepository implements CasbinDomainReadRepoPort {
+export class DomainReadRepository implements DomainReadRepoPort {
   constructor(private prisma: PrismaService) {}
 
-  async pageCasbinDomains(
-    query: PageCasbinDomainsQuery,
-  ): Promise<PaginationResult<CasbinDomainProperties>> {
+  async pageDomains(
+    query: PageDomainsQuery,
+  ): Promise<PaginationResult<DomainProperties>> {
     const where: Prisma.SysDomainWhereInput = {};
 
     if (query.name) {
@@ -39,7 +39,7 @@ export class CasbinDomainReadRepository implements CasbinDomainReadRepoPort {
 
     const total = await this.prisma.sysDomain.count({ where: where });
 
-    return new PaginationResult<CasbinDomainProperties>(
+    return new PaginationResult<DomainProperties>(
       query.current,
       query.size,
       total,
@@ -47,7 +47,15 @@ export class CasbinDomainReadRepository implements CasbinDomainReadRepoPort {
     );
   }
 
-  async getDomainById(code: string): Promise<CasbinDomainProperties | null> {
+  async getDomainById(code: string): Promise<DomainProperties | null> {
+    return this.prisma.sysDomain.findUnique({
+      where: { code },
+    });
+  }
+
+  async getDomainByCode(
+    code: string,
+  ): Promise<Readonly<DomainProperties> | null> {
     return this.prisma.sysDomain.findUnique({
       where: { code },
     });

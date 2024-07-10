@@ -84,9 +84,8 @@ export class RoleReadPostgresRepository implements RoleReadRepoPort {
   }
 
   async getRoleById(id: string): Promise<Readonly<RoleProperties> | null> {
-    const role = await this.prisma.sysRole.findUnique({
+    return this.prisma.sysRole.findUnique({
       where: { id },
     });
-    return role;
   }
 }

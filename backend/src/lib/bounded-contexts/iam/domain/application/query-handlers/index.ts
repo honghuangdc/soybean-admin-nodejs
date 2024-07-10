@@ -1,7 +1,7 @@
 import { GetDomainByIdQueryHandler } from './domain.by-id.query-handler';
-import { PageCasbinDomainsQueryHandler } from './page-casbin-domains.query-handler';
+import { PageDomainsQueryHandler } from './page-domains-query.handler';
 
 export const QueryHandlers = [
-  PageCasbinDomainsQueryHandler,
+  PageDomainsQueryHandler,
   GetDomainByIdQueryHandler,
 ];

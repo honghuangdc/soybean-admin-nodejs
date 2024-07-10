@@ -3,21 +3,25 @@ import { Status } from '@prisma/client';
 
 import { UpdateAuditInfo } from '@src/shared/prisma/db.constant';
 
-export type CasbinDomainEssentialProperties = Readonly<
+export type DomainEssentialProperties = Readonly<
   Required<{
     id: string;
     code: string;
     name: string;
     description: string | null;
     status: Status;
-  }> &
-    CreationAuditInfoProperties &
-    UpdateAuditInfoProperties
+  }>
 >;
 
-export type CasbinDomainProperties = CasbinDomainEssentialProperties;
+export type DomainProperties = DomainEssentialProperties;
 
-export class CasbinDomainReadModel extends UpdateAuditInfo {
+export type DomainCreateProperties = DomainProperties &
+  CreationAuditInfoProperties;
+
+export type DomainUpdateProperties = DomainProperties &
+  UpdateAuditInfoProperties;
+
+export class DomainReadModel extends UpdateAuditInfo {
   @ApiProperty({ description: 'The unique identifier of the casbin domain' })
   id: string;
 

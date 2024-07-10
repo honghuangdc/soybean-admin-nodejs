@@ -4,8 +4,8 @@ import { QueryBus } from '@nestjs/cqrs';
 import { AuthZRBACService } from '@src/infra/casbin';
 import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read-model';
 import { FindEndpointsByIdsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
-import { CasbinDomainProperties } from '@src/lib/bounded-contexts/iam/casbin-domain/domain/casbin-domain.read-model';
-import { GetDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/casbin-domain/queries/domain.by-id.query';
+import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
+import { GetDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/domain/queries/domain.by-id.query';
 import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read-model';
 import { GetRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
 
@@ -21,7 +21,7 @@ export class AuthorizationService {
   async assignPermission(command: RoleAssignPermissionCommand) {
     const domain = await this.queryBus.execute<
       GetDomainByCodeQuery,
-      Readonly<CasbinDomainProperties> | null
+      Readonly<DomainProperties> | null
     >(new GetDomainByCodeQuery(command.domain));
     if (!domain) {
       throw new NotFoundException('Domain not found.');
