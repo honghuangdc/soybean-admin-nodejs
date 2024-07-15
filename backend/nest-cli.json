@@ -8,6 +8,10 @@
       {
         "include": "infra/casbin/config/*.conf",
         "outDir": "./dist/src"
+      },
+      {
+        "include": "**/*.yaml",
+        "outDir": "./dist/src"
       }
     ]
   }

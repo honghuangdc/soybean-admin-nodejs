@@ -1,14 +1,27 @@
+import fs from 'fs';
+
 import { HttpModule } from '@nestjs/axios';
 import { Global, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
+import * as yaml from 'js-yaml';
 
 import { CacheManagerModule } from './cache-manager/cache-manager.module';
+import { OssModule } from './oss/oss.module';
 import { PrismaModule } from './prisma/prisma.module';
 
 @Global()
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      load: [
+        async () =>
+          yaml.load(fs.readFileSync('src/shared/oss/oss.config.yaml', 'utf8')),
+      ],
+      isGlobal: true,
+    }),
+    OssModule,
     // http
     HttpModule,
     // schedule
