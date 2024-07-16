@@ -4,5 +4,3 @@ export enum AuthActionVerb {
   DELETE = 'delete',
   READ = 'read',
 }
-
-export type CustomAuthActionVerb = string;

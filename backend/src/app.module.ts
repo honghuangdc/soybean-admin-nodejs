@@ -75,22 +75,19 @@ const strategies = [JwtStrategy];
 
         let throttlerStorageRedisService: ThrottlerStorageRedisService;
 
-        switch (redisOpts.mode) {
-          case 'cluster':
-            throttlerStorageRedisService = new ThrottlerStorageRedisService(
-              new Redis.Cluster(redisOpts.cluster),
-            );
-            break;
-          default:
-            throttlerStorageRedisService = new ThrottlerStorageRedisService(
-              new Redis({
-                host: redisOpts.standalone.host,
-                port: redisOpts.standalone.port,
-                password: redisOpts.standalone.password,
-                db: redisOpts.standalone.db,
-              }),
-            );
-            break;
+        if (redisOpts.mode === 'cluster') {
+          throttlerStorageRedisService = new ThrottlerStorageRedisService(
+            new Redis.Cluster(redisOpts.cluster),
+          );
+        } else {
+          throttlerStorageRedisService = new ThrottlerStorageRedisService(
+            new Redis({
+              host: redisOpts.standalone.host,
+              port: redisOpts.standalone.port,
+              password: redisOpts.standalone.password,
+              db: redisOpts.standalone.db,
+            }),
+          );
         }
 
         return {

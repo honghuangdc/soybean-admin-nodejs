@@ -8,7 +8,5 @@ export interface DomainReadRepoPort {
     query: PageDomainsQuery,
   ): Promise<PaginationResult<DomainProperties>>;
 
-  getDomainById(code: string): Promise<DomainProperties | null>;
-
   getDomainByCode(code: string): Promise<Readonly<DomainProperties> | null>;
 }

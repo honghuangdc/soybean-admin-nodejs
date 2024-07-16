@@ -1,22 +1,21 @@
 import {
-  Injectable,
   CanActivate,
   ExecutionContext,
   Inject,
-  UnauthorizedException,
+  Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import * as casbin from 'casbin';
 
 import { CacheConstant } from '@src/constants/cache.constant';
-import { RedisUtility } from '@src/shared/redis/services/redis.util';
-
 import {
   AUTHZ_ENFORCER,
-  PERMISSIONS_METADATA,
   AUTHZ_MODULE_OPTIONS,
-} from '../constants/authz.constants';
-import { Permission, AuthZModuleOptions } from '../interfaces';
+  PERMISSIONS_METADATA,
+} from '@src/infra/casbin/constants/authz.constants';
+import { RedisUtility } from '@src/shared/redis/services/redis.util';
+
+import { AuthZModuleOptions, Permission } from '../interfaces';
 
 @Injectable()
 export class AuthZGuard implements CanActivate {
@@ -40,7 +39,7 @@ export class AuthZGuard implements CanActivate {
       const user = this.options.userFromContext(context);
 
       if (!user) {
-        throw new UnauthorizedException();
+        return false;
       }
 
       const userRoles = await RedisUtility.instance.smembers(
@@ -51,7 +50,7 @@ export class AuthZGuard implements CanActivate {
         return false;
       }
 
-      const result = await AuthZGuard.asyncEvery<Permission>(
+      return await AuthZGuard.asyncEvery<Permission>(
         permissions,
         async (permission) =>
           this.hasPermission(
@@ -62,9 +61,8 @@ export class AuthZGuard implements CanActivate {
             this.enforcer,
           ),
       );
-
-      return result;
     } catch (e) {
+      console.error(e);
       throw e;
     }
   }

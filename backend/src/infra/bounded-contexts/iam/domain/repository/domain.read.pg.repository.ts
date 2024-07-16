@@ -47,12 +47,6 @@ export class DomainReadRepository implements DomainReadRepoPort {
     );
   }
 
-  async getDomainById(code: string): Promise<DomainProperties | null> {
-    return this.prisma.sysDomain.findUnique({
-      where: { code },
-    });
-  }
-
   async getDomainByCode(
     code: string,
   ): Promise<Readonly<DomainProperties> | null> {

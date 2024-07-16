@@ -13,6 +13,6 @@ export class BizException extends Error {
   constructor(code: ErrorCode, message?: string) {
     super(message);
     this.code = code;
-    this.message = message || ErrorMessages[code];
+    this.message = message ?? ErrorMessages[code];
   }
 }

@@ -25,11 +25,11 @@ export function getClientIpAndPort(request: FastifyRequest | IncomingMessage): {
   }
 
   if (!ip && 'remoteAddress' in request.socket) {
-    ip = request.socket.remoteAddress || undefined;
+    ip = request.socket.remoteAddress ?? undefined;
   }
 
   const port =
     'remotePort' in request.socket ? request.socket.remotePort : null;
 
-  return { ip: ip || '', port: port || null };
+  return { ip: ip ?? '', port: port ?? null };
 }

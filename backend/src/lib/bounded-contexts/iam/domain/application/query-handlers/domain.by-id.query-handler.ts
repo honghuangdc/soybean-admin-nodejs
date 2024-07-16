@@ -14,6 +14,6 @@ export class GetDomainByIdQueryHandler
   private readonly repository: DomainReadRepoPort;
 
   async execute(query: GetDomainByCodeQuery): Promise<DomainProperties | null> {
-    return this.repository.getDomainById(query.code);
+    return this.repository.getDomainByCode(query.code);
   }
 }
