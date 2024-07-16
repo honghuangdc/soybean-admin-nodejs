@@ -17,7 +17,12 @@ import { PrismaModule } from './prisma/prisma.module';
     ConfigModule.forRoot({
       load: [
         async () =>
-          yaml.load(fs.readFileSync('src/shared/oss/oss.config.yaml', 'utf8')),
+          yaml.load(
+            fs.readFileSync(
+              `${process.env.NODE_ENV === 'dev' ? '' : './dist/'}src/shared/oss/oss.config.yaml`,
+              'utf8',
+            ),
+          ),
       ],
       isGlobal: true,
     }),
