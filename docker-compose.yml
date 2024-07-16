@@ -52,7 +52,7 @@ services:
     cpus: 4
 
   postgres:
-    image: postgres:latest
+    image: postgres:16.3
     environment:
       TZ: Asia/Shanghai
       POSTGRES_PASSWORD: soybean@123.
@@ -72,7 +72,7 @@ services:
       retries: 5
 
   redis:
-    image: redis/redis-stack:latest
+    image: redis/redis-stack:7.2.0-v11
     environment:
       TZ: Asia/Shanghai
     command: redis-server --requirepass 123456
