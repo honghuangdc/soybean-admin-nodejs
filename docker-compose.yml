@@ -3,7 +3,7 @@ services:
   frontend:
     build:
       context: frontend/
-    image: soybean-admin-frontend:1.1.2
+    image: soybean-admin-frontend:1.2.7
     environment:
       TZ: Asia/Shanghai
     depends_on:

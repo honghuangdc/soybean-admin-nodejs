@@ -3,7 +3,7 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
-  "eslint.experimental.useFlatConfig": true,
+  "eslint.useFlatConfig": true,
   "editor.formatOnSave": false,
   "eslint.validate": ["html", "css", "scss", "json", "jsonc"],
   "i18n-ally.displayLanguage": "zh-cn",
@@ -14,5 +14,6 @@
   "i18n-ally.localesPaths": ["src/locales/langs"],
   "prettier.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
-  "unocss.root": ["./"]
+  "unocss.root": ["./"],
+  "vue.server.hybridMode": true
 }
