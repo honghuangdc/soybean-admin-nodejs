@@ -5,6 +5,8 @@ export const isMainCluster =
   Number.parseInt(process.env.NODE_APP_INSTANCE) === 0;
 export const isMainProcess = cluster.isPrimary || isMainCluster;
 
+export const isDevEnvironment = process.env.NODE_ENV === 'development';
+
 export const getEnvBoolean = (key: string, defaultValue: boolean): boolean => {
   const value = process.env[key];
   return value !== undefined ? value === 'true' : defaultValue;

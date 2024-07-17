@@ -7,6 +7,8 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
 import * as yaml from 'js-yaml';
 
+import { isDevEnvironment } from '@src/utils/env';
+
 import { CacheManagerModule } from './cache-manager/cache-manager.module';
 import { OssModule } from './oss/oss.module';
 import { PrismaModule } from './prisma/prisma.module';
@@ -19,7 +21,7 @@ import { PrismaModule } from './prisma/prisma.module';
         async () =>
           yaml.load(
             fs.readFileSync(
-              `${process.env.NODE_ENV === 'dev' ? '' : './dist/'}src/shared/oss/oss.config.yaml`,
+              `${isDevEnvironment ? '' : './dist/'}src/shared/oss/oss.config.yaml`,
               'utf8',
             ),
           ),
