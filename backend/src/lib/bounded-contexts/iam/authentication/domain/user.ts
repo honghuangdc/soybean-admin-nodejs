@@ -3,7 +3,11 @@ import { Status } from '@prisma/client';
 
 import { UserCreatedEvent } from './events/user-created.event';
 import { Password } from './password.value-object';
-import { UserProperties } from './user.read-model';
+import {
+  UserCreateProperties,
+  UserProperties,
+  UserUpdateProperties,
+} from './user.read-model';
 
 export interface IUser {
   verifyPassword(password: string): Promise<boolean>;
@@ -25,10 +29,14 @@ export class User extends AggregateRoot implements IUser {
   createdAt: Date;
   createdBy: string;
 
-  constructor(properties: UserProperties) {
+  constructor(
+    properties: UserProperties | UserCreateProperties | UserUpdateProperties,
+  ) {
     super();
     Object.assign(this, properties);
-    this.password = Password.fromHashed(properties.password);
+    if ('password' in properties && properties.password) {
+      this.password = Password.fromHashed(properties.password);
+    }
   }
 
   async verifyPassword(password: string): Promise<boolean> {

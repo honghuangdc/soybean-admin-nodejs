@@ -31,6 +31,12 @@ export class RoleUpdateHandler
       );
     }
 
+    if (command.pid === command.id) {
+      throw new BadRequestException(
+        `The parent role identifier '${command.pid}' cannot be the same as its own identifier.`,
+      );
+    }
+
     if (command.pid !== ROOT_PID) {
       const parentRole = await this.roleReadRepoPort.getRoleById(command.pid);
 

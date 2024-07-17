@@ -27,7 +27,11 @@ export type UserProperties = UserEssentialProperties &
 
 export type UserCreateProperties = UserProperties & CreationAuditInfoProperties;
 
-export type UserUpdateProperties = UserProperties & UpdateAuditInfoProperties;
+export type UserUpdateProperties = Omit<
+  UserProperties,
+  'username' | 'password' | 'domain'
+> &
+  CreationAuditInfoProperties;
 
 export class UserReadModel extends UpdateAuditInfo {
   @ApiProperty({ description: 'The unique identifier of the user' })
