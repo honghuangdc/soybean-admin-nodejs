@@ -1,6 +1,7 @@
 import { SetMetadata, ExecutionContext } from '@nestjs/common';
 
-import { PERMISSIONS_METADATA } from '../constants/authz.constants';
+import { PERMISSIONS_METADATA } from '@src/infra/casbin/constants/authz.constants';
+
 import { Permission } from '../interfaces';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

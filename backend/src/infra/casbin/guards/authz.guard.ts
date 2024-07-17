@@ -3,6 +3,7 @@ import {
   ExecutionContext,
   Inject,
   Injectable,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import * as casbin from 'casbin';
@@ -39,7 +40,7 @@ export class AuthZGuard implements CanActivate {
       const user = this.options.userFromContext(context);
 
       if (!user) {
-        return false;
+        throw new UnauthorizedException();
       }
 
       const userRoles = await RedisUtility.instance.smembers(
