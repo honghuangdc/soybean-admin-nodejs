@@ -6,11 +6,13 @@ import {
   HttpStatus,
   Post,
   Request,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AssignPermissionDto } from '@src/api/iam/dto/assign-permission.dto';
 import { CacheConstant } from '@src/constants/cache.constant';
+import { AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { AuthorizationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authorization.service';
 import { RoleAssignPermissionCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-permission.command';
@@ -18,6 +20,7 @@ import { UserRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/ro
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
+@UseGuards(AuthZGuard)
 @ApiTags('Authorization - Module')
 @Controller('authorization')
 export class AuthorizationController {
@@ -27,6 +30,7 @@ export class AuthorizationController {
   ) {}
 
   @Post('assign-permission')
+  @UsePermissions({ resource: 'authorization', action: 'assign-permission' })
   @ApiOperation({
     summary: 'Assign Permissions to Role',
     description:
