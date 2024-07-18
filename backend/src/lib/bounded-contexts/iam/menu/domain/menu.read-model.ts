@@ -37,6 +37,10 @@ export type MenuOptionalProperties = Readonly<
 export type MenuProperties = MenuEssentialProperties &
   Required<MenuOptionalProperties>;
 
+export type MenuTreeProperties = MenuProperties & {
+  children?: MenuTreeProperties[];
+};
+
 export class MenuReadModel extends UpdateAuditInfo {
   @ApiProperty({ description: 'The unique identifier of the menu', example: 1 })
   id: number;

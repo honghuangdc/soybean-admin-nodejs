@@ -1,4 +1,4 @@
-import { MenuProperties } from '../domain/menu.read-model';
+import { MenuProperties, MenuTreeProperties } from '../domain/menu.read-model';
 
 export interface MenuReadRepoPort {
   findMenusByRoleCode(
@@ -7,4 +7,6 @@ export interface MenuReadRepoPort {
   ): Promise<Readonly<MenuProperties[]> | []>;
 
   getConstantRoutes(): Promise<Readonly<MenuProperties[]> | []>;
+
+  findAll(): Promise<MenuTreeProperties[] | []>;
 }

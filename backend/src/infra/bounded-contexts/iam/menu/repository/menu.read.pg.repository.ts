@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Status } from '@prisma/client';
 
-import { MenuProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
+import {
+  MenuProperties,
+  MenuTreeProperties,
+} from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
 import { MenuReadRepoPort } from '@src/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 
@@ -58,5 +61,9 @@ export class MenuReadPostgresRepository implements MenuReadRepoPort {
         status: Status.ENABLED,
       },
     });
+  }
+
+  async findAll(): Promise<MenuTreeProperties[] | []> {
+    return this.prisma.sysMenu.findMany();
   }
 }
