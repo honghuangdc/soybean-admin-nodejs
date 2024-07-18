@@ -43,24 +43,24 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.SystemManage.Role, 'roleName' | 'roleCode' | 'roleDesc' | 'status'>;
+type Model = Pick<Api.SystemManage.Role, 'name' | 'code' | 'description' | 'status'>;
 
 const model: Model = reactive(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
-    roleName: '',
-    roleCode: '',
-    roleDesc: '',
+    name: '',
+    code: '',
+    description: '',
     status: null
   };
 }
 
-type RuleKey = Exclude<keyof Model, 'roleDesc'>;
+type RuleKey = Exclude<keyof Model, 'description'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
-  roleName: defaultRequiredRule,
-  roleCode: defaultRequiredRule,
+  name: defaultRequiredRule,
+  code: defaultRequiredRule,
   status: defaultRequiredRule
 };
 
@@ -101,10 +101,10 @@ watch(visible, () => {
     <NDrawerContent :title="title" :native-scrollbar="false" closable>
       <NForm ref="formRef" :model="model" :rules="rules">
         <NFormItem :label="$t('page.manage.role.roleName')" path="roleName">
-          <NInput v-model:value="model.roleName" :placeholder="$t('page.manage.role.form.roleName')" />
+          <NInput v-model:value="model.name" :placeholder="$t('page.manage.role.form.roleName')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.role.roleCode')" path="roleCode">
-          <NInput v-model:value="model.roleCode" :placeholder="$t('page.manage.role.form.roleCode')" />
+          <NInput v-model:value="model.code" :placeholder="$t('page.manage.role.form.roleCode')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.role.roleStatus')" path="status">
           <NRadioGroup v-model:value="model.status">
@@ -112,7 +112,7 @@ watch(visible, () => {
           </NRadioGroup>
         </NFormItem>
         <NFormItem :label="$t('page.manage.role.roleDesc')" path="roleDesc">
-          <NInput v-model:value="model.roleDesc" :placeholder="$t('page.manage.role.form.roleDesc')" />
+          <NInput v-model:value="model.description" :placeholder="$t('page.manage.role.form.roleDesc')" />
         </NFormItem>
       </NForm>
       <NSpace v-if="isEdit">

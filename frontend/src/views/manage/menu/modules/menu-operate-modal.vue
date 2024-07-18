@@ -66,7 +66,7 @@ type Model = Pick<
   | 'icon'
   | 'iconType'
   | 'status'
-  | 'parentId'
+  | 'pid'
   | 'keepAlive'
   | 'constant'
   | 'href'
@@ -86,7 +86,7 @@ const model: Model = reactive(createDefaultModel());
 
 function createDefaultModel(): Model {
   return {
-    menuType: '1',
+    menuType: 'directory',
     menuName: '',
     routeName: '',
     routePath: '',
@@ -96,9 +96,9 @@ function createDefaultModel(): Model {
     page: '',
     i18nKey: null,
     icon: '',
-    iconType: '1',
-    parentId: 0,
-    status: '1',
+    iconType: 1,
+    pid: 0,
+    status: 'ENABLED',
     keepAlive: false,
     constant: false,
     order: 0,
@@ -134,9 +134,9 @@ const localIconOptions = localIcons.map<SelectOption>(item => ({
   value: item
 }));
 
-const showLayout = computed(() => model.parentId === 0);
+const showLayout = computed(() => model.pid === 0);
 
-const showPage = computed(() => model.menuType === '2');
+const showPage = computed(() => model.menuType === 'menu');
 
 const pageOptions = computed(() => {
   const allPages = [...props.allPages];
@@ -172,8 +172,8 @@ async function getRoleOptions() {
 
   if (!error) {
     const options = data.map(item => ({
-      label: item.roleName,
-      value: item.roleCode
+      label: item.name,
+      value: item.code
     }));
 
     roleOptions.value = [...options];
@@ -332,14 +332,14 @@ watch(
             </NRadioGroup>
           </NFormItemGi>
           <NFormItemGi span="24 m:12" :label="$t('page.manage.menu.icon')" path="icon">
-            <template v-if="model.iconType === '1'">
+            <template v-if="model.iconType === 1">
               <NInput v-model:value="model.icon" :placeholder="$t('page.manage.menu.form.icon')" class="flex-1">
                 <template #suffix>
                   <SvgIcon v-if="model.icon" :icon="model.icon" class="text-icon" />
                 </template>
               </NInput>
             </template>
-            <template v-if="model.iconType === '2'">
+            <template v-if="model.iconType === 2">
               <NSelect
                 v-model:value="model.icon"
                 :placeholder="$t('page.manage.menu.form.localIcon')"

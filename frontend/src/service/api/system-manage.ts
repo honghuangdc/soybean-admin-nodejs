@@ -31,12 +31,29 @@ export function fetchGetUserList(params?: Api.SystemManage.UserSearchParams) {
 }
 
 /** get menu list */
-export function fetchGetMenuList() {
-  return request<Api.SystemManage.MenuList>({
-    url: '/systemManage/getMenuList/v2',
+export const fetchGetMenuList = () =>
+  request<Api.SystemManage.Menu[]>({
+    url: '/route',
     method: 'get'
-  });
-}
+  })
+    .then(response => {
+      const menus = response.data || [];
+      return {
+        data: {
+          records: menus,
+          total: menus.length,
+          current: 1,
+          size: menus.length
+        },
+        error: null
+      };
+    })
+    .catch(error => {
+      return {
+        data: null,
+        error: error.message
+      };
+    });
 
 /** get all pages */
 export function fetchGetAllPages() {

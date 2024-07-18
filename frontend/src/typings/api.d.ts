@@ -142,10 +142,10 @@ declare namespace Api {
     /**
      * menu type
      *
-     * - "1": directory
-     * - "2": menu
+     * - "DIRECTORY": directory
+     * - "MENU": menu
      */
-    type MenuType = '1' | '2';
+    type MenuType = 'directory' | 'menu';
 
     type MenuButton = {
       /**
@@ -164,7 +164,7 @@ declare namespace Api {
      * - "1": iconify icon
      * - "2": local icon
      */
-    type IconType = '1' | '2';
+    type IconType = 1 | 2;
 
     type MenuPropsOfRoute = Pick<
       import('vue-router').RouteMeta,
@@ -182,7 +182,7 @@ declare namespace Api {
 
     type Menu = Common.CommonRecord<{
       /** parent menu id */
-      parentId: number;
+      pid: number;
       /** menu type */
       menuType: MenuType;
       /** menu name */

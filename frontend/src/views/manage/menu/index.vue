@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
-import { fetchGetAllPages, fetchGetMenuList } from '@/service/api';
+import { fetchGetMenuList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
@@ -18,7 +18,7 @@ const { bool: visible, setTrue: openModal } = useBoolean();
 
 const wrapperRef = ref<HTMLElement | null>(null);
 
-const { columns, columnChecks, data, loading, pagination, getData, getDataByPage } = useTable({
+const { columns, columnChecks, data, loading, getData, getDataByPage } = useTable({
   apiFn: fetchGetMenuList,
   columns: () => [
     {
@@ -37,9 +37,9 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
       align: 'center',
       width: 80,
       render: row => {
-        const tagMap: Record<Api.Common.EnableStatus, NaiveUI.ThemeColor> = {
-          1: 'default',
-          2: 'primary'
+        const tagMap: Record<Api.SystemManage.MenuType, NaiveUI.ThemeColor> = {
+          directory: 'default',
+          menu: 'primary'
         };
 
         const label = $t(menuTypeRecord[row.menuType]);
@@ -66,9 +66,9 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
       align: 'center',
       width: 60,
       render: row => {
-        const icon = row.iconType === '1' ? row.icon : undefined;
+        const icon = row.iconType === 1 ? row.icon : undefined;
 
-        const localIcon = row.iconType === '2' ? row.icon : undefined;
+        const localIcon = row.iconType === 2 ? row.icon : undefined;
 
         return (
           <div class="flex-center">
@@ -128,7 +128,7 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
       }
     },
     {
-      key: 'parentId',
+      key: 'pid',
       title: $t('page.manage.menu.parentId'),
       width: 90,
       align: 'center'
@@ -146,7 +146,7 @@ const { columns, columnChecks, data, loading, pagination, getData, getDataByPage
       width: 230,
       render: row => (
         <div class="flex-center justify-end gap-8px">
-          {row.menuType === '1' && (
+          {row.menuType === 'directory' && (
             <NButton type="primary" ghost size="small" onClick={() => handleAddChildMenu(row)}>
               {$t('page.manage.menu.addChildMenu')}
             </NButton>
@@ -213,17 +213,17 @@ function handleAddChildMenu(item: Api.SystemManage.Menu) {
 
 const allPages = ref<string[]>([]);
 
-async function getAllPages() {
-  const { data: pages } = await fetchGetAllPages();
-  allPages.value = pages || [];
-}
+// async function getAllPages() {
+//   const { data: pages } = await fetchGetAllPages();
+//   allPages.value = pages || [];
+// }
 
-function init() {
-  getAllPages();
-}
+// function init() {
+//   getAllPages();
+// }
 
 // init
-init();
+// init();
 </script>
 
 <template>
@@ -249,7 +249,6 @@ init();
         :loading="loading"
         :row-key="row => row.id"
         remote
-        :pagination="pagination"
         class="sm:h-full"
       />
       <MenuOperateModal
