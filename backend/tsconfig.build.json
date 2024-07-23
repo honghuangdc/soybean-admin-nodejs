@@ -4,6 +4,7 @@
     "node_modules",
     "test",
     "dist",
-    "**/*spec.ts"
+    "**/*spec.ts",
+    "local-route.migrate.ts"
   ]
 }
