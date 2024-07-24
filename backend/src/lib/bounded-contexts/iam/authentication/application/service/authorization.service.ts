@@ -6,34 +6,29 @@ import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-e
 import { FindEndpointsByIdsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
 import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
 import { GetDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/domain/queries/domain.by-id.query';
+import { MenuProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
+import { MenuIdsByRoleIdQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-id.query';
+import { MenusByIdsQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
 import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read-model';
 import { GetRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
+import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 import { RoleAssignPermissionCommand } from '../../commands/role-assign-permission.command';
+import { RoleAssignRouteCommand } from '../../commands/role-assign-route.command';
 
 @Injectable()
 export class AuthorizationService {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly authZRBACService: AuthZRBACService,
+    private readonly prisma: PrismaService,
   ) {}
 
   async assignPermission(command: RoleAssignPermissionCommand) {
-    const domain = await this.queryBus.execute<
-      GetDomainByCodeQuery,
-      Readonly<DomainProperties> | null
-    >(new GetDomainByCodeQuery(command.domain));
-    if (!domain) {
-      throw new NotFoundException('Domain not found.');
-    }
-
-    const role = await this.queryBus.execute<
-      GetRoleByIdQuery,
-      Readonly<RoleProperties> | null
-    >(new GetRoleByIdQuery(command.roleId));
-    if (!role) {
-      throw new NotFoundException('Role not found.');
-    }
+    const { domainCode, roleCode } = await this.checkDomainAndRole(
+      command.domain,
+      command.roleId,
+    );
 
     const permissions = await this.queryBus.execute<
       FindEndpointsByIdsQuery,
@@ -46,18 +41,88 @@ export class AuthorizationService {
     const existingPermissions =
       await this.authZRBACService.enforcer.getFilteredPolicy(
         0,
-        role.code,
+        roleCode,
         '',
         '',
-        domain.code,
+        domainCode,
       );
 
     await this.syncRolePermissions(
-      role.code,
-      domain.code,
+      roleCode,
+      domainCode,
       permissions,
       existingPermissions,
     );
+  }
+
+  async assignRoutes(command: RoleAssignRouteCommand) {
+    const { domainCode, roleId } = await this.checkDomainAndRole(
+      command.domain,
+      command.roleId,
+    );
+
+    const routes = await this.queryBus.execute<
+      MenusByIdsQuery,
+      MenuProperties[]
+    >(new MenusByIdsQuery(command.menuIds));
+    if (!routes.length) {
+      throw new NotFoundException('One or more routes not found.');
+    }
+
+    const existingRouteIds = await this.queryBus.execute<
+      MenuIdsByRoleIdQuery,
+      number[]
+    >(new MenuIdsByRoleIdQuery(roleId, domainCode));
+
+    const newRouteIds = command.menuIds.filter(
+      (id) => !existingRouteIds.includes(id),
+    );
+    const routeIdsToDelete = existingRouteIds.filter(
+      (id) => !command.menuIds.includes(id),
+    );
+
+    const operations = [
+      ...newRouteIds.map((routeId) =>
+        this.prisma.sysRoleMenu.create({
+          data: {
+            roleId: roleId,
+            menuId: routeId,
+            domain: domainCode,
+          },
+        }),
+      ),
+      ...routeIdsToDelete.map((routeId) =>
+        this.prisma.sysRoleMenu.deleteMany({
+          where: {
+            roleId: roleId,
+            menuId: routeId,
+            domain: domainCode,
+          },
+        }),
+      ),
+    ];
+
+    await this.prisma.$transaction(operations);
+  }
+
+  private async checkDomainAndRole(domainCode: string, roleId: string) {
+    const domain = await this.queryBus.execute<
+      GetDomainByCodeQuery,
+      Readonly<DomainProperties> | null
+    >(new GetDomainByCodeQuery(domainCode));
+    if (!domain) {
+      throw new NotFoundException('Domain not found.');
+    }
+
+    const role = await this.queryBus.execute<
+      GetRoleByIdQuery,
+      Readonly<RoleProperties> | null
+    >(new GetRoleByIdQuery(roleId));
+    if (!role) {
+      throw new NotFoundException('Role not found.');
+    }
+
+    return { domainCode: domain.code, roleId: role.id, roleCode: role.code };
   }
 
   private async syncRolePermissions(

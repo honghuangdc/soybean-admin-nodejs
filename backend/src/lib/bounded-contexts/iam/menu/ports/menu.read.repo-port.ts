@@ -9,4 +9,8 @@ export interface MenuReadRepoPort {
   getConstantRoutes(): Promise<Readonly<MenuProperties[]> | []>;
 
   findAll(): Promise<MenuTreeProperties[] | []>;
+
+  findMenusByIds(ids: number[]): Promise<MenuProperties[]>;
+
+  findMenuIdsByRoleId(roleId: string, domain: string): Promise<number[]>;
 }

@@ -66,4 +66,28 @@ export class MenuReadPostgresRepository implements MenuReadRepoPort {
   async findAll(): Promise<MenuTreeProperties[] | []> {
     return this.prisma.sysMenu.findMany();
   }
+
+  async findMenusByIds(ids: number[]): Promise<MenuProperties[]> {
+    return this.prisma.sysMenu.findMany({
+      where: {
+        id: {
+          in: ids,
+        },
+      },
+    });
+  }
+
+  async findMenuIdsByRoleId(roleId: string, domain: string): Promise<number[]> {
+    return this.prisma.sysRoleMenu
+      .findMany({
+        where: {
+          roleId,
+          domain,
+        },
+        select: {
+          menuId: true,
+        },
+      })
+      .then((results) => results.map((item) => item.menuId));
+  }
 }
