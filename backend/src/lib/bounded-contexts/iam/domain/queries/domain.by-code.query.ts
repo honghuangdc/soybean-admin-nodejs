@@ -1,5 +1,5 @@
 import { IQuery } from '@nestjs/cqrs';
 
-export class GetDomainByCodeQuery implements IQuery {
+export class FindDomainByCodeQuery implements IQuery {
   constructor(readonly code: string) {}
 }

@@ -17,6 +17,6 @@ export class OperationLogEventHandler {
   @OnEvent(LOG_OPERATION)
   async handle(operationLogProperties: OperationLogProperties) {
     const operationLog = new OperationLog(operationLogProperties);
-    return await this.operationLogWriteRepo.save(operationLog);
+    await this.operationLogWriteRepo.save(operationLog);
   }
 }

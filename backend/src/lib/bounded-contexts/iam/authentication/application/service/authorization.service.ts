@@ -5,12 +5,12 @@ import { AuthZRBACService } from '@src/infra/casbin';
 import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read-model';
 import { FindEndpointsByIdsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
 import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
-import { GetDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/domain/queries/domain.by-id.query';
+import { FindDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/domain/queries/domain.by-code.query';
 import { MenuProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
-import { MenuIdsByRoleIdQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-id.query';
+import { MenuIdsByRoleIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_id&domain.query';
 import { MenusByIdsQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
 import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read-model';
-import { GetRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
+import { FindRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 import { RoleAssignPermissionCommand } from '../../commands/role-assign-permission.command';
@@ -70,9 +70,9 @@ export class AuthorizationService {
     }
 
     const existingRouteIds = await this.queryBus.execute<
-      MenuIdsByRoleIdQuery,
+      MenuIdsByRoleIdAndDomainQuery,
       number[]
-    >(new MenuIdsByRoleIdQuery(roleId, domainCode));
+    >(new MenuIdsByRoleIdAndDomainQuery(roleId, domainCode));
 
     const newRouteIds = command.menuIds.filter(
       (id) => !existingRouteIds.includes(id),
@@ -107,17 +107,17 @@ export class AuthorizationService {
 
   private async checkDomainAndRole(domainCode: string, roleId: string) {
     const domain = await this.queryBus.execute<
-      GetDomainByCodeQuery,
+      FindDomainByCodeQuery,
       Readonly<DomainProperties> | null
-    >(new GetDomainByCodeQuery(domainCode));
+    >(new FindDomainByCodeQuery(domainCode));
     if (!domain) {
       throw new NotFoundException('Domain not found.');
     }
 
     const role = await this.queryBus.execute<
-      GetRoleByIdQuery,
+      FindRoleByIdQuery,
       Readonly<RoleProperties> | null
-    >(new GetRoleByIdQuery(roleId));
+    >(new FindRoleByIdQuery(roleId));
     if (!role) {
       throw new NotFoundException('Role not found.');
     }

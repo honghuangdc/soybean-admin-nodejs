@@ -1,9 +1,9 @@
-import { GetRolesQueryHandler } from './get-roles.query-handler';
+import { FindRolesQueryHandler } from './find-roles-query.handler';
 import { PageRolesQueryHandler } from './page-roles.query-handler';
-import { GetRoleByIdQueryHandler } from './role.by-id.query-handler';
+import { FindRoleByIdQueryHandler } from './role.by-id.query-handler';
 
 export const QueryHandlers = [
-  GetRolesQueryHandler,
+  FindRolesQueryHandler,
   PageRolesQueryHandler,
-  GetRoleByIdQueryHandler,
+  FindRoleByIdQueryHandler,
 ];

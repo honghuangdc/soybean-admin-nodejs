@@ -6,7 +6,7 @@ import { MenuReadRepoPort } from '@src/lib/bounded-contexts/iam/menu/ports/menu.
 import { ROOT_PID } from '@src/shared/prisma/db.constant';
 
 import { MenuProperties } from '../../domain/menu.read-model';
-import { MenusByRoleCodeQuery } from '../../queries/menus.by-role_code.query';
+import { MenusByRoleCodeAndDomainQuery } from '../../queries/menus.by-role_code&domain.query';
 import { MenuRoute, UserRoute } from '../dto/route.dto';
 
 @Injectable()
@@ -19,9 +19,9 @@ export class MenuService {
 
   async getUserRoutes(roleCode: string[], domain: string): Promise<UserRoute> {
     const userRoutes = await this.queryBus.execute<
-      MenusByRoleCodeQuery,
+      MenusByRoleCodeAndDomainQuery,
       Readonly<MenuProperties[]> | []
-    >(new MenusByRoleCodeQuery(roleCode, domain));
+    >(new MenusByRoleCodeAndDomainQuery(roleCode, domain));
     if (userRoutes.length > 0) {
       return {
         routes: buildMenuTree(userRoutes),

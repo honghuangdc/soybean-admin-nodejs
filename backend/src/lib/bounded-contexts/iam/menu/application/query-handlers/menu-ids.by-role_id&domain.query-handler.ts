@@ -3,16 +3,16 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { MenuReadRepoPortToken } from '../../constants';
 import { MenuReadRepoPort } from '../../ports/menu.read.repo-port';
-import { MenuIdsByRoleIdQuery } from '../../queries/menu-ids.by-id.query';
+import { MenuIdsByRoleIdAndDomainQuery } from '../../queries/menu-ids.by-role_id&domain.query';
 
-@QueryHandler(MenuIdsByRoleIdQuery)
-export class MenuIdsByRoleIdQueryHandler
-  implements IQueryHandler<MenuIdsByRoleIdQuery, number[]>
+@QueryHandler(MenuIdsByRoleIdAndDomainQuery)
+export class MenuIdsByRoleIdAndDomainQueryHandler
+  implements IQueryHandler<MenuIdsByRoleIdAndDomainQuery, number[]>
 {
   @Inject(MenuReadRepoPortToken)
   private readonly repository: MenuReadRepoPort;
 
-  async execute(query: MenuIdsByRoleIdQuery): Promise<number[]> {
+  async execute(query: MenuIdsByRoleIdAndDomainQuery): Promise<number[]> {
     return this.repository.findMenuIdsByRoleId(query.roleId, query.domain);
   }
 }

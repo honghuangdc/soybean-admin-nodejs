@@ -4,16 +4,18 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { DomainReadRepoPortToken } from '../../constants';
 import { DomainProperties } from '../../domain/domain-read.model';
 import { DomainReadRepoPort } from '../../ports/domain.read.repo-port';
-import { GetDomainByCodeQuery } from '../../queries/domain.by-id.query';
+import { FindDomainByCodeQuery } from '../../queries/domain.by-code.query';
 
-@QueryHandler(GetDomainByCodeQuery)
-export class GetDomainByIdQueryHandler
-  implements IQueryHandler<GetDomainByCodeQuery, DomainProperties | null>
+@QueryHandler(FindDomainByCodeQuery)
+export class FindDomainByCodeQueryHandler
+  implements IQueryHandler<FindDomainByCodeQuery, DomainProperties | null>
 {
   @Inject(DomainReadRepoPortToken)
   private readonly repository: DomainReadRepoPort;
 
-  async execute(query: GetDomainByCodeQuery): Promise<DomainProperties | null> {
+  async execute(
+    query: FindDomainByCodeQuery,
+  ): Promise<DomainProperties | null> {
     return this.repository.getDomainByCode(query.code);
   }
 }

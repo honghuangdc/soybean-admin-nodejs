@@ -34,9 +34,7 @@ export class RoleReadPostgresRepository implements RoleReadRepoPort {
       },
     });
 
-    const roleCodes = new Set(roles.map((role) => role.code));
-
-    return roleCodes;
+    return new Set(roles.map((role) => role.code));
   }
 
   async pageRoles(
