@@ -12,12 +12,14 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AssignPermissionDto } from '@src/api/iam/dto/assign-permission.dto';
 import { AssignRouteDto } from '@src/api/iam/dto/assign-route.dto';
+import { AssignUserDto } from '@src/api/iam/dto/assign-user.dto';
 import { CacheConstant } from '@src/constants/cache.constant';
 import { AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { AuthorizationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authorization.service';
 import { RoleAssignPermissionCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-permission.command';
 import { RoleAssignRouteCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-route.command';
+import { RoleAssignUserCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-user.command';
 import { UserRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
@@ -56,6 +58,19 @@ export class AuthorizationController {
   async assignRoutes(@Body() dto: AssignRouteDto): Promise<ApiRes<null>> {
     await this.authorizationService.assignRoutes(
       new RoleAssignRouteCommand(dto.domain, dto.roleId, dto.routeIds),
+    );
+    return ApiRes.ok();
+  }
+
+  @Post('assign-users')
+  @UsePermissions({ resource: 'authorization', action: 'assign-users' })
+  @ApiOperation({
+    summary: 'Assign Users to Role',
+    description: 'Assigns a set of users to a specified role',
+  })
+  async assignUsers(@Body() dto: AssignUserDto): Promise<ApiRes<null>> {
+    await this.authorizationService.assignUsers(
+      new RoleAssignUserCommand(dto.roleId, dto.userIds),
     );
     return ApiRes.ok();
   }

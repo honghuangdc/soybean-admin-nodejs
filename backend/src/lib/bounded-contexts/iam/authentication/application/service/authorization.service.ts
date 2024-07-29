@@ -15,6 +15,10 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 import { RoleAssignPermissionCommand } from '../../commands/role-assign-permission.command';
 import { RoleAssignRouteCommand } from '../../commands/role-assign-route.command';
+import { RoleAssignUserCommand } from '../../commands/role-assign-user.command';
+import { UserProperties } from '../../domain/user.read-model';
+import { UserIdsByRoleIdQuery } from '../../queries/user-ids.by-role_id.query';
+import { UsersByIdsQuery } from '../../queries/users.by-ids.query';
 
 @Injectable()
 export class AuthorizationService {
@@ -105,6 +109,51 @@ export class AuthorizationService {
     await this.prisma.$transaction(operations);
   }
 
+  async assignUsers(command: RoleAssignUserCommand) {
+    await this.checkRole(command.roleId);
+
+    const users = await this.queryBus.execute<
+      UsersByIdsQuery,
+      UserProperties[]
+    >(new UsersByIdsQuery(command.userIds));
+    if (!users.length) {
+      throw new NotFoundException('One or more users not found.');
+    }
+
+    const existingUserIds = await this.queryBus.execute<
+      UserIdsByRoleIdQuery,
+      string[]
+    >(new UserIdsByRoleIdQuery(command.roleId));
+
+    const newUserIds = command.userIds.filter(
+      (id) => !existingUserIds.includes(id),
+    );
+    const userIdsToDelete = existingUserIds.filter(
+      (id) => !command.userIds.includes(id),
+    );
+
+    const operations = [
+      ...newUserIds.map((userId) =>
+        this.prisma.sysUserRole.create({
+          data: {
+            roleId: command.roleId,
+            userId: userId,
+          },
+        }),
+      ),
+      ...userIdsToDelete.map((userId) =>
+        this.prisma.sysUserRole.deleteMany({
+          where: {
+            roleId: command.roleId,
+            userId: userId,
+          },
+        }),
+      ),
+    ];
+
+    await this.prisma.$transaction(operations);
+  }
+
   private async checkDomainAndRole(domainCode: string, roleId: string) {
     const domain = await this.queryBus.execute<
       FindDomainByCodeQuery,
@@ -114,6 +163,12 @@ export class AuthorizationService {
       throw new NotFoundException('Domain not found.');
     }
 
+    const { roleCode } = await this.checkRole(roleId);
+
+    return { domainCode: domain.code, roleId, roleCode };
+  }
+
+  private async checkRole(roleId: string) {
     const role = await this.queryBus.execute<
       FindRoleByIdQuery,
       Readonly<RoleProperties> | null
@@ -122,7 +177,7 @@ export class AuthorizationService {
       throw new NotFoundException('Role not found.');
     }
 
-    return { domainCode: domain.code, roleId: role.id, roleCode: role.code };
+    return { roleCode: role.code };
   }
 
   private async syncRolePermissions(

@@ -4,6 +4,10 @@ import { UserProperties } from '../domain/user.read-model';
 import { PageUsersQuery } from '../queries/page-users.query';
 
 export interface UserReadRepoPort {
+  findUserIdsByRoleId(roleId: string): Promise<string[]>;
+
+  findUsersByIds(ids: string[]): Promise<UserProperties[]>;
+
   findUserByIdentifier(identifier: string): Promise<UserProperties | null>;
 
   pageUsers(query: PageUsersQuery): Promise<PaginationResult<UserProperties>>;
