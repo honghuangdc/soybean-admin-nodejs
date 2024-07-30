@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Request } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -7,6 +7,7 @@ import { ApiRes } from '@src/infra/rest/res.response';
 import { MenuRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { MenuTreeProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
+import { MenuIdsByUserIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-user_id&domain.query';
 import { MenusQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.query';
 
 @ApiTags('Menu - Module')
@@ -37,6 +38,18 @@ export class MenuController {
       MenusQuery,
       MenuTreeProperties[]
     >(new MenusQuery());
+    return ApiRes.success(result);
+  }
+
+  @Get('auth-route')
+  @ApiOperation({
+    summary: 'Authorized Routes',
+  })
+  async authRoute(@Request() req: any) {
+    const result = await this.queryBus.execute<
+      MenuIdsByUserIdAndDomainQuery,
+      number[]
+    >(new MenuIdsByUserIdAndDomainQuery(req.user.uid, req.user.domain));
     return ApiRes.success(result);
   }
 }

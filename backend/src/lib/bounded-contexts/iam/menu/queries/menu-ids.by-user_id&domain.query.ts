@@ -1,8 +1,8 @@
 import { IQuery } from '@nestjs/cqrs';
 
-export class MenuIdsByRoleIdAndDomainQuery implements IQuery {
+export class MenuIdsByUserIdAndDomainQuery implements IQuery {
   constructor(
-    readonly roleId: string,
+    readonly userId: string,
     readonly domain: string,
   ) {}
 }

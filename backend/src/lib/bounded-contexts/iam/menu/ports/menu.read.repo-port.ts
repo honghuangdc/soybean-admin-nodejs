@@ -12,5 +12,5 @@ export interface MenuReadRepoPort {
 
   findMenusByIds(ids: number[]): Promise<MenuProperties[]>;
 
-  findMenuIdsByRoleId(roleId: string, domain: string): Promise<number[]>;
+  findMenuIdsByUserId(userId: string, domain: string): Promise<number[]>;
 }

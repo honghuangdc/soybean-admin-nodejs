@@ -9,4 +9,6 @@ export interface ApiEndpointReadRepoPort {
   ): Promise<PaginationResult<EndpointProperties>>;
 
   findEndpointsByIds(ids: string[]): Promise<EndpointProperties[]>;
+
+  findAll(): Promise<EndpointProperties[]>;
 }

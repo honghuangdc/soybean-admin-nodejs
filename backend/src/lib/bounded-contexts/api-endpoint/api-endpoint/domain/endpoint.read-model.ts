@@ -16,6 +16,10 @@ export type EndpointEssentialProperties = Readonly<
 
 export type EndpointProperties = EndpointEssentialProperties;
 
+export type EndpointTreeProperties = EndpointProperties & {
+  children?: EndpointTreeProperties[];
+};
+
 export class EndpointReadModel {
   @ApiProperty({ description: 'The unique identifier of the API endpoint' })
   id: string;

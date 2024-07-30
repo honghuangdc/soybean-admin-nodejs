@@ -78,4 +78,8 @@ export class ApiEndpointReadRepository implements ApiEndpointReadRepoPort {
       },
     });
   }
+
+  async findAll(): Promise<EndpointProperties[]> {
+    return this.prisma.sysEndpoint.findMany();
+  }
 }

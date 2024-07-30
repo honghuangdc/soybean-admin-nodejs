@@ -7,7 +7,7 @@ import { FindEndpointsByIdsQuery } from '@src/lib/bounded-contexts/api-endpoint/
 import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
 import { FindDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/domain/queries/domain.by-code.query';
 import { MenuProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
-import { MenuIdsByRoleIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_id&domain.query';
+import { MenuIdsByUserIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-user_id&domain.query';
 import { MenusByIdsQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
 import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read-model';
 import { FindRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
@@ -74,9 +74,9 @@ export class AuthorizationService {
     }
 
     const existingRouteIds = await this.queryBus.execute<
-      MenuIdsByRoleIdAndDomainQuery,
+      MenuIdsByUserIdAndDomainQuery,
       number[]
-    >(new MenuIdsByRoleIdAndDomainQuery(roleId, domainCode));
+    >(new MenuIdsByUserIdAndDomainQuery(roleId, domainCode));
 
     const newRouteIds = command.menuIds.filter(
       (id) => !existingRouteIds.includes(id),
@@ -206,7 +206,6 @@ export class AuthorizationService {
           perm[1],
           perm[2],
           domain,
-          'allow',
         );
       }
     }
@@ -220,7 +219,6 @@ export class AuthorizationService {
           perm.resource,
           perm.action,
           domain,
-          'allow',
         );
       }
     }

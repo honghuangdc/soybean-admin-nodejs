@@ -1,4 +1,4 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Request, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -6,10 +6,13 @@ import { PageEndpointsQueryDto } from '@src/api/endpoint/dto/page-endpoint.query
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
+import { CasbinRuleApiEndpointService } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/application/service/casbin-rule-api-endpoint.service';
 import {
   EndpointProperties,
   EndpointReadModel,
+  EndpointTreeProperties,
 } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read-model';
+import { EndpointsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.query';
 import { PageEndpointsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
@@ -17,7 +20,10 @@ import { PaginationResult } from '@src/shared/prisma/pagination';
 @ApiTags('API Endpoint - Module')
 @Controller('api-endpoint')
 export class EndpointController {
-  constructor(private queryBus: QueryBus) {}
+  constructor(
+    private queryBus: QueryBus,
+    private casbinRuleApiEndpointService: CasbinRuleApiEndpointService,
+  ) {}
 
   @Get()
   @UsePermissions({ resource: 'api-endpoint', action: AuthActionVerb.READ })
@@ -40,6 +46,30 @@ export class EndpointController {
       PageEndpointsQuery,
       PaginationResult<EndpointProperties>
     >(query);
+    return ApiRes.success(result);
+  }
+
+  @Get('endpoints')
+  @ApiOperation({
+    summary: 'Endpoints',
+  })
+  async endpoints() {
+    const result = await this.queryBus.execute<
+      EndpointsQuery,
+      EndpointTreeProperties[]
+    >(new EndpointsQuery());
+    return ApiRes.success(result);
+  }
+
+  @Get('auth-api-endpoint')
+  @ApiOperation({
+    summary: 'Authorized API-Endpoints',
+  })
+  async authApiEndpoint(@Request() req: any) {
+    const result = await this.casbinRuleApiEndpointService.authApiEndpoint(
+      req.user.uid,
+      req.user.domain,
+    );
     return ApiRes.success(result);
   }
 }
