@@ -12,6 +12,12 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class MenuReadPostgresRepository implements MenuReadRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async getMenuById(id: number): Promise<Readonly<MenuProperties> | null> {
+    return this.prisma.sysMenu.findUnique({
+      where: { id },
+    });
+  }
+
   async findMenusByRoleCode(
     roleCode: string[],
     domain: string,

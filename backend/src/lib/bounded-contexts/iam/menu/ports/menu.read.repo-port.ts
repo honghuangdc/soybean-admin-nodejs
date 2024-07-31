@@ -1,6 +1,8 @@
 import { MenuProperties, MenuTreeProperties } from '../domain/menu.read-model';
 
 export interface MenuReadRepoPort {
+  getMenuById(id: number): Promise<MenuProperties | null>;
+
   findMenusByRoleCode(
     roleCode: string[],
     domain: string,

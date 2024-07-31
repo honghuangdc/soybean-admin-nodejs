@@ -15,9 +15,7 @@ export type MenuEssentialProperties = Readonly<
     pid: string;
     order: number;
     constant: boolean;
-  }> &
-    CreationAuditInfoProperties &
-    UpdateAuditInfoProperties
+  }>
 >;
 
 export type MenuOptionalProperties = Readonly<
@@ -40,6 +38,10 @@ export type MenuProperties = MenuEssentialProperties &
 export type MenuTreeProperties = MenuProperties & {
   children?: MenuTreeProperties[];
 };
+
+export type MenuCreateProperties = MenuProperties & CreationAuditInfoProperties;
+
+export type MenuUpdateProperties = MenuProperties & UpdateAuditInfoProperties;
 
 export class MenuReadModel extends UpdateAuditInfo {
   @ApiProperty({ description: 'The unique identifier of the menu', example: 1 })

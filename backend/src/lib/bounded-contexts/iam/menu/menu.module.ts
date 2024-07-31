@@ -1,5 +1,6 @@
 import { DynamicModule, Module, Provider } from '@nestjs/common';
 
+import { PubSubCommandHandlers } from './application/command-handlers';
 import { QueryHandlers } from './application/query-handlers';
 import { Services } from './application/service';
 
@@ -12,7 +13,12 @@ export class MenuModule {
     return {
       module: MenuModule,
       imports: [...options.imports],
-      providers: [...QueryHandlers, ...Services, ...options.inject],
+      providers: [
+        ...PubSubCommandHandlers,
+        ...QueryHandlers,
+        ...Services,
+        ...options.inject,
+      ],
       exports: [...QueryHandlers, ...Services],
     };
   }
