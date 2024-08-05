@@ -49,8 +49,11 @@ function handleSelectMixMenu(menu: App.Global.Menu) {
 }
 
 function handleResetActiveMenu() {
-  getActiveFirstLevelMenuKey();
   setDrawerVisible(false);
+
+  if (!appStore.mixSiderFixed) {
+    getActiveFirstLevelMenuKey();
+  }
 }
 
 const selectedKey = computed(() => {
@@ -117,6 +120,7 @@ watch(
             <NMenu
               v-model:expanded-keys="expandedKeys"
               mode="vertical"
+              :value="selectedKey"
               :options="childLevelMenus"
               :collapsed="appStore.siderCollapse"
               :collapsed-width="themeStore.sider.collapsedWidth"
