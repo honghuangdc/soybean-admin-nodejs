@@ -81,6 +81,11 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
   "description": "role-001-1"
 }
 
+### role 删除
+DELETE {{host}}/v1/role/01J4KKGZGZST8V2ZK01A2G74T9
+Content-Type: application/json
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
 ############### role end ###############
 
 ############### user start ###############

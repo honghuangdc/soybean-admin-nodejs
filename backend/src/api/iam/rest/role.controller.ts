@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -14,6 +16,7 @@ import { RoleCreateDto, RoleUpdateDto } from '@src/api/iam/dto/role.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { RoleCreateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-create.command';
+import { RoleDeleteCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-delete.command';
 import { RoleUpdateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-update.command';
 import {
   RoleProperties,
@@ -98,6 +101,18 @@ export class RoleController {
         req.user.uid,
       ),
     );
+    return ApiRes.ok();
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a Role' })
+  @ApiResponse({
+    status: 201,
+    description: 'The role has been successfully deleted.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async deleteUser(@Param('id') id: string): Promise<ApiRes<null>> {
+    await this.commandBus.execute(new RoleDeleteCommand(id));
     return ApiRes.ok();
   }
 }

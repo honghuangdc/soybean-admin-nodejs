@@ -3,8 +3,11 @@ import { Status } from '@prisma/client';
 
 import {
   RoleCreateProperties,
+  RoleProperties,
   RoleUpdateProperties,
 } from '../domain/role.read-model';
+
+import { RoleDeletedEvent } from './events/role-deleted.event';
 
 export interface IRole {
   commit(): void;
@@ -26,5 +29,13 @@ export class Role extends AggregateRoot implements IRole {
 
   static fromUpdate(properties: RoleUpdateProperties): Role {
     return Object.assign(new Role(), properties);
+  }
+
+  static fromProp(properties: RoleProperties): Role {
+    return Object.assign(new Role(), properties);
+  }
+
+  async deleted() {
+    this.apply(new RoleDeletedEvent(this.id, this.code));
   }
 }

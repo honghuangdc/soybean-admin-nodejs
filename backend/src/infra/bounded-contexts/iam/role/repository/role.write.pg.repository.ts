@@ -8,6 +8,12 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class RoleWritePostgresRepository implements RoleWriteRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async delete(role: Role): Promise<void> {
+    await this.prisma.sysRole.delete({
+      where: { id: role.id },
+    });
+  }
+
   async save(role: Role): Promise<void> {
     await this.prisma.sysRole.create({
       data: { ...role },
