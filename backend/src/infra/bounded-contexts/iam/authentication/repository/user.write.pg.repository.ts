@@ -8,6 +8,18 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class UserWriteRepository implements UserWriteRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async deleteUserRole(userId: string): Promise<void> {
+    await this.prisma.sysUserRole.deleteMany({
+      where: { userId: userId },
+    });
+  }
+
+  async delete(user: User): Promise<void> {
+    await this.prisma.sysUser.delete({
+      where: { id: user.id },
+    });
+  }
+
   async save(user: User): Promise<void> {
     await this.prisma.sysUser.create({
       data: { ...user, password: user.password.getValue() },

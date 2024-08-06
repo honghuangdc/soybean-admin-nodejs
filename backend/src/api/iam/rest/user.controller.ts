@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -14,6 +16,7 @@ import { UserCreateDto, UserUpdateDto } from '@src/api/iam/dto/user.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { UserCreateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-create.command';
+import { UserDeleteCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-delete.command';
 import { UserUpdateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-update.command';
 import {
   UserProperties,
@@ -104,6 +107,18 @@ export class UserController {
         req.user.uid,
       ),
     );
+    return ApiRes.ok();
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a User' })
+  @ApiResponse({
+    status: 201,
+    description: 'The user has been successfully deleted.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async deleteUser(@Param('id') id: string): Promise<ApiRes<null>> {
+    await this.commandBus.execute(new UserDeleteCommand(id));
     return ApiRes.ok();
   }
 }

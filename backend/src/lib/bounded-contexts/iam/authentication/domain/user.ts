@@ -2,6 +2,7 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
 import { UserCreatedEvent } from './events/user-created.event';
+import { UserDeletedEvent } from './events/user-deleted.event';
 import { Password } from './password.value-object';
 import {
   UserCreateProperties,
@@ -67,5 +68,9 @@ export class User extends AggregateRoot implements IUser {
 
   async created() {
     this.apply(new UserCreatedEvent(this.id, this.username, this.domain));
+  }
+
+  async deleted() {
+    this.apply(new UserDeletedEvent(this.id, this.username, this.domain));
   }
 }

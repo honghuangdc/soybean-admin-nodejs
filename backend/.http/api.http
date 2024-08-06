@@ -119,7 +119,16 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
   "phoneNumber": "123-456-7890-111"
 }
 
+### user 删除
+DELETE {{host}}/v1/user/01J4K9KF52CNSM079YHHXWCE1A
+Content-Type: application/json
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
 ############### user end ###############
+
+############### route start ###############
+
+############### route end ###############
 
 ############### other start ###############
 ### api-endpoint 分页查询
@@ -147,5 +156,43 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
   "roleId": "1",
   "permissions": ["57818da167c4d5ac712a2f6414d228ed", "51c4ec06dd17092d04af593d73d2e98f", "66da8c9bd22f9b893f4680abd920d302"]
 }
+
+### assign-routes route授权
+POST {{host}}/v1/authorization/assign-routes
+Content-Type: application/json
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+{
+  "domain": "built-in",
+  "roleId": "3",
+  "routeIds": [50]
+}
+
+### assign-users user授权
+POST {{host}}/v1/authorization/assign-users
+Content-Type: application/json
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+{
+  "roleId": "3",
+  "userIds": ["3"]
+}
+
+### route 🌲
+GET {{host}}/v1/route
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+### auth-route 列举用户已授权路由
+POST {{host}}/v1/route/auth-route
+Content-Type: application/json
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+### 列举endpoints接口列表
+GET {{host}}/v1/api-endpoint/endpoints
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+### 列举当前用户已授权casbin data
+GET {{host}}/v1/api-endpoint/auth-api-endpoint
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
 ############### auth end ###############

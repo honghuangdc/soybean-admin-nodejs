@@ -11,6 +11,12 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class UserReadRepository implements UserReadRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async findUserById(id: string): Promise<UserProperties | null> {
+    return this.prisma.sysUser.findUnique({
+      where: { id },
+    });
+  }
+
   async findUserIdsByRoleId(roleId: string): Promise<string[]> {
     return this.prisma.sysUserRole
       .findMany({
