@@ -9,8 +9,8 @@ import {
 } from '../../constants';
 import { DomainUpdateProperties } from '../../domain/domain-read.model';
 import { Domain } from '../../domain/domain.model';
-import { DomainWriteRepoPort } from '../../ports/domain-write-repo.port';
 import { DomainReadRepoPort } from '../../ports/domain.read.repo-port';
+import { DomainWriteRepoPort } from '../../ports/domain.write.repo-port';
 
 @CommandHandler(DomainUpdateCommand)
 export class DomainUpdateHandler

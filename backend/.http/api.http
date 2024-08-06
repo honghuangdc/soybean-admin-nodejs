@@ -49,6 +49,11 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
   "description": "domain-001-1"
 }
 
+### domain 删除
+DELETE {{host}}/v1/domain/01J4KMZTZWH81N2YSHM221BYG5
+Content-Type: application/json
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
 ############### domain end ###############
 
 ############### role start ###############

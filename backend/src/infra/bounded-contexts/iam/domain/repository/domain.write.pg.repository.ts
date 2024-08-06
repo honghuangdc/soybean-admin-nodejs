@@ -1,12 +1,18 @@
 import { Injectable } from '@nestjs/common';
 
 import { Domain } from '@src/lib/bounded-contexts/iam/domain/domain/domain.model';
-import { DomainWriteRepoPort } from '@src/lib/bounded-contexts/iam/domain/ports/domain-write-repo.port';
+import { DomainWriteRepoPort } from '@src/lib/bounded-contexts/iam/domain/ports/domain.write.repo-port';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
 export class DomainWriteRepository implements DomainWriteRepoPort {
   constructor(private prisma: PrismaService) {}
+
+  async delete(domain: Domain): Promise<void> {
+    await this.prisma.sysDomain.delete({
+      where: { id: domain.id },
+    });
+  }
 
   async save(domain: Domain): Promise<void> {
     await this.prisma.sysDomain.create({

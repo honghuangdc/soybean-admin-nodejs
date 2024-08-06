@@ -11,8 +11,8 @@ import {
 } from '../../constants';
 import { DomainCreateProperties } from '../../domain/domain-read.model';
 import { Domain } from '../../domain/domain.model';
-import { DomainWriteRepoPort } from '../../ports/domain-write-repo.port';
 import { DomainReadRepoPort } from '../../ports/domain.read.repo-port';
+import { DomainWriteRepoPort } from '../../ports/domain.write.repo-port';
 
 @CommandHandler(DomainCreateCommand)
 export class DomainCreateHandler

@@ -4,6 +4,8 @@ import { DomainProperties } from '../domain/domain-read.model';
 import { PageDomainsQuery } from '../queries/page-domains.query';
 
 export interface DomainReadRepoPort {
+  getDomainById(id: string): Promise<Readonly<DomainProperties> | null>;
+
   pageDomains(
     query: PageDomainsQuery,
   ): Promise<PaginationResult<DomainProperties>>;

@@ -3,8 +3,10 @@ import { Status } from '@prisma/client';
 
 import {
   DomainCreateProperties,
+  DomainProperties,
   DomainUpdateProperties,
 } from './domain-read.model';
+import { DomainDeletedEvent } from './events/domain-deleted.event';
 
 export interface IDomain {
   commit(): void;
@@ -25,5 +27,13 @@ export class Domain extends AggregateRoot implements IDomain {
 
   static fromUpdate(properties: DomainUpdateProperties): Domain {
     return Object.assign(new Domain(), properties);
+  }
+
+  static fromProp(properties: DomainProperties): Domain {
+    return Object.assign(new Domain(), properties);
+  }
+
+  async deleted() {
+    this.apply(new DomainDeletedEvent(this.id, this.code));
   }
 }

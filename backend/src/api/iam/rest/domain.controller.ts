@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
+  Param,
   Post,
   Put,
   Query,
@@ -15,6 +17,7 @@ import { PageDomainsQueryDto } from '@src/api/iam/dto/page-domains-query.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { DomainCreateCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-create.command';
+import { DomainDeleteCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-delete.command';
 import { DomainUpdateCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-update.command';
 import {
   DomainProperties,
@@ -94,6 +97,18 @@ export class DomainController {
         req.user.uid,
       ),
     );
+    return ApiRes.ok();
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a Domain' })
+  @ApiResponse({
+    status: 201,
+    description: 'The domain has been successfully deleted.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async deleteUser(@Param('id') id: string): Promise<ApiRes<null>> {
+    await this.commandBus.execute(new DomainDeleteCommand(id));
     return ApiRes.ok();
   }
 }

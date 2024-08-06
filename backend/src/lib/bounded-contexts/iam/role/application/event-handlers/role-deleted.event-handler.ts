@@ -12,6 +12,6 @@ export class RoleDeletedHandler implements IEventHandler<RoleDeletedEvent> {
   private readonly roleWriteRepository: RoleWriteRepoPort;
 
   async handle(event: RoleDeletedEvent) {
-    Logger.log(`User created, event is ${JSON.stringify(event)}`);
+    Logger.log(`Role deleted, event is ${JSON.stringify(event)}`);
   }
 }

@@ -11,6 +11,12 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class DomainReadRepository implements DomainReadRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async getDomainById(id: string): Promise<Readonly<DomainProperties> | null> {
+    return this.prisma.sysDomain.findUnique({
+      where: { id },
+    });
+  }
+
   async pageDomains(
     query: PageDomainsQuery,
   ): Promise<PaginationResult<DomainProperties>> {
