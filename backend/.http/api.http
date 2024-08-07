@@ -164,7 +164,7 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
 {
   "domain": "built-in",
   "roleId": "1",
-  "permissions": ["57818da167c4d5ac712a2f6414d228ed", "51c4ec06dd17092d04af593d73d2e98f", "66da8c9bd22f9b893f4680abd920d302"]
+  "permissions": ["57818da167c4d5ac712a2f6414d228ed", "51c4ec06dd17092d04af593d73d2e98f", "66da8c9bd22f9b893f4680abd920d302", "a909e26f321170c9fe4d45a7dded7e2b", "2f513bd27cae5b5b178998c38f6368b3", "2d3688801b07778813607ccbd645937e"]
 }
 
 ### assign-routes route授权
