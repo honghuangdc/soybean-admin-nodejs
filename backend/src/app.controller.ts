@@ -11,6 +11,7 @@ import {
 import { AppService } from './app.service';
 import { BypassTransform } from './infra/decorators/bypass-transform.decorator';
 import { Public } from './infra/decorators/public.decorator';
+import { ApiRes } from './infra/rest/res.response';
 import { PrismaService } from './shared/prisma/prisma.service';
 
 @Controller()
@@ -46,5 +47,17 @@ export class AppController {
           thresholdPercent: 0.9,
         }),
     ]);
+  }
+
+  @Get('/system-info')
+  async getSystemInfo() {
+    const result = await this.appService.getSystemInfo();
+    return ApiRes.success(result);
+  }
+
+  @Get('/redis-info')
+  async getRedisInfo() {
+    const result = await this.appService.getRedisInfo();
+    return ApiRes.success(result);
   }
 }

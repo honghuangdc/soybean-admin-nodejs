@@ -206,3 +206,15 @@ GET {{host}}/v1/api-endpoint/auth-api-endpoint
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
 ############### auth end ###############
+
+
+############### healthy start ###############
+### 系统信息
+GET {{host}}/v1/system-info
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+### redis信息
+GET {{host}}/v1/redis-info
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+############### healthy end ###############
