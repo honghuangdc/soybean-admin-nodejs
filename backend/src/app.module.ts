@@ -1,6 +1,7 @@
 import { ExecutionContext, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { TerminusModule } from '@nestjs/terminus';
 import { ThrottlerModule } from '@nestjs/throttler';
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
@@ -32,6 +33,7 @@ const strategies = [JwtStrategy];
 
 @Module({
   imports: [
+    TerminusModule,
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,

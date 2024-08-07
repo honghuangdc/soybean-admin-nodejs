@@ -45,6 +45,7 @@
     "@nestjs/platform-fastify": "^10.3.10",
     "@nestjs/schedule": "^4.1.0",
     "@nestjs/swagger": "^7.4.0",
+    "@nestjs/terminus": "^10.2.3",
     "@nestjs/throttler": "^5.2.0",
     "@prisma/client": "^5.17.0",
     "ali-oss": "^6.20.0",
