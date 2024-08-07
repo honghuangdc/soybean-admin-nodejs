@@ -12,6 +12,6 @@ export class UserDeletedHandler implements IEventHandler<UserDeletedEvent> {
   private readonly userWriteRepository: UserWriteRepoPort;
 
   async handle(event: UserDeletedEvent) {
-    await this.userWriteRepository.deleteUserRole(event.userId);
+    await this.userWriteRepository.deleteUserRoleByUserId(event.userId);
   }
 }

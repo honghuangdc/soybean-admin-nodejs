@@ -8,6 +8,12 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class UserWriteRepository implements UserWriteRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async deleteUserRoleByRoleId(roleId: string): Promise<void> {
+    await this.prisma.sysUserRole.deleteMany({
+      where: { roleId },
+    });
+  }
+
   async deleteUserRoleByDomain(domain: string): Promise<void> {
     await this.prisma.$transaction(async (prisma) => {
       const users = await prisma.sysUser.findMany({
@@ -31,7 +37,7 @@ export class UserWriteRepository implements UserWriteRepoPort {
     });
   }
 
-  async deleteUserRole(userId: string): Promise<void> {
+  async deleteUserRoleByUserId(userId: string): Promise<void> {
     await this.prisma.sysUserRole.deleteMany({
       where: { userId: userId },
     });
