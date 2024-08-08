@@ -1,15 +1,10 @@
-import * as os from 'os';
-
 import { Injectable } from '@nestjs/common';
-import Redis, { Cluster } from 'ioredis';
 import * as si from 'systeminformation';
 
 import { RedisUtility } from './shared/redis/services/redis.util';
 
 @Injectable()
 export class AppService {
-  private redisClient: Redis | Cluster = RedisUtility.instance;
-
   getHello(): string {
     return 'Hello World!';
   }
@@ -86,26 +81,18 @@ export class AppService {
   }
 
   async getRedisInfo() {
-    const info = await this.redisClient.info();
-    const stats: { [key: string]: string } = {};
-    info.split(/\r?\n/).forEach((line) => {
-      const parts = line.split(':');
-      if (parts.length >= 2) {
-        stats[parts[0]] = parts.slice(1).join(':');
+    const redisClient = RedisUtility.instance;
+    const info = await redisClient.info();
+    const redisInfo: any = {};
+    const lines = info.split('\r\n');
+    lines.forEach((line) => {
+      if (line && !line.startsWith('#')) {
+        const parts = line.split(':');
+        if (parts.length > 1) {
+          redisInfo[parts[0]] = parts[1];
+        }
       }
     });
-
-    const keys = await this.redisClient.keys('*');
-    const keyspaceCount = keys.length;
-
-    return {
-      version: stats['redis_version'],
-      uptime: stats['uptime_in_seconds'],
-      connectedClients: stats['connected_clients'],
-      memoryUsed: stats['used_memory'],
-      memoryHuman: stats['used_memory_human'],
-      totalMemory: stats['total_system_memory_human'],
-      keyspace: keyspaceCount,
-    };
+    return redisInfo;
   }
 }
