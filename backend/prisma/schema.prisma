@@ -14,6 +14,26 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model SysTokens {
+  id           String   @id @default(cuid())
+  accessToken  String   @map("access_token")
+  refreshToken String   @map("refresh_token")
+  userId       String   @map("user_id")
+  username     String
+  domain       String
+  loginTime    DateTime @default(now()) @map("login_time")
+  ip           String
+  port         Int?
+  address      String
+  userAgent    String   @map("user_agent")
+  requestId    String   @map("request_id")
+  type         String
+  createdAt    DateTime @default(now()) @map("created_at")
+  createdBy    String   @map("created_by")
+
+  @@map("sys_tokens")
+}
+
 // 用户表
 model SysUser {
   id          String    @id
