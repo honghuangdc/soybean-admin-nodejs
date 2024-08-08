@@ -12,6 +12,7 @@ import { ISecurityConfig, SecurityConfig } from '@src/config';
 import { PasswordIdentifierDTO } from '../../application/dto/password-identifier.dto';
 import { UserReadRepoPortToken } from '../../constants';
 import { UserLoggedInEvent } from '../../domain/events/user-logged-in.event';
+import { UserTokenGeneratedEvent } from '../../domain/events/user-token-generated.event';
 import { User } from '../../domain/user';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 
@@ -48,6 +49,21 @@ export class AuthenticationService {
 
     userAggregate.apply(
       new UserLoggedInEvent(
+        user.id,
+        user.username,
+        user.domain,
+        dto.ip,
+        dto.address,
+        dto.userAgent,
+        dto.requestId,
+        dto.type,
+        dto.port,
+      ),
+    );
+    userAggregate.apply(
+      new UserTokenGeneratedEvent(
+        tokens.token,
+        tokens.refreshToken,
         user.id,
         user.username,
         user.domain,
