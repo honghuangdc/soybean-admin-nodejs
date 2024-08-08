@@ -18,6 +18,7 @@ model SysTokens {
   id           String   @id @default(cuid())
   accessToken  String   @map("access_token")
   refreshToken String   @map("refresh_token")
+  status       String
   userId       String   @map("user_id")
   username     String
   domain       String
