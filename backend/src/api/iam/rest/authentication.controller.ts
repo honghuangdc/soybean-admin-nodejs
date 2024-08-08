@@ -49,6 +49,12 @@ export class AuthenticationController {
     return ApiRes.success(token);
   }
 
+  @Public()
+  @Post('refreshToken')
+  async refreshToken(@Request() req: any): Promise<ApiRes<any>> {
+    throw new Error('Not Impl');
+  }
+
   @Get('getUserInfo')
   async getProfile(@Request() req: any): Promise<ApiRes<any>> {
     const user: IAuthentication = req.user;
