@@ -1,0 +1,3 @@
+ip2region:
+  xdbPath: 'src/shared/ip2region/ip2region.xdb'
+  mode: VECTOR_INDEX

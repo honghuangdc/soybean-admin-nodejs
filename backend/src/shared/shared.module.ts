@@ -10,6 +10,7 @@ import * as yaml from 'js-yaml';
 import { isDevEnvironment } from '@src/utils/env';
 
 import { CacheManagerModule } from './cache-manager/cache-manager.module';
+import { Ip2regionModule } from './ip2region/ip2region.module';
 import { OssModule } from './oss/oss.module';
 import { PrismaModule } from './prisma/prisma.module';
 
@@ -25,9 +26,17 @@ import { PrismaModule } from './prisma/prisma.module';
               'utf8',
             ),
           ),
+        async () =>
+          yaml.load(
+            fs.readFileSync(
+              `${isDevEnvironment ? '' : './dist/'}src/shared/ip2region/ip2region.config.yaml`,
+              'utf8',
+            ),
+          ),
       ],
       isGlobal: true,
     }),
+    Ip2regionModule,
     OssModule,
     // http
     HttpModule,

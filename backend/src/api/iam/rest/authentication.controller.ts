@@ -9,6 +9,7 @@ import { Public } from '@src/infra/decorators/public.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { PasswordIdentifierDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
 import { AuthenticationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
+import { Ip2regionService } from '@src/shared/ip2region/ip2region.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 import { getClientIpAndPort } from '@src/utils/ip.util';
 
@@ -34,12 +35,18 @@ export class AuthenticationController {
     @Request() request: FastifyRequest,
   ): Promise<ApiRes<any>> {
     const { ip, port } = getClientIpAndPort(request);
+    let region = 'Unknown';
+
+    try {
+      const ip2regionResult = await Ip2regionService.getSearcher().search(ip);
+      region = ip2regionResult.region || region;
+    } catch (_) {}
     const token = await this.authenticationService.execPasswordLogin(
       new PasswordIdentifierDTO(
         dto.identifier,
         dto.password,
         ip,
-        'TODO',
+        region,
         request.headers[USER_AGENT] ?? '',
         'TODO',
         'PC',
