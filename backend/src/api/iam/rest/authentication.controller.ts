@@ -58,8 +58,28 @@ export class AuthenticationController {
 
   @Public()
   @Post('refreshToken')
-  async refreshToken(@Request() req: any): Promise<ApiRes<any>> {
-    throw new Error('Not Impl');
+  async refreshToken(
+    @Body() refreshToken: string,
+    @Request() request: FastifyRequest,
+  ): Promise<ApiRes<any>> {
+    const { ip, port } = getClientIpAndPort(request);
+    let region = 'Unknown';
+
+    try {
+      const ip2regionResult = await Ip2regionService.getSearcher().search(ip);
+      region = ip2regionResult.region || region;
+    } catch (_) {}
+    //TODO DTO
+    const token = await this.authenticationService.refreshToken(
+      refreshToken,
+      ip,
+      region,
+      request.headers[USER_AGENT] ?? '',
+      'TODO',
+      'PC',
+      port,
+    );
+    return ApiRes.success(token);
   }
 
   @Get('getUserInfo')

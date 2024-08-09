@@ -5,20 +5,26 @@ export type TokensEssentialProperties = Readonly<
     accessToken: string;
     refreshToken: string;
     status: string;
+    userId: string;
     username: string;
     domain: string;
-    loginTime: Date;
     ip: string;
-    port: number | null;
     address: string;
     userAgent: string;
     requestId: string;
     type: string;
-    createdAt: Date;
+    createdBy: string;
   }>
 >;
 
-export type TokensProperties = TokensEssentialProperties;
+export type TokensOptionalProperties = Readonly<
+  Partial<{
+    port: number | null;
+  }>
+>;
+
+export type TokensProperties = TokensEssentialProperties &
+  TokensOptionalProperties;
 
 export class TokensReadModel {
   accessToken: string;
@@ -26,6 +32,8 @@ export class TokensReadModel {
   refreshToken: string;
 
   status: string;
+
+  userId: string;
 
   @ApiProperty({ description: 'Username associated with the login event' })
   username: string;
@@ -69,4 +77,6 @@ export class TokensReadModel {
     format: 'date-time',
   })
   createdAt: Date;
+
+  createdBy: string;
 }

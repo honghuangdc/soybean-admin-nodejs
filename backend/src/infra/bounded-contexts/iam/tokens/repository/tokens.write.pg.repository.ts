@@ -13,4 +13,18 @@ export class TokensWriteRepository implements TokensWriteRepoPort {
       data: tokens,
     });
   }
+
+  async updateTokensStatus(
+    refreshToken: string,
+    status: string,
+  ): Promise<void> {
+    await this.prisma.sysTokens.update({
+      where: {
+        refreshToken: refreshToken,
+      },
+      data: {
+        status: status,
+      },
+    });
+  }
 }

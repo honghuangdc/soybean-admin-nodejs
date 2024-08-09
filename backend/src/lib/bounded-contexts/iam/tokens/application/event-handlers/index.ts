@@ -1,3 +1,7 @@
-import { UserTokenGeneratedHandler } from './user-token-generated.event-handler';
+import { RefreshTokenUsedEventHandler } from './refreshtoken-used.event-handler';
+import { TokenGeneratedEventHandler } from './token-generated.event-handler';
 
-export const EventHandlers = [UserTokenGeneratedHandler];
+export const EventHandlers = [
+  TokenGeneratedEventHandler,
+  RefreshTokenUsedEventHandler,
+];

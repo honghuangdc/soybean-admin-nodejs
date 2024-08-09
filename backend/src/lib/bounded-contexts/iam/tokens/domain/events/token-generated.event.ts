@@ -1,6 +1,6 @@
 import { IEvent } from '@nestjs/cqrs';
 
-export class UserTokenGeneratedEvent implements IEvent {
+export class TokenGeneratedEvent implements IEvent {
   constructor(
     public readonly accessToken: string,
     public readonly refreshToken: string,

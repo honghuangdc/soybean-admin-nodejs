@@ -4,15 +4,18 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { EventPublisher } from '@nestjs/cqrs';
+import { EventPublisher, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
 
 import { ISecurityConfig, SecurityConfig } from '@src/config';
+import { TokensReadModel } from '@src/lib/bounded-contexts/iam/tokens/domain/tokens.read-model';
+import { TokensByRefreshTokenQuery } from '@src/lib/bounded-contexts/iam/tokens/queries/tokens.by-refresh_token.query';
 
+import { TokenGeneratedEvent } from '../../../tokens/domain/events/token-generated.event';
+import { TokensEntity } from '../../../tokens/domain/tokens.entity';
 import { PasswordIdentifierDTO } from '../../application/dto/password-identifier.dto';
 import { UserReadRepoPortToken } from '../../constants';
 import { UserLoggedInEvent } from '../../domain/events/user-logged-in.event';
-import { UserTokenGeneratedEvent } from '../../domain/events/user-token-generated.event';
 import { User } from '../../domain/user';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 
@@ -23,8 +26,62 @@ export class AuthenticationService {
     private readonly publisher: EventPublisher,
     @Inject(UserReadRepoPortToken)
     private readonly repository: UserReadRepoPort,
+    private queryBus: QueryBus,
     @Inject(SecurityConfig.KEY) private securityConfig: ISecurityConfig,
   ) {}
+
+  async refreshToken(
+    refreshToken: string,
+    ip: string,
+    region: string,
+    userAgent: string,
+    requestId: string,
+    type: string,
+    port?: number | null,
+  ) {
+    const tokenDetails = await this.queryBus.execute<
+      TokensByRefreshTokenQuery,
+      TokensReadModel | null
+    >(new TokensByRefreshTokenQuery(refreshToken));
+    if (!tokenDetails) {
+      throw new NotFoundException('Refresh token not found.');
+    }
+
+    await this.jwtService.verifyAsync(tokenDetails.refreshToken, {
+      secret: this.securityConfig.refreshJwtSecret,
+    });
+
+    const tokensAggregate = new TokensEntity(tokenDetails);
+
+    await tokensAggregate.refreshTokenCheck();
+
+    const tokens = await this.generateAccessToken(
+      tokensAggregate.userId,
+      tokenDetails.username,
+      tokenDetails.domain,
+    );
+
+    tokensAggregate.apply(
+      new TokenGeneratedEvent(
+        tokens.token,
+        tokens.refreshToken,
+        tokensAggregate.userId,
+        tokensAggregate.username,
+        tokensAggregate.domain,
+        ip,
+        region,
+        userAgent,
+        requestId,
+        type,
+        port,
+      ),
+    );
+
+    this.publisher.mergeObjectContext(tokensAggregate);
+    tokensAggregate.commit();
+
+    return tokens;
+  }
 
   async execPasswordLogin(
     dto: PasswordIdentifierDTO,
@@ -61,7 +118,7 @@ export class AuthenticationService {
       ),
     );
     userAggregate.apply(
-      new UserTokenGeneratedEvent(
+      new TokenGeneratedEvent(
         tokens.token,
         tokens.refreshToken,
         user.id,
