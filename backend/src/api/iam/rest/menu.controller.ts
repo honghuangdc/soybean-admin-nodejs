@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Post, Put, Request } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  Request,
+} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
@@ -9,7 +17,7 @@ import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/serv
 import { MenuCreateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-create.command';
 import { MenuUpdateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-update.command';
 import { MenuTreeProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
-import { MenuIdsByUserIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-user_id&domain.query';
+import { MenuIdsByRoleCodeAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_code&domain.query';
 import { MenusQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.query';
 
 import { RouteCreateDto, RouteUpdateDto } from '../dto/route.dto';
@@ -121,15 +129,15 @@ export class MenuController {
     return ApiRes.ok();
   }
 
-  @Get('auth-route')
+  @Get('auth-route/:roleCode')
   @ApiOperation({
     summary: 'Authorized Routes',
   })
-  async authRoute(@Request() req: any) {
+  async authRoute(@Param('roleCode') roleCode: string, @Request() req: any) {
     const result = await this.queryBus.execute<
-      MenuIdsByUserIdAndDomainQuery,
+      MenuIdsByRoleCodeAndDomainQuery,
       number[]
-    >(new MenuIdsByUserIdAndDomainQuery(req.user.uid, req.user.domain));
+    >(new MenuIdsByRoleCodeAndDomainQuery(roleCode, req.user.domain));
     return ApiRes.success(result);
   }
 }

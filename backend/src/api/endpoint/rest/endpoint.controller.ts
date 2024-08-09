@@ -1,4 +1,11 @@
-import { Controller, Get, Query, Request, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Query,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
@@ -61,13 +68,16 @@ export class EndpointController {
     return ApiRes.success(result);
   }
 
-  @Get('auth-api-endpoint')
+  @Get('auth-api-endpoint/:roleCode')
   @ApiOperation({
     summary: 'Authorized API-Endpoints',
   })
-  async authApiEndpoint(@Request() req: any) {
+  async authApiEndpoint(
+    @Param('roleCode') roleCode: string,
+    @Request() req: any,
+  ) {
     const result = await this.casbinRuleApiEndpointService.authApiEndpoint(
-      req.user.uid,
+      roleCode,
       req.user.domain,
     );
     return ApiRes.success(result);

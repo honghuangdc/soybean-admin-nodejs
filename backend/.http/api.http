@@ -192,8 +192,8 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
 GET {{host}}/v1/route
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
-### auth-route 列举用户已授权路由
-POST {{host}}/v1/route/auth-route
+### auth-route 列举指定角色已授权路由
+GET {{host}}/v1/route/auth-route/ROLE_SUPER
 Content-Type: application/json
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
@@ -201,8 +201,8 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
 GET {{host}}/v1/api-endpoint/endpoints
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
-### 列举当前用户已授权casbin data
-GET {{host}}/v1/api-endpoint/auth-api-endpoint
+### 列举指定角色已授权casbin data
+GET {{host}}/v1/api-endpoint/auth-api-endpoint/ROLE_SUPER
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
 ############### auth end ###############
