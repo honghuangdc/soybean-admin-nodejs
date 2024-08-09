@@ -24,7 +24,10 @@ app.getInstance().addHook('onError', async (request, reply) => {
   const userAgent = request.headers[USER_AGENT];
   const url = request.url;
 
-  Logger.log(`NotFound: IP:${ip}, UA+${userAgent}, URL=${url}`);
+  Logger.log(
+    `NotFound: IP:${ip}, UA+${userAgent}, URL=${url}`,
+    'fastify.adapter',
+  );
 
   reply.status(500).send({ error: 'error' });
 });

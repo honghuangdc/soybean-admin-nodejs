@@ -15,6 +15,7 @@ export class DomainDeletedHandler implements IEventHandler<DomainDeletedEvent> {
     await this.authZManagementService.removeFilteredPolicy(3, event.code);
     Logger.log(
       `Casbin Rule FilteredPolicy with Domain deleted, Domain Event is ${JSON.stringify(event)}`,
+      '[domain] DomainDeletedHandler',
     );
   }
 }

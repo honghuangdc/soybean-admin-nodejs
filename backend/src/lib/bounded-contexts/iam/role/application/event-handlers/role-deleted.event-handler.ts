@@ -20,6 +20,7 @@ export class RoleDeletedHandler implements IEventHandler<RoleDeletedEvent> {
     await this.roleWriteRepository.deleteRoleMenuByRoleId(event.roleId);
     Logger.log(
       `Casbin Rule FilteredPolicy with Sub deleted, RoleDeleted Event is ${JSON.stringify(event)}`,
+      '[role] RoleDeletedHandler',
     );
   }
 }

@@ -8,6 +8,9 @@ export class UserCreatedHandler implements IEventHandler<UserCreatedEvent> {
   constructor() {}
 
   async handle(event: UserCreatedEvent) {
-    Logger.log(`User created, event is ${JSON.stringify(event)}`);
+    Logger.log(
+      `User created, event is ${JSON.stringify(event)}`,
+      '[authentication] UserCreatedHandler',
+    );
   }
 }

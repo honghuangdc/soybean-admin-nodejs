@@ -15,6 +15,7 @@ export class DomainDeletedHandler implements IEventHandler<DomainDeletedEvent> {
     await this.userWriteRepository.deleteUserRoleByDomain(event.code);
     Logger.log(
       `User Role with Domain deleted, Domain Event is ${JSON.stringify(event)}`,
+      '[authentication] DomainDeletedHandler',
     );
   }
 }

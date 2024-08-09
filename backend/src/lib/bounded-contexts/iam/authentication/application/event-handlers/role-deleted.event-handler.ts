@@ -15,6 +15,7 @@ export class RoleDeletedHandler implements IEventHandler<RoleDeletedEvent> {
     await this.userWriteRepository.deleteUserRoleByRoleId(event.roleId);
     Logger.log(
       `User Role with Role deleted, Role Event is ${JSON.stringify(event)}`,
+      '[authentication] RoleDeletedHandler',
     );
   }
 }

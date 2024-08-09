@@ -15,6 +15,7 @@ export class DomainDeletedHandler implements IEventHandler<DomainDeletedEvent> {
     await this.roleWriteRepository.deleteRoleMenuByDomain(event.code);
     Logger.log(
       `Role Menu with Domain deleted, Domain Event is ${JSON.stringify(event)}`,
+      '[role] DomainDeletedHandler',
     );
   }
 }
