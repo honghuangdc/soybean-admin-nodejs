@@ -74,6 +74,13 @@ function createCommonRequest<ResponseData = any>(
       return Promise.reject(backendError);
     },
     async (error: AxiosError<ResponseData>) => {
+      if (error.response) {
+        const fail = await opts.onBackendFail(error.response, instance);
+        if (fail) {
+          return fail;
+        }
+      }
+
       await opts.onError(error);
 
       return Promise.reject(error);
