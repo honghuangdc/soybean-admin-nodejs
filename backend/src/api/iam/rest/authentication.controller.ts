@@ -59,7 +59,7 @@ export class AuthenticationController {
   @Public()
   @Post('refreshToken')
   async refreshToken(
-    @Body() refreshToken: string,
+    @Body('refreshToken') refreshToken: string,
     @Request() request: FastifyRequest,
   ): Promise<ApiRes<any>> {
     const { ip, port } = getClientIpAndPort(request);
