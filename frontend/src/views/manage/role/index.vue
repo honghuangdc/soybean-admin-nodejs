@@ -130,7 +130,9 @@ async function handleDelete(id: string) {
   const { error } = await deleteRole(id);
   if (error) return;
 
-  onDeleted();
+  window.$message?.success($t('common.deleteSuccess'));
+
+  await onDeleted();
 }
 
 function edit(id: number) {

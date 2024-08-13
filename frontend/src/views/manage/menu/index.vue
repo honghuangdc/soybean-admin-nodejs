@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import type { Ref } from 'vue';
 import { NButton, NPopconfirm, NTag } from 'naive-ui';
 import { useBoolean } from '@sa/hooks';
-import { fetchGetMenuList } from '@/service/api';
+import { deleteRoute, fetchGetMenuList } from '@/service/api';
 import { useAppStore } from '@/store/modules/app';
 import { useTable, useTableOperate } from '@/hooks/common/table';
 import { $t } from '@/locales';
@@ -186,11 +186,14 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-function handleDelete(id: number) {
+async function handleDelete(id: number) {
   // request
-  console.log(id);
+  const { error } = await deleteRoute(id);
+  if (error) return;
 
-  onDeleted();
+  window.$message?.success($t('common.deleteSuccess'));
+
+  await onDeleted();
 }
 
 /** the edit menu data or the parent menu data when adding a child menu */

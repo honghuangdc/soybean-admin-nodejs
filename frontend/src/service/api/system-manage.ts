@@ -116,3 +116,66 @@ export function deleteRole(id: string) {
     method: 'delete'
   });
 }
+
+export type RouteModel = Pick<
+  Api.SystemManage.Menu,
+  | 'menuType'
+  | 'menuName'
+  | 'routeName'
+  | 'routePath'
+  | 'component'
+  | 'order'
+  | 'i18nKey'
+  | 'icon'
+  | 'iconType'
+  | 'status'
+  | 'pid'
+  | 'keepAlive'
+  | 'constant'
+  | 'href'
+  | 'hideInMenu'
+  | 'activeMenu'
+  | 'multiTab'
+  | 'fixedIndexInTab'
+>;
+
+/**
+ * 创建路由
+ *
+ * @param req 路由实体
+ * @returns nothing
+ */
+export function createRoute(req: RouteModel) {
+  return request({
+    url: '/route',
+    method: 'post',
+    data: req
+  });
+}
+
+/**
+ * 更新路由
+ *
+ * @param req 路由实体
+ * @returns nothing
+ */
+export function updateRoute(req: RouteModel) {
+  return request({
+    url: '/route',
+    method: 'put',
+    data: req
+  });
+}
+
+/**
+ * 删除路由
+ *
+ * @param id 路由ID
+ * @returns nothing
+ */
+export function deleteRoute(id: number) {
+  return request({
+    url: `/route/${id}`,
+    method: 'delete'
+  });
+}

@@ -6,7 +6,8 @@ import { $t } from '@/locales';
 import { enableStatusOptions, menuIconTypeOptions, menuTypeOptions } from '@/constants/business';
 import SvgIcon from '@/components/custom/svg-icon.vue';
 import { getLocalIcons } from '@/utils/icon';
-import { fetchGetAllRoles } from '@/service/api';
+import type { RouteModel } from '@/service/api';
+import { createRoute, fetchGetAllRoles, updateRoute } from '@/service/api';
 import {
   getLayoutAndPage,
   getPathParamFromRoutePath,
@@ -54,27 +55,7 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<
-  Api.SystemManage.Menu,
-  | 'menuType'
-  | 'menuName'
-  | 'routeName'
-  | 'routePath'
-  | 'component'
-  | 'order'
-  | 'i18nKey'
-  | 'icon'
-  | 'iconType'
-  | 'status'
-  | 'pid'
-  | 'keepAlive'
-  | 'constant'
-  | 'href'
-  | 'hideInMenu'
-  | 'activeMenu'
-  | 'multiTab'
-  | 'fixedIndexInTab'
-> & {
+type Model = RouteModel & {
   query: NonNullable<Api.SystemManage.Menu['query']>;
   buttons: NonNullable<Api.SystemManage.Menu['buttons']>;
   layout: string;
@@ -188,7 +169,7 @@ function handleInitModel() {
   if (props.operateType === 'addChild') {
     const { id } = props.rowData;
 
-    Object.assign(model, { parentId: id });
+    Object.assign(model, { pid: id });
   }
 
   if (props.operateType === 'edit') {
@@ -254,10 +235,16 @@ async function handleSubmit() {
 
   const params = getSubmitParams();
 
-  console.log('params: ', params);
-
   // request
-  window.$message?.success($t('common.updateSuccess'));
+  if (props.operateType === 'add' || props.operateType === 'addChild') {
+    const { error } = await createRoute(params);
+    if (error) return;
+    window.$message?.success($t('common.addSuccess'));
+  } else {
+    const { error } = await updateRoute(params);
+    if (error) return;
+    window.$message?.success($t('common.updateSuccess'));
+  }
   closeDrawer();
   emit('submitted');
 }
@@ -326,7 +313,7 @@ watch(
               <NRadio
                 v-for="item in menuIconTypeOptions"
                 :key="item.value"
-                :value="item.value"
+                :value="Number(item.value)"
                 :label="$t(item.label)"
               />
             </NRadioGroup>

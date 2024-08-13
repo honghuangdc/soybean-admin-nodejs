@@ -103,7 +103,7 @@ export const request = createFlatRequest<App.Service.Response, RequestInstanceSt
     onError(error) {
       // when the request is fail, you can show error message
 
-      let message = error.message;
+      let message = error.response?.data.message ?? error.message;
       let backendErrorCode = '';
 
       // get backend error message and code
