@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Status } from '@prisma/client';
 import { Type } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class RoleCreateDto {
   @ApiProperty({ required: true })
@@ -17,6 +18,10 @@ export class RoleCreateDto {
   @IsString({ message: 'pid must be a string' })
   @IsNotEmpty({ message: 'pid cannot be empty' })
   pid: string;
+
+  @ApiProperty({ required: false })
+  @IsEnum(Status, { message: 'Status must be a valid enum value' })
+  status: Status;
 
   @ApiProperty({ type: 'string', required: false, nullable: true })
   @IsOptional()

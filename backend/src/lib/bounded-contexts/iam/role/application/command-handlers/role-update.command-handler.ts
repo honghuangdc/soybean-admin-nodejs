@@ -1,6 +1,5 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Status } from '@prisma/client';
 
 import { ROOT_PID } from '@src/shared/prisma/db.constant';
 
@@ -52,7 +51,7 @@ export class RoleUpdateHandler
       code: command.code,
       name: command.name,
       pid: command.pid,
-      status: Status.ENABLED,
+      status: command.status,
       description: command.description,
       updatedAt: new Date(),
       updatedBy: command.uid,
