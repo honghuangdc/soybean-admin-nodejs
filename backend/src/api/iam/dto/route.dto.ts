@@ -45,9 +45,9 @@ export class RouteCreateDto {
   component: string;
 
   @ApiProperty({ required: false, nullable: true, type: 'string' })
-  @ValidateIf((o) => o.pathParam !== null)
+  @ValidateIf(o => o.pathParam !== undefined)
   @IsString({ message: 'pathParam must be a string' })
-  pathParam: string | null;
+  pathParam?: string | null;
 
   @ApiProperty({ required: true, enum: Status })
   @IsNotEmpty({ message: 'status cannot be empty' })
