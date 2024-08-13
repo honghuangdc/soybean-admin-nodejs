@@ -4,6 +4,8 @@ import { useBoolean } from '@sa/hooks';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { enableStatusOptions } from '@/constants/business';
+import type { RoleModel } from '@/service/api';
+import { createRole, updateRole } from '@/service/api';
 import MenuAuthModal from './menu-auth-modal.vue';
 import ButtonAuthModal from './button-auth-modal.vue';
 
@@ -43,11 +45,9 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.SystemManage.Role, 'name' | 'code' | 'description' | 'status'>;
+const model: RoleModel = reactive(createDefaultModel());
 
-const model: Model = reactive(createDefaultModel());
-
-function createDefaultModel(): Model {
+function createDefaultModel(): RoleModel {
   return {
     name: '',
     code: '',
@@ -56,7 +56,7 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Exclude<keyof Model, 'description'>;
+type RuleKey = Exclude<keyof RoleModel, 'description'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   name: defaultRequiredRule,
@@ -83,7 +83,15 @@ function closeDrawer() {
 async function handleSubmit() {
   await validate();
   // request
-  window.$message?.success($t('common.updateSuccess'));
+  if (props.operateType === 'add') {
+    const { error } = await createRole(model);
+    if (error) return;
+    window.$message?.success($t('common.addSuccess'));
+  } else {
+    const { error } = await updateRole(model);
+    if (error) return;
+    window.$message?.success($t('common.updateSuccess'));
+  }
   closeDrawer();
   emit('submitted');
 }

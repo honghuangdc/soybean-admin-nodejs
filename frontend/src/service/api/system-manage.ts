@@ -70,3 +70,49 @@ export function fetchGetMenuTree() {
     method: 'get'
   });
 }
+
+export type RoleModel = Pick<Api.SystemManage.Role, 'name' | 'code' | 'description' | 'status'>;
+
+/**
+ * 创建角色
+ *
+ * @param req 角色实体
+ * @returns nothing
+ */
+export function createRole(req: RoleModel) {
+  return request({
+    url: '/role',
+    method: 'post',
+    data: {
+      pid: '0',
+      ...req
+    }
+  });
+}
+
+/**
+ * 更新角色
+ *
+ * @param req 角色实体
+ * @returns nothing
+ */
+export function updateRole(req: RoleModel) {
+  return request({
+    url: '/role',
+    method: 'put',
+    data: req
+  });
+}
+
+/**
+ * 删除角色
+ *
+ * @param id 删除ID
+ * @returns nothing
+ */
+export function deleteRole(id: string) {
+  return request({
+    url: `/role/${id}`,
+    method: 'delete'
+  });
+}
