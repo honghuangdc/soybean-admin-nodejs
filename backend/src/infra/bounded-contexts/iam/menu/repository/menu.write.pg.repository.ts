@@ -8,6 +8,12 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class MenuWritePostgresRepository implements MenuWriteRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async deleteById(id: number): Promise<void> {
+    await this.prisma.sysMenu.delete({
+      where: { id },
+    });
+  }
+
   async save(menu: Menu): Promise<void> {
     await this.prisma.sysMenu.create({
       data: { ...menu, id: undefined },

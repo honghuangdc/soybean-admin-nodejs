@@ -27,7 +27,7 @@ export class UserDeleteHandler
     }
 
     const user = new User(existingUser);
-    await this.userWriteRepository.delete(user);
+    await this.userWriteRepository.deleteById(user.id);
     await user.deleted();
     this.publisher.mergeObjectContext(user);
     user.commit();

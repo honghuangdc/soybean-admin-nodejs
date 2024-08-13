@@ -20,9 +20,9 @@ export class RoleWritePostgresRepository implements RoleWriteRepoPort {
     });
   }
 
-  async delete(role: Role): Promise<void> {
+  async deleteById(id: string): Promise<void> {
     await this.prisma.sysRole.delete({
-      where: { id: role.id },
+      where: { id },
     });
   }
 

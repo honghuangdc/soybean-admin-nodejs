@@ -5,7 +5,7 @@ export interface RoleWriteRepoPort {
 
   deleteRoleMenuByDomain(domain: string): Promise<void>;
 
-  delete(role: Role): Promise<void>;
+  deleteById(id: string): Promise<void>;
 
   save(role: Role): Promise<void>;
 

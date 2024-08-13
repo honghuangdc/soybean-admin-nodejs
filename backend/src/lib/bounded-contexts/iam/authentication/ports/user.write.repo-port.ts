@@ -7,7 +7,7 @@ export interface UserWriteRepoPort {
 
   deleteUserRoleByUserId(userId: string): Promise<void>;
 
-  delete(user: User): Promise<void>;
+  deleteById(id: string): Promise<void>;
 
   save(role: User): Promise<void>;
 

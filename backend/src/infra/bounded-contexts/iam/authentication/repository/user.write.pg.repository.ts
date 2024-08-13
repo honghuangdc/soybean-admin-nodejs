@@ -43,9 +43,9 @@ export class UserWriteRepository implements UserWriteRepoPort {
     });
   }
 
-  async delete(user: User): Promise<void> {
+  async deleteById(id: string): Promise<void> {
     await this.prisma.sysUser.delete({
-      where: { id: user.id },
+      where: { id },
     });
   }
 

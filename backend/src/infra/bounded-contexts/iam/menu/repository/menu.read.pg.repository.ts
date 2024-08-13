@@ -12,6 +12,15 @@ import { PrismaService } from '@src/shared/prisma/prisma.service';
 export class MenuReadPostgresRepository implements MenuReadRepoPort {
   constructor(private prisma: PrismaService) {}
 
+  async getChildrenMenuCount(id: number): Promise<number> {
+    return this.prisma.sysMenu.count({
+      where: {
+        // TODO 类型对齐
+        pid: String(id),
+      },
+    });
+  }
+
   async getMenuById(id: number): Promise<Readonly<MenuProperties> | null> {
     return this.prisma.sysMenu.findUnique({
       where: { id },

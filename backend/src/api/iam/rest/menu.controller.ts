@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -15,6 +16,7 @@ import { ApiRes } from '@src/infra/rest/res.response';
 import { MenuRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { MenuCreateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-create.command';
+import { MenuDeleteCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-delete.command';
 import { MenuUpdateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-update.command';
 import { MenuTreeProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
 import { MenuIdsByRoleCodeAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_code&domain.query';
@@ -74,7 +76,7 @@ export class MenuController {
         dto.routeName,
         dto.routePath,
         dto.component,
-        dto.pathParam ?? '',
+        dto.pathParam ?? null,
         dto.status,
         dto.activeMenu,
         dto.hideInMenu,
@@ -112,7 +114,7 @@ export class MenuController {
         dto.routeName,
         dto.routePath,
         dto.component,
-        dto.pathParam ?? '',
+        dto.pathParam ?? null,
         dto.status,
         dto.activeMenu,
         dto.hideInMenu,
@@ -126,6 +128,18 @@ export class MenuController {
         req.user.uid,
       ),
     );
+    return ApiRes.ok();
+  }
+
+  @Delete(':id')
+  @ApiOperation({ summary: 'Delete a Route' })
+  @ApiResponse({
+    status: 201,
+    description: 'The route has been successfully deleted.',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  async deleteUser(@Param('id') id: number): Promise<ApiRes<null>> {
+    await this.commandBus.execute(new MenuDeleteCommand(id));
     return ApiRes.ok();
   }
 

@@ -1,6 +1,8 @@
 import { MenuProperties, MenuTreeProperties } from '../domain/menu.read-model';
 
 export interface MenuReadRepoPort {
+  getChildrenMenuCount(id: number): Promise<number>;
+
   getMenuById(id: number): Promise<MenuProperties | null>;
 
   findMenusByRoleCode(

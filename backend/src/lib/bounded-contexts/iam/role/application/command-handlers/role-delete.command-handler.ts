@@ -27,7 +27,7 @@ export class RoleDeleteHandler
     }
 
     const role = Role.fromProp(existingRole);
-    await this.roleWriteRepository.delete(role);
+    await this.roleWriteRepository.deleteById(role.id);
     await role.deleted();
     this.publisher.mergeObjectContext(role);
     role.commit();

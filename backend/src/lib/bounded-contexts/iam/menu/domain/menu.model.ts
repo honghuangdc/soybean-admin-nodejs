@@ -3,8 +3,11 @@ import { MenuType, Status } from '@prisma/client';
 
 import {
   MenuCreateProperties,
+  MenuProperties,
   MenuUpdateProperties,
 } from '../domain/menu.read-model';
+
+import { MenuDeletedEvent } from './events/menu-deleted.event';
 
 export interface IMenu {
   commit(): void;
@@ -40,5 +43,13 @@ export class Menu extends AggregateRoot implements IMenu {
 
   static fromUpdate(properties: MenuUpdateProperties): Menu {
     return Object.assign(new Menu(), properties);
+  }
+
+  static fromProp(properties: MenuProperties): Menu {
+    return Object.assign(new Menu(), properties);
+  }
+
+  async deleted() {
+    this.apply(new MenuDeletedEvent(this.id, this.routeName));
   }
 }
