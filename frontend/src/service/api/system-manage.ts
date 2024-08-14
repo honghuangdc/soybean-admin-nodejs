@@ -179,3 +179,49 @@ export function deleteRoute(id: number) {
     method: 'delete'
   });
 }
+
+export type UserModel = Pick<
+  Api.SystemManage.User,
+  'username' | 'password' | 'domain' | 'nickName' | 'phoneNumber' | 'email' | 'status'
+>;
+
+/**
+ * 创建用户
+ *
+ * @param req 用户实体
+ * @returns nothing
+ */
+export function createUser(req: UserModel) {
+  return request({
+    url: '/user',
+    method: 'post',
+    data: req
+  });
+}
+
+/**
+ * 更新用户
+ *
+ * @param req 用户实体
+ * @returns nothing
+ */
+export function updateUser(req: UserModel) {
+  return request({
+    url: '/user',
+    method: 'put',
+    data: req
+  });
+}
+
+/**
+ * 删除用户
+ *
+ * @param id 删除ID
+ * @returns nothing
+ */
+export function deleteUser(id: string) {
+  return request({
+    url: `/user/${id}`,
+    method: 'delete'
+  });
+}

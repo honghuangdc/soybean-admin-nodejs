@@ -123,6 +123,12 @@ declare namespace Api {
     type User = Common.CommonRecord<{
       /** user name */
       username: string;
+      /** password */
+      password: string;
+      /** domain */
+      domain: string;
+      /** avatar */
+      avatar: string;
       /** user nick name */
       nickName: string;
       /** user phone */

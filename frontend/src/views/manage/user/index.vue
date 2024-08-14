@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import { NButton, NPopconfirm, NTag } from 'naive-ui';
-import { fetchGetUserList } from '@/service/api';
+import { NAvatar, NButton, NPopconfirm, NTag } from 'naive-ui';
+import { deleteUser, fetchGetUserList } from '@/service/api';
 import { $t } from '@/locales';
 import { useAppStore } from '@/store/modules/app';
 import { enableStatusRecord } from '@/constants/business';
@@ -51,6 +51,21 @@ const {
       title: $t('page.manage.user.userName'),
       align: 'center',
       minWidth: 100
+    },
+    {
+      key: 'domain',
+      title: 'domain',
+      align: 'center',
+      minWidth: 100
+    },
+    {
+      key: 'avatar',
+      title: 'avatar',
+      align: 'center',
+      minWidth: 80,
+      render: row => {
+        return <NAvatar size="small" src={row.avatar} />;
+      }
     },
     {
       key: 'nickName',
@@ -135,9 +150,12 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-function handleDelete(id: number) {
+async function handleDelete(id: number) {
   // request
-  console.log(id);
+  const { error } = await deleteUser(id);
+  if (error) return;
+
+  window.$message?.success($t('common.deleteSuccess'));
 
   onDeleted();
 }

@@ -272,6 +272,8 @@ const local: App.I18n.Schema = {
         userRole: '用户角色',
         form: {
           userName: '请输入用户名',
+          password: '请输入密码',
+          domain: '请输入域',
           userGender: '请选择性别',
           nickName: '请输入昵称',
           userPhone: '请输入手机号',

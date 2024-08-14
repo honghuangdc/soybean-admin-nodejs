@@ -3,6 +3,8 @@ import { computed, reactive, watch } from 'vue';
 import { useFormRules, useNaiveForm } from '@/hooks/common/form';
 import { $t } from '@/locales';
 import { enableStatusOptions } from '@/constants/business';
+import type { UserModel } from '@/service/api';
+import { createUser, updateUser } from '@/service/api';
 
 defineOptions({
   name: 'UserOperateDrawer'
@@ -38,13 +40,13 @@ const title = computed(() => {
   return titles[props.operateType];
 });
 
-type Model = Pick<Api.SystemManage.User, 'username' | 'nickName' | 'phoneNumber' | 'email' | 'status'>;
+const model: UserModel = reactive(createDefaultModel());
 
-const model: Model = reactive(createDefaultModel());
-
-function createDefaultModel(): Model {
+function createDefaultModel(): UserModel {
   return {
     username: '',
+    password: '',
+    domain: '',
     nickName: '',
     phoneNumber: '',
     email: '',
@@ -52,7 +54,7 @@ function createDefaultModel(): Model {
   };
 }
 
-type RuleKey = Extract<keyof Model, 'username' | 'status'>;
+type RuleKey = Extract<keyof UserModel, 'username' | 'status'>;
 
 const rules: Record<RuleKey, App.Global.FormRule> = {
   username: defaultRequiredRule,
@@ -98,7 +100,15 @@ function closeDrawer() {
 async function handleSubmit() {
   await validate();
   // request
-  window.$message?.success($t('common.updateSuccess'));
+  if (props.operateType === 'add') {
+    const { error } = await createUser(model);
+    if (error) return;
+    window.$message?.success($t('common.addSuccess'));
+  } else {
+    const { error } = await updateUser(model);
+    if (error) return;
+    window.$message?.success($t('common.updateSuccess'));
+  }
   closeDrawer();
   emit('submitted');
 }
@@ -118,6 +128,12 @@ watch(visible, () => {
       <NForm ref="formRef" :model="model" :rules="rules">
         <NFormItem :label="$t('page.manage.user.userName')" path="userName">
           <NInput v-model:value="model.username" :placeholder="$t('page.manage.user.form.userName')" />
+        </NFormItem>
+        <NFormItem v-if="props.operateType === 'add'" label="password" path="password">
+          <NInput v-model:value="model.password" :placeholder="$t('page.manage.user.form.password')" />
+        </NFormItem>
+        <NFormItem v-if="props.operateType === 'add'" label="domain" path="domain">
+          <NInput v-model:value="model.domain" :placeholder="$t('page.manage.user.form.domain')" />
         </NFormItem>
         <NFormItem :label="$t('page.manage.user.nickName')" path="nickName">
           <NInput v-model:value="model.nickName" :placeholder="$t('page.manage.user.form.nickName')" />
