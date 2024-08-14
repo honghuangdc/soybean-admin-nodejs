@@ -98,8 +98,6 @@ export class UserController {
       new UserUpdateCommand(
         dto.id,
         dto.username,
-        dto.password,
-        dto.domain,
         dto.nickName,
         dto.avatar,
         dto.email,

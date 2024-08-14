@@ -1,8 +1,8 @@
 import {
+  BadRequestException,
   Inject,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { EventPublisher, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
@@ -95,7 +95,7 @@ export class AuthenticationService {
     const loginResult = await userAggregate.loginUser(password);
 
     if (!loginResult.success) {
-      throw new UnauthorizedException(loginResult.message);
+      throw new BadRequestException(loginResult.message);
     }
 
     const tokens = await this.generateAccessToken(

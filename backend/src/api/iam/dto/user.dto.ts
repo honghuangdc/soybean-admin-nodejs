@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, OmitType } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
@@ -42,7 +42,10 @@ export class UserCreateDto {
   phoneNumber: string | null;
 }
 
-export class UserUpdateDto extends UserCreateDto {
+export class UserUpdateDto extends OmitType(UserCreateDto, [
+  'password',
+  'domain',
+]) {
   @ApiProperty({ required: true })
   @IsString({ message: 'id must be a string' })
   @IsNotEmpty({ message: 'id cannot be empty' })
