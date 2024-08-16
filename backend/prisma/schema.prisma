@@ -205,7 +205,7 @@ model SysMenu {
 
   activeMenu String?  @map("active_menu") @db.VarChar(64)
   hideInMenu Boolean? @default(false) @map("hide_in_menu")
-  pid        String   @default("0")
+  pid        Int      @default(0)
   order      Int      @map("sequence")
   i18nKey    String?  @map("i18n_key") @db.VarChar(64)
   keepAlive  Boolean? @default(false) @map("keep_alive")
