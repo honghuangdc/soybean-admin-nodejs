@@ -15,8 +15,7 @@ export class MenuReadPostgresRepository implements MenuReadRepoPort {
   async getChildrenMenuCount(id: number): Promise<number> {
     return this.prisma.sysMenu.count({
       where: {
-        // TODO 类型对齐
-        pid: String(id),
+        pid: id,
       },
     });
   }
@@ -57,13 +56,12 @@ export class MenuReadPostgresRepository implements MenuReadRepoPort {
     const menuIds = roleMenus.map((rm) => rm.menuId);
 
     if (menuIds.length > 0) {
-      const menus = await this.prisma.sysMenu.findMany({
+      return this.prisma.sysMenu.findMany({
         where: {
           id: { in: menuIds },
           status: Status.ENABLED,
         },
       });
-      return menus;
     }
 
     return [];

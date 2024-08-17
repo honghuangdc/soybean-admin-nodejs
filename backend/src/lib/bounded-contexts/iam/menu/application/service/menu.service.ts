@@ -3,7 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 
 import { MenuReadRepoPortToken } from '@src/lib/bounded-contexts/iam/menu/constants';
 import { MenuReadRepoPort } from '@src/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
-import { ROOT_PID } from '@src/shared/prisma/db.constant';
+import { ROOT_ROUTE_PID } from '@src/shared/prisma/db.constant';
 
 import { MenuProperties } from '../../domain/menu.read-model';
 import { MenusByRoleCodeAndDomainQuery } from '../../queries/menus.by-role_code&domain.query';
@@ -57,9 +57,9 @@ export class MenuService {
 
 function buildMenuTree(
   menus: ReadonlyArray<MenuProperties>,
-  pid = ROOT_PID,
+  pid = ROOT_ROUTE_PID,
 ): MenuRoute[] {
-  const menuMap = new Map<string, MenuProperties[]>();
+  const menuMap = new Map<number, MenuProperties[]>();
 
   menus.forEach((menu) => {
     const list = menuMap.get(menu.pid) || [];
@@ -87,6 +87,6 @@ function buildMenuTree(
       activeMenu: menu.activeMenu,
       multiTab: menu.multiTab,
     },
-    children: buildMenuTree(menus, String(menu.id)),
+    children: buildMenuTree(menus, menu.id),
   }));
 }

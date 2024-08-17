@@ -14,7 +14,7 @@ export class MenuCreateCommand implements ICommand {
     readonly status: Status,
     readonly activeMenu: string | null,
     readonly hideInMenu: boolean | null,
-    readonly pid: string,
+    readonly pid: number,
     readonly order: number,
     readonly i18nKey: string | null,
     readonly keepAlive: boolean | null,

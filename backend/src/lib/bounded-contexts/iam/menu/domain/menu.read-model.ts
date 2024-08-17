@@ -12,7 +12,7 @@ export type MenuEssentialProperties = Readonly<
     routePath: string;
     component: string;
     status: Status;
-    pid: string;
+    pid: number;
     order: number;
     constant: boolean;
   }>
@@ -75,7 +75,7 @@ export class MenuReadModel extends UpdateAuditInfo {
   status: Status;
 
   @ApiProperty({ description: 'Parent ID of the menu', example: '0' })
-  pid: string;
+  pid: number;
 
   @ApiProperty({ description: 'Order of the menu in the list', example: 1 })
   order: number;

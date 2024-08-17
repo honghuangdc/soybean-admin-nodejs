@@ -1,7 +1,7 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ROOT_PID } from '@src/shared/prisma/db.constant';
+import { ROOT_ROUTE_PID } from '@src/shared/prisma/db.constant';
 
 import { MenuCreateCommand } from '../../commands/menu-create.command';
 import { MenuReadRepoPortToken, MenuWriteRepoPortToken } from '../../constants';
@@ -20,10 +20,8 @@ export class MenuCreateHandler
   private readonly menuReadRepoPort: MenuReadRepoPort;
 
   async execute(command: MenuCreateCommand) {
-    if (command.pid !== ROOT_PID) {
-      const parentMenu = await this.menuReadRepoPort.getMenuById(
-        Number(command.pid),
-      );
+    if (command.pid !== ROOT_ROUTE_PID) {
+      const parentMenu = await this.menuReadRepoPort.getMenuById(command.pid);
 
       if (!parentMenu) {
         throw new BadRequestException(

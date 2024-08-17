@@ -17,14 +17,11 @@ export function buildTree<T extends Record<string, any>>(
   orderField?: keyof T,
 ): TreeNode<T>[] {
   const itemMap: Map<string, TreeNode<T>[]> = new Map();
-  const nodeLookup: Map<string, TreeNode<T>> = new Map();
 
   items.forEach((item) => {
     const node: TreeNode<T> = { ...item, children: [] };
     const parentId = String(item[parentIdField]);
-    const nodeId = String(item[idField]);
 
-    nodeLookup.set(nodeId, node);
     if (!itemMap.has(parentId)) {
       itemMap.set(parentId, []);
     }

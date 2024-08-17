@@ -165,7 +165,7 @@ CREATE TABLE "sys_menu" (
     "status" "Status" NOT NULL,
     "active_menu" VARCHAR(64),
     "hide_in_menu" BOOLEAN DEFAULT false,
-    "pid" TEXT NOT NULL DEFAULT '0',
+    "pid" INTEGER NOT NULL DEFAULT 0,
     "sequence" INTEGER NOT NULL,
     "i18n_key" VARCHAR(64),
     "keep_alive" BOOLEAN DEFAULT false,

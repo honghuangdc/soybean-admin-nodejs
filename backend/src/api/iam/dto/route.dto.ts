@@ -64,9 +64,9 @@ export class RouteCreateDto {
   hideInMenu: boolean | null;
 
   @ApiProperty({ required: true })
-  @IsString({ message: 'pid must be a string' })
+  @IsInt({ message: 'pid must be a integer' })
   @IsNotEmpty({ message: 'pid cannot be empty' })
-  pid: string;
+  pid: number;
 
   @ApiProperty({ required: true })
   @IsInt({ message: 'order must be an integer' })

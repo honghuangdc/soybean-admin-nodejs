@@ -1,7 +1,7 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ROOT_PID } from '@src/shared/prisma/db.constant';
+import { ROOT_ROUTE_PID } from '@src/shared/prisma/db.constant';
 
 import { MenuUpdateCommand } from '../../commands/menu-update.command';
 import { MenuReadRepoPortToken, MenuWriteRepoPortToken } from '../../constants';
@@ -20,16 +20,14 @@ export class MenuUpdateHandler
   private readonly menuReadRepoPort: MenuReadRepoPort;
 
   async execute(command: MenuUpdateCommand) {
-    if (command.pid === command.id.toString()) {
+    if (command.pid === command.id) {
       throw new BadRequestException(
         `The parent menu identifier '${command.pid}' cannot be the same as its own identifier.`,
       );
     }
 
-    if (command.pid !== ROOT_PID) {
-      const parentMenu = await this.menuReadRepoPort.getMenuById(
-        Number(command.pid),
-      );
+    if (command.pid !== ROOT_ROUTE_PID) {
+      const parentMenu = await this.menuReadRepoPort.getMenuById(command.pid);
 
       if (!parentMenu) {
         throw new BadRequestException(

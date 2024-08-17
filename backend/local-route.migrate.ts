@@ -71,12 +71,12 @@ function readRoutesFromTsFile(filePath: string): any[] {
 /**
  * 将路由对象转换为 SysMenu 数据库模型对象
  * @param {any} route - 从文件中提取的路由对象
- * @param {string} pid - 父 ID，默认为 '0' 代表顶级路由
+ * @param {number} pid - 父 ID，默认为 0 代表顶级路由
  * @returns {SysMenu} - 转换后的 SysMenu 对象，准备插入数据库
  */
 function transformRouteToSysMenu(
   route: any,
-  pid: string = '0',
+  pid: number = 0,
 ): Omit<SysMenu, 'id'> {
   const menuType =
     route.children && route.children.length > 0 ? 'directory' : 'menu';
@@ -111,13 +111,13 @@ function transformRouteToSysMenu(
 /**
  * 将路由数组递归转换，并聚合所有转换后的路由
  * @param {any[]} routes - 路由数组
- * @param {string} pid - 父级 ID，默认为 '0'
+ * @param {number} pid - 父级 ID，默认为 0
  * @param {any[]} allTransformedRoutes - 聚合所有转换后的路由
  * @returns {any[]} - 转换后的完整路由数组
  */
 function transformRoutes(
   routes: any[],
-  pid: string = '0',
+  pid: number = 0,
   allTransformedRoutes: any[] = [],
 ): any[] {
   routes.forEach((route) => {

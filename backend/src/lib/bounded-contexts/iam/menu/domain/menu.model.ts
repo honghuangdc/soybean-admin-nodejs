@@ -21,7 +21,7 @@ export class Menu extends AggregateRoot implements IMenu {
   routePath: string;
   component: string;
   status: Status;
-  pid: string;
+  pid: number;
   order: number;
   constant: boolean;
   uid: string;
