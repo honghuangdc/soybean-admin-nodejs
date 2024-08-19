@@ -71,6 +71,23 @@ services:
       timeout: 5s
       retries: 5
 
+  pgbouncer:
+    image: bitnami/pgbouncer:1.23.1
+    container_name: pgbouncer
+    hostname: pgbouncer
+    restart: always
+    environment:
+      - PGBOUNCER_DATABASE=*
+      - POSTGRESQL_USERNAME=soybean
+      - POSTGRESQL_PASSWORD=soybean@123.
+      - POSTGRESQL_DATABASE=soybean-admin-nest-backend
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_PORT=5432
+    ports:
+      - 6432:6432
+    networks:
+      - soybean-admin
+
   redis:
     image: redis/redis-stack:7.2.0-v11
     environment:
