@@ -26,7 +26,7 @@
         "src/*"
       ],
       "@config/*": [
-        "src/configs/*"
+        "src/config/*"
       ],
       "@lib": [
         "src/lib/*"
