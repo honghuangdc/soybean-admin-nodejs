@@ -124,5 +124,8 @@
       "@lib/(.*)": "<rootDir>/lib/$1",
       "@tests/(.*)": "tests/$1"
     }
+  },
+  "prisma": {
+    "seed": "ts-node -r tsconfig-paths/register prisma/seeds"
   }
 }
