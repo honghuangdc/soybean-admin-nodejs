@@ -18,7 +18,10 @@ import {
   ComplexApiKeyServiceToken,
   SimpleApiKeyServiceToken,
 } from './constants';
-import { IApiKeyService } from './services/api-key.interface';
+import {
+  IApiKeyService,
+  ValidateKeyOptions,
+} from './services/api-key.interface';
 
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
@@ -30,7 +33,7 @@ export class ApiKeyGuard implements CanActivate {
     private complexApiKeyService: IApiKeyService,
   ) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const authOptions = this.reflector.get<ApiKeyAuthOptions>(
       API_KEY_AUTH_OPTIONS,
       context.getHandler(),
@@ -48,6 +51,13 @@ export class ApiKeyGuard implements CanActivate {
         ? this.complexApiKeyService
         : this.simpleApiKeyService;
 
-    return service.validateKey(apiKey);
+    const validateOptions: ValidateKeyOptions = {
+      timestamp: request.query['timestamp'],
+      nonce: request.query['nonce'],
+      signature: request.query['signature'],
+      requestParams: { ...request.query, ...request.body },
+    };
+
+    return service.validateKey(apiKey, validateOptions);
   }
 }

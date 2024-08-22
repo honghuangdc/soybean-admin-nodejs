@@ -4,14 +4,14 @@ import Redis, { Cluster } from 'ioredis';
 import { CacheConstant } from '@src/constants/cache.constant';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
-import { IApiKeyService } from './api-key.interface';
+import { IApiKeyService, ValidateKeyOptions } from './api-key.interface';
 
 @Injectable()
 export class SimpleApiKeyService implements OnModuleInit, IApiKeyService {
   private apiKeys: Set<string> = new Set();
   private readonly redisService: Redis | Cluster;
 
-  private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}::simple-api-keys`;
+  private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}simple-api-keys`;
 
   constructor() {
     this.redisService = RedisUtility.instance;
@@ -26,8 +26,9 @@ export class SimpleApiKeyService implements OnModuleInit, IApiKeyService {
     keys.forEach((key) => this.apiKeys.add(key));
   }
 
-  validateKey(apiKey: string): boolean {
-    return this.apiKeys.has(apiKey);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async validateKey(apiKey: string, _?: ValidateKeyOptions): Promise<boolean> {
+    return Promise.resolve(this.apiKeys.has(apiKey));
   }
 
   async addKey(apiKey: string): Promise<void> {

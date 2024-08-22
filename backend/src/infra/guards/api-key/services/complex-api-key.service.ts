@@ -1,17 +1,19 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import * as crypto from 'crypto';
+
+import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
 import Redis, { Cluster } from 'ioredis';
 
 import { CacheConstant } from '@src/constants/cache.constant';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
-import { IApiKeyService } from './api-key.interface';
+import { IApiKeyService, ValidateKeyOptions } from './api-key.interface';
 
 @Injectable()
 export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
   private apiSecrets: Map<string, string> = new Map();
   private readonly redisService: Redis | Cluster;
 
-  private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}::complex-api-secrets`;
+  private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}complex-api-secrets`;
 
   constructor() {
     this.redisService = RedisUtility.instance;
@@ -28,8 +30,77 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     });
   }
 
-  validateKey(apiKey: string): boolean {
-    return this.apiSecrets.has(apiKey);
+  async validateKey(
+    apiKey: string,
+    options?: ValidateKeyOptions,
+  ): Promise<boolean> {
+    if (
+      !options ||
+      !options.timestamp ||
+      !options.nonce ||
+      !options.signature
+    ) {
+      throw new BadRequestException(
+        'Missing required fields for signature verification.',
+      );
+    }
+
+    if (!this.isValidTimestamp(options.timestamp)) {
+      throw new BadRequestException('Invalid or expired timestamp.');
+    }
+
+    if (!(await this.isValidNonce(options.nonce))) {
+      throw new BadRequestException(
+        'Nonce has already been used or is too old.',
+      );
+    }
+
+    const secret = this.apiSecrets.get(apiKey);
+    if (!secret) {
+      return false;
+    }
+
+    const params = options.requestParams ?? {};
+    const calculatedSignature = this.calculateSignature(params, secret);
+    return calculatedSignature === options.signature;
+  }
+
+  private isValidTimestamp(timestamp: string): boolean {
+    const requestTime = parseInt(timestamp);
+    const currentTime = Date.now();
+    return Math.abs(currentTime - requestTime) < 300000; //TODO config 5 minutes
+  }
+
+  private async isValidNonce(nonce: string): Promise<boolean> {
+    const key = `${CacheConstant.CACHE_PREFIX}sign::nonce:${nonce}`;
+    const exists = await this.redisService.get(key);
+    if (exists) {
+      return false;
+    }
+    await this.redisService.set(key, 'used', 'EX', 300); //TODO config Expire after 5 minutes
+    return true;
+  }
+
+  private calculateSignature(
+    params: Record<string, any>,
+    secret: string,
+  ): string {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { signature, ...paramsToSign } = params;
+
+    const sortedKeys = Object.keys(paramsToSign).sort();
+    const signingString = sortedKeys
+      .map((key) => {
+        const value = encodeURIComponent(paramsToSign[key]);
+        return `${key}=${value}`;
+      })
+      .join('&');
+    console.log(signingString, secret);
+
+    return crypto
+      .createHmac('sha256', secret)
+      .update(signingString)
+      .digest('hex');
   }
 
   async addKey(apiKey: string, secret: string): Promise<void> {
