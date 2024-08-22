@@ -21,6 +21,8 @@ import { isMainProcess } from '@src/utils/env';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
+  await RedisUtility.client();
+
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     fastifyApp,
@@ -55,8 +57,6 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await app.register(fastifyCompress);
-
-  await RedisUtility.client();
 
   await app.listen(port, '0.0.0.0', async () => {
     const url = await app.getUrl();
