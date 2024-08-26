@@ -1,8 +1,14 @@
 import * as crypto from 'crypto';
 
-import { BadRequestException, Injectable, OnModuleInit } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  OnModuleInit,
+} from '@nestjs/common';
 import Redis, { Cluster } from 'ioredis';
 
+import { ISecurityConfig, SecurityConfig } from '@src/config';
 import { CacheConstant } from '@src/constants/cache.constant';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
@@ -15,7 +21,9 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
 
   private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}complex-api-secrets`;
 
-  constructor() {
+  constructor(
+    @Inject(SecurityConfig.KEY) private securityConfig: ISecurityConfig,
+  ) {
     this.redisService = RedisUtility.instance;
   }
 
@@ -68,7 +76,10 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
   private isValidTimestamp(timestamp: string): boolean {
     const requestTime = parseInt(timestamp);
     const currentTime = Date.now();
-    return Math.abs(currentTime - requestTime) < 300000; //TODO config 5 minutes
+    return (
+      Math.abs(currentTime - requestTime) <
+      this.securityConfig.signReqTimestampDisparity
+    );
   }
 
   private async isValidNonce(nonce: string): Promise<boolean> {
@@ -77,7 +88,12 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     if (exists) {
       return false;
     }
-    await this.redisService.set(key, 'used', 'EX', 300); //TODO config Expire after 5 minutes
+    await this.redisService.set(
+      key,
+      'used',
+      'EX',
+      this.securityConfig.signReqNonceTTL,
+    );
     return true;
   }
 
@@ -95,7 +111,6 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
         return `${key}=${value}`;
       })
       .join('&');
-    console.log(signingString, secret);
 
     return crypto
       .createHmac('sha256', secret)
