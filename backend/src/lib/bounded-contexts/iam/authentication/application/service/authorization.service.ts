@@ -2,21 +2,21 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
 import { AuthZRBACService } from '@src/infra/casbin';
-import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read-model';
+import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
 import { FindEndpointsByIdsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
-import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
+import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
 import { FindDomainByCodeQuery } from '@src/lib/bounded-contexts/iam/domain/queries/domain.by-code.query';
-import { MenuProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
+import { MenuProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
 import { MenuIdsByUserIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-user_id&domain.query';
 import { MenusByIdsQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
-import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read-model';
+import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read.model';
 import { FindRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
 import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 import { RoleAssignPermissionCommand } from '../../commands/role-assign-permission.command';
 import { RoleAssignRouteCommand } from '../../commands/role-assign-route.command';
 import { RoleAssignUserCommand } from '../../commands/role-assign-user.command';
-import { UserProperties } from '../../domain/user.read-model';
+import { UserProperties } from '../../domain/user.read.model';
 import { UserIdsByRoleIdQuery } from '../../queries/user-ids.by-role_id.query';
 import { UsersByIdsQuery } from '../../queries/users.by-ids.query';
 

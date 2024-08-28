@@ -10,9 +10,6 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { AssignPermissionDto } from '@src/api/iam/dto/assign-permission.dto';
-import { AssignRouteDto } from '@src/api/iam/dto/assign-route.dto';
-import { AssignUserDto } from '@src/api/iam/dto/assign-user.dto';
 import { CacheConstant } from '@src/constants/cache.constant';
 import { AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiRes } from '@src/infra/rest/res.response';
@@ -23,6 +20,10 @@ import { RoleAssignUserCommand } from '@src/lib/bounded-contexts/iam/authenticat
 import { UserRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
+
+import { AssignPermissionDto } from '../dto/assign-permission.dto';
+import { AssignRouteDto } from '../dto/assign-route.dto';
+import { AssignUserDto } from '../dto/assign-user.dto';
 
 @UseGuards(AuthZGuard)
 @ApiTags('Authorization - Module')

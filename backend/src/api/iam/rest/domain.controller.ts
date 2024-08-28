@@ -12,8 +12,6 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { DomainCreateDto, DomainUpdateDto } from '@src/api/iam/dto/domain.dto';
-import { PageDomainsQueryDto } from '@src/api/iam/dto/page-domains-query.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { DomainCreateCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-create.command';
@@ -22,9 +20,12 @@ import { DomainUpdateCommand } from '@src/lib/bounded-contexts/iam/domain/comman
 import {
   DomainProperties,
   DomainReadModel,
-} from '@src/lib/bounded-contexts/iam/domain/domain/domain-read.model';
+} from '@src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
 import { PageDomainsQuery } from '@src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
+
+import { DomainCreateDto, DomainUpdateDto } from '../dto/domain.dto';
+import { PageDomainsDto } from '../dto/page-domains.dto';
 
 @ApiTags('Casbin Domain - Module')
 @Controller('domain')
@@ -40,7 +41,7 @@ export class DomainController {
   })
   @ApiResponseDoc({ type: DomainReadModel, isPaged: true })
   async page(
-    @Query() queryDto: PageDomainsQueryDto,
+    @Query() queryDto: PageDomainsDto,
   ): Promise<ApiRes<PaginationResult<DomainProperties>>> {
     const query = new PageDomainsQuery({
       current: queryDto.current,

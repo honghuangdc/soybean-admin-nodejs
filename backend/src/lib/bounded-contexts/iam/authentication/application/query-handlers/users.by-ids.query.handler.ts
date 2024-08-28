@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { UserReadRepoPortToken } from '../../constants';
-import { UserProperties } from '../../domain/user.read-model';
+import { UserProperties } from '../../domain/user.read.model';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 import { UsersByIdsQuery } from '../../queries/users.by-ids.query';
 

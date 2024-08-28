@@ -5,7 +5,7 @@ import {
   DomainCreateProperties,
   DomainProperties,
   DomainUpdateProperties,
-} from './domain-read.model';
+} from './domain.read.model';
 import { DomainDeletedEvent } from './events/domain-deleted.event';
 
 export interface IDomain {

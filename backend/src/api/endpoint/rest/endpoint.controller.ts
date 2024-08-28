@@ -9,7 +9,6 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { PageEndpointsQueryDto } from '@src/api/endpoint/dto/page-endpoint.query-dto';
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
@@ -18,10 +17,12 @@ import {
   EndpointProperties,
   EndpointReadModel,
   EndpointTreeProperties,
-} from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read-model';
+} from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
 import { EndpointsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.query';
 import { PageEndpointsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
+
+import { PageEndpointsQueryDto } from '../dto/page-endpoint.dto';
 
 @UseGuards(AuthZGuard)
 @ApiTags('API Endpoint - Module')

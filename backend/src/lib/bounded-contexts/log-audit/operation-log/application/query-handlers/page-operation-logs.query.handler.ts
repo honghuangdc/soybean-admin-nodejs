@@ -4,7 +4,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
 import { OperationLogReadRepoPortToken } from '../../constants';
-import { OperationLogProperties } from '../../domain/operation-log.read-model';
+import { OperationLogProperties } from '../../domain/operation-log.read.model';
 import { OperationLogReadRepoPort } from '../../ports/operation-log.read.repo-port';
 import { PageOperationLogsQuery } from '../../queries/page-operation-logs.query';
 

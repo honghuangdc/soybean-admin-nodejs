@@ -1,6 +1,6 @@
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
-import { LoginLogProperties } from '../domain/login-log.read-model';
+import { LoginLogProperties } from '../domain/login-log.read.model';
 import { PageLoginLogsQuery } from '../queries/page-login-logs.query';
 
 export interface LoginLogReadRepoPort {

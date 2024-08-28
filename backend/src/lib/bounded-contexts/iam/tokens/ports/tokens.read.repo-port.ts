@@ -1,4 +1,4 @@
-import { TokensReadModel } from '../domain/tokens.read-model';
+import { TokensReadModel } from '../domain/tokens.read.model';
 
 export interface TokensReadRepoPort {
   findTokensByRefreshToken(

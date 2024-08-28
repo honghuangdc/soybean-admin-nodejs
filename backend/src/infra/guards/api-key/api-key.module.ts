@@ -1,10 +1,10 @@
 import { Global, Module } from '@nestjs/common';
 
-import { ApiKeyGuard } from './api-key.guard';
 import {
   ComplexApiKeyServiceToken,
   SimpleApiKeyServiceToken,
-} from './constants';
+} from './api-key.constants';
+import { ApiKeyGuard } from './api-key.guard';
 import { ComplexApiKeyService } from './services/complex-api-key.service';
 import { SimpleApiKeyService } from './services/simple-api-key.service';
 

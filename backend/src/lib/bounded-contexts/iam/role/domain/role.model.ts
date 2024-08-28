@@ -1,13 +1,12 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
+import { RoleDeletedEvent } from './events/role-deleted.event';
 import {
   RoleCreateProperties,
   RoleProperties,
   RoleUpdateProperties,
-} from '../domain/role.read-model';
-
-import { RoleDeletedEvent } from './events/role-deleted.event';
+} from './role.read.model';
 
 export interface IRole {
   commit(): void;

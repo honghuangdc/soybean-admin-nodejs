@@ -17,7 +17,7 @@ import { ApiKeyAuthOptions } from '../../decorators/api-key.decorator';
 import {
   ComplexApiKeyServiceToken,
   SimpleApiKeyServiceToken,
-} from './constants';
+} from './api-key.constants';
 import {
   IApiKeyService,
   ValidateKeyOptions,

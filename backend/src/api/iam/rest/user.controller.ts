@@ -12,7 +12,6 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { UserCreateDto, UserUpdateDto } from '@src/api/iam/dto/user.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { UserCreateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-create.command';
@@ -21,11 +20,12 @@ import { UserUpdateCommand } from '@src/lib/bounded-contexts/iam/authentication/
 import {
   UserProperties,
   UserReadModel,
-} from '@src/lib/bounded-contexts/iam/authentication/domain/user.read-model';
+} from '@src/lib/bounded-contexts/iam/authentication/domain/user.read.model';
 import { PageUsersQuery } from '@src/lib/bounded-contexts/iam/authentication/queries/page-users.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
-import { PageUsersQueryDto } from '../dto/page-users.query-dto';
+import { PageUsersDto } from '../dto/page-users.dto';
+import { UserCreateDto, UserUpdateDto } from '../dto/user.dto';
 
 @ApiTags('User - Module')
 @Controller('user')
@@ -41,7 +41,7 @@ export class UserController {
   })
   @ApiResponseDoc({ type: UserReadModel, isPaged: true })
   async page(
-    @Query() queryDto: PageUsersQueryDto,
+    @Query() queryDto: PageUsersDto,
   ): Promise<ApiRes<PaginationResult<UserProperties>>> {
     const query = new PageUsersQuery({
       current: queryDto.current,

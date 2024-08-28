@@ -1,4 +1,4 @@
-import { MenuProperties, MenuTreeProperties } from '../domain/menu.read-model';
+import { MenuProperties, MenuTreeProperties } from '../domain/menu.read.model';
 
 export interface MenuReadRepoPort {
   getChildrenMenuCount(id: number): Promise<number>;

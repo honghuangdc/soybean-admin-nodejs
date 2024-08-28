@@ -4,7 +4,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
 import { DomainReadRepoPortToken } from '../../constants';
-import { DomainProperties } from '../../domain/domain-read.model';
+import { DomainProperties } from '../../domain/domain.read.model';
 import { DomainReadRepoPort } from '../../ports/domain.read.repo-port';
 import { PageDomainsQuery } from '../../queries/page-domains.query';
 

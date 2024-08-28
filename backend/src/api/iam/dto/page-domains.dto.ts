@@ -4,7 +4,7 @@ import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { PaginationParams } from '@src/infra/rest/pagination-params';
 
-export class PageDomainsQueryDto extends PaginationParams {
+export class PageDomainsDto extends PaginationParams {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString({ message: 'name must be a string' })

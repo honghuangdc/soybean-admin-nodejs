@@ -1,6 +1,6 @@
 import { Redis, Cluster } from 'ioredis';
 
-import { RedisConfig } from '@src/config/redis.configuration';
+import { RedisConfig } from '@config/redis.config';
 
 export class RedisUtility {
   static get instance(): Redis | Cluster {

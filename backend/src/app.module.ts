@@ -13,7 +13,7 @@ import { GlobalCqrsModule } from '@src/global/module/global.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';
 import { AllExceptionsFilter } from '@src/infra/filters/all-exceptions.filter';
 import { ApiKeyModule } from '@src/infra/guards/api-key/api-key.module';
-import { JwtAuthGuard } from '@src/infra/guards/jwt.auth-guard';
+import { JwtAuthGuard } from '@src/infra/guards/jwt.auth.guard';
 import { JwtStrategy } from '@src/infra/strategies/jwt.passport-strategy';
 import { SharedModule } from '@src/shared/shared.module';
 

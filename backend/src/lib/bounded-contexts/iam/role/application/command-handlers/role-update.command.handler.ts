@@ -6,7 +6,7 @@ import { ROOT_PID } from '@src/shared/prisma/db.constant';
 import { RoleUpdateCommand } from '../../commands/role-update.command';
 import { RoleReadRepoPortToken, RoleWriteRepoPortToken } from '../../constants';
 import { Role } from '../../domain/role.model';
-import { RoleUpdateProperties } from '../../domain/role.read-model';
+import { RoleUpdateProperties } from '../../domain/role.read.model';
 import { RoleReadRepoPort } from '../../ports/role.read.repo-port';
 import { RoleWriteRepoPort } from '../../ports/role.write.repo-port';
 

@@ -4,7 +4,7 @@ import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { TokenStatus, TokensWriteRepoPortToken } from '../../constants';
 import { TokenGeneratedEvent } from '../../domain/events/token-generated.event';
 import { TokensEntity } from '../../domain/tokens.entity';
-import { TokensProperties } from '../../domain/tokens.read-model';
+import { TokensProperties } from '../../domain/tokens.read.model';
 import { TokensWriteRepoPort } from '../../ports/tokens.write.repo-port';
 
 @EventsHandler(TokenGeneratedEvent)

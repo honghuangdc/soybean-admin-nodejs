@@ -8,7 +8,7 @@ import {
   UserCreateProperties,
   UserProperties,
   UserUpdateProperties,
-} from './user.read-model';
+} from './user.read.model';
 
 export interface IUser {
   verifyPassword(password: string): Promise<boolean>;

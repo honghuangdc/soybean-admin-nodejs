@@ -4,7 +4,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
 import { ApiEndpointReadRepoPortToken } from '../../constants';
-import { EndpointProperties } from '../../domain/endpoint.read-model';
+import { EndpointProperties } from '../../domain/endpoint.read.model';
 import { ApiEndpointReadRepoPort } from '../../ports/api-endpoint.read.repo-port';
 import { PageEndpointsQuery } from '../../queries/page-endpoints.query';
 

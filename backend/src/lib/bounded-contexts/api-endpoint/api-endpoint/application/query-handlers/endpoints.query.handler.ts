@@ -5,7 +5,7 @@ import { ApiEndpointReadRepoPortToken } from '../../constants';
 import {
   EndpointProperties,
   EndpointTreeProperties,
-} from '../../domain/endpoint.read-model';
+} from '../../domain/endpoint.read.model';
 import { ApiEndpointReadRepoPort } from '../../ports/api-endpoint.read.repo-port';
 import { EndpointsQuery } from '../../queries/endpoints.query';
 

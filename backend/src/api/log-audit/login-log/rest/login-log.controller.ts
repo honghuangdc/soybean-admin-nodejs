@@ -2,15 +2,16 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { PageLoginLogsQueryDto } from '@src/api/log-audit/login-log/dto/page-login-log.query-dto';
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import {
   LoginLogProperties,
   LoginLogReadModel,
-} from '@src/lib/bounded-contexts/log-audit/login-log/domain/login-log.read-model';
+} from '@src/lib/bounded-contexts/log-audit/login-log/domain/login-log.read.model';
 import { PageLoginLogsQuery } from '@src/lib/bounded-contexts/log-audit/login-log/queries/page-login-logs.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
+
+import { PageLoginLogsQueryDto } from '../dto/page-login-log.dto';
 
 @UseGuards(AuthZGuard)
 @ApiTags('Login Log - Module')

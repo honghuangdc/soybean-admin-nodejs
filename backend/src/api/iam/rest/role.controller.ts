@@ -12,7 +12,6 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { RoleCreateDto, RoleUpdateDto } from '@src/api/iam/dto/role.dto';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { RoleCreateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-create.command';
@@ -21,11 +20,12 @@ import { RoleUpdateCommand } from '@src/lib/bounded-contexts/iam/role/commands/r
 import {
   RoleProperties,
   RoleReadModel,
-} from '@src/lib/bounded-contexts/iam/role/domain/role.read-model';
+} from '@src/lib/bounded-contexts/iam/role/domain/role.read.model';
 import { PageRolesQuery } from '@src/lib/bounded-contexts/iam/role/queries/page-roles.query';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
-import { PageRolesQueryDto } from '../dto/page-roles.query-dto';
+import { PageRolesDto } from '../dto/page-roles.dto';
+import { RoleCreateDto, RoleUpdateDto } from '../dto/role.dto';
 
 @ApiTags('Role - Module')
 @Controller('role')
@@ -41,7 +41,7 @@ export class RoleController {
   })
   @ApiResponseDoc({ type: RoleReadModel, isPaged: true })
   async page(
-    @Query() queryDto: PageRolesQueryDto,
+    @Query() queryDto: PageRolesDto,
   ): Promise<ApiRes<PaginationResult<RoleProperties>>> {
     const query = new PageRolesQuery({
       current: queryDto.current,

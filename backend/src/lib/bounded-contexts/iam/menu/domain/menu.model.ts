@@ -1,13 +1,12 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { MenuType, Status } from '@prisma/client';
 
+import { MenuDeletedEvent } from './events/menu-deleted.event';
 import {
   MenuCreateProperties,
   MenuProperties,
   MenuUpdateProperties,
-} from '../domain/menu.read-model';
-
-import { MenuDeletedEvent } from './events/menu-deleted.event';
+} from './menu.read.model';
 
 export interface IMenu {
   commit(): void;

@@ -6,7 +6,7 @@ import { ROOT_ROUTE_PID } from '@src/shared/prisma/db.constant';
 import { MenuUpdateCommand } from '../../commands/menu-update.command';
 import { MenuReadRepoPortToken, MenuWriteRepoPortToken } from '../../constants';
 import { Menu } from '../../domain/menu.model';
-import { MenuUpdateProperties } from '../../domain/menu.read-model';
+import { MenuUpdateProperties } from '../../domain/menu.read.model';
 import { MenuReadRepoPort } from '../../ports/menu.read.repo-port';
 import { MenuWriteRepoPort } from '../../ports/menu.write.repo-port';
 

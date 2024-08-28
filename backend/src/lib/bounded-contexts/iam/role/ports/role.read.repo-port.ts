@@ -1,6 +1,6 @@
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
-import { RoleProperties } from '../domain/role.read-model';
+import { RoleProperties } from '../domain/role.read.model';
 import { PageRolesQuery } from '../queries/page-roles.query';
 
 export interface RoleReadRepoPort {

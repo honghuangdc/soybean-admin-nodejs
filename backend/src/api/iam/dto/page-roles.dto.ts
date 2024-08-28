@@ -4,7 +4,7 @@ import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { PaginationParams } from '@src/infra/rest/pagination-params';
 
-export class PageRolesQueryDto extends PaginationParams {
+export class PageRolesDto extends PaginationParams {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString({ message: 'code must be a string' })

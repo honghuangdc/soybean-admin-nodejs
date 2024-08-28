@@ -5,7 +5,7 @@ import { MenuReadRepoPortToken } from '@src/lib/bounded-contexts/iam/menu/consta
 import { MenuReadRepoPort } from '@src/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
 import { ROOT_ROUTE_PID } from '@src/shared/prisma/db.constant';
 
-import { MenuProperties } from '../../domain/menu.read-model';
+import { MenuProperties } from '../../domain/menu.read.model';
 import { MenusByRoleCodeAndDomainQuery } from '../../queries/menus.by-role_code&domain.query';
 import { MenuRoute, UserRoute } from '../dto/route.dto';
 

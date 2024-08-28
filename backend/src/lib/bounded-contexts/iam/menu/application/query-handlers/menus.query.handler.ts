@@ -4,7 +4,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { buildTree } from '@src/utils/tree.util';
 
 import { MenuReadRepoPortToken } from '../../constants';
-import { MenuTreeProperties } from '../../domain/menu.read-model';
+import { MenuTreeProperties } from '../../domain/menu.read.model';
 import { MenuReadRepoPort } from '../../ports/menu.read.repo-port';
 import { MenusQuery } from '../../queries/menus.query';
 

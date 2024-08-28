@@ -4,7 +4,7 @@ import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { PaginationParams } from '@src/infra/rest/pagination-params';
 
-export class PageUsersQueryDto extends PaginationParams {
+export class PageUsersDto extends PaginationParams {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString({ message: 'Username must be a string' })

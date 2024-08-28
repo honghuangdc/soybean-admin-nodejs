@@ -9,8 +9,8 @@ import {
   DomainReadRepoPortToken,
   DomainWriteRepoPortToken,
 } from '../../constants';
-import { DomainCreateProperties } from '../../domain/domain-read.model';
 import { Domain } from '../../domain/domain.model';
+import { DomainCreateProperties } from '../../domain/domain.read.model';
 import { DomainReadRepoPort } from '../../ports/domain.read.repo-port';
 import { DomainWriteRepoPort } from '../../ports/domain.write.repo-port';
 

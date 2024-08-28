@@ -4,7 +4,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
 import { RoleReadRepoPortToken } from '../../constants';
-import { RoleProperties } from '../../domain/role.read-model';
+import { RoleProperties } from '../../domain/role.read.model';
 import { RoleReadRepoPort } from '../../ports/role.read.repo-port';
 import { PageRolesQuery } from '../../queries/page-roles.query';
 

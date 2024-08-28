@@ -5,7 +5,7 @@ import { LOG_OPERATION } from '@src/constants/event-emitter-token.constant';
 
 import { OperationLogWriteRepoPortToken } from '../../constants';
 import { OperationLog } from '../../domain/operation-log.model';
-import { OperationLogProperties } from '../../domain/operation-log.read-model';
+import { OperationLogProperties } from '../../domain/operation-log.read.model';
 import { OperationLogWriteRepoPort } from '../../ports/operation-log.write.repo-port';
 
 export class OperationLogEventHandler {

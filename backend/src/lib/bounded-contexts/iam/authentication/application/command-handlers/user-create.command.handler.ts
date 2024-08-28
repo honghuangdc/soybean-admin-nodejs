@@ -8,7 +8,7 @@ import { UlidGenerator } from '@src/utils/id.util';
 import { UserCreateCommand } from '../../commands/user-create.command';
 import { UserReadRepoPortToken, UserWriteRepoPortToken } from '../../constants';
 import { User } from '../../domain/user';
-import { UserCreateProperties } from '../../domain/user.read-model';
+import { UserCreateProperties } from '../../domain/user.read.model';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 import { UserWriteRepoPort } from '../../ports/user.write.repo-port';
 

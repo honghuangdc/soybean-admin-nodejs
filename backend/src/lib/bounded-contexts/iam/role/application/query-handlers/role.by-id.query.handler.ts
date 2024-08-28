@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
 import { RoleReadRepoPortToken } from '../../constants';
-import { RoleProperties } from '../../domain/role.read-model';
+import { RoleProperties } from '../../domain/role.read.model';
 import { RoleReadRepoPort } from '../../ports/role.read.repo-port';
 import { FindRoleByIdQuery } from '../../queries/role.by-id.query';
 

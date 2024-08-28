@@ -5,7 +5,7 @@ import { Status } from '@prisma/client';
 import { UserUpdateCommand } from '../../commands/user-update.command';
 import { UserReadRepoPortToken, UserWriteRepoPortToken } from '../../constants';
 import { User } from '../../domain/user';
-import { UserUpdateProperties } from '../../domain/user.read-model';
+import { UserUpdateProperties } from '../../domain/user.read.model';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 import { UserWriteRepoPort } from '../../ports/user.write.repo-port';
 

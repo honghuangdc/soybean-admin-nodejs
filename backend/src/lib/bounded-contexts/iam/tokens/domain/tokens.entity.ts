@@ -3,7 +3,7 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { TokenStatus } from '../constants';
 
 import { RefreshTokenUsedEvent } from './events/refreshtoken-used.event';
-import { TokensProperties } from './tokens.read-model';
+import { TokensProperties } from './tokens.read.model';
 
 export interface ITokens {
   commit(): void;

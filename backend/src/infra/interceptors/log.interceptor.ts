@@ -13,7 +13,7 @@ import { tap } from 'rxjs/operators';
 import { LOG_OPERATION } from '@src/constants/event-emitter-token.constant';
 import { USER_AGENT } from '@src/constants/rest.constant';
 import { LOG_KEY } from '@src/infra/decorators/log.decorator';
-import { OperationLogProperties } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read-model';
+import { OperationLogProperties } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
 
 @Injectable()
 export class LogInterceptor implements NestInterceptor {

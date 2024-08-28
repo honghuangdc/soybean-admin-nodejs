@@ -18,7 +18,7 @@ import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/serv
 import { MenuCreateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-create.command';
 import { MenuDeleteCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-delete.command';
 import { MenuUpdateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-update.command';
-import { MenuTreeProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read-model';
+import { MenuTreeProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
 import { MenuIdsByRoleCodeAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_code&domain.query';
 import { MenusQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.query';
 

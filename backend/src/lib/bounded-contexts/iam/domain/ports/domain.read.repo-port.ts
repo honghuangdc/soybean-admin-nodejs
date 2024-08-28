@@ -1,6 +1,6 @@
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
-import { DomainProperties } from '../domain/domain-read.model';
+import { DomainProperties } from '../domain/domain.read.model';
 import { PageDomainsQuery } from '../queries/page-domains.query';
 
 export interface DomainReadRepoPort {
