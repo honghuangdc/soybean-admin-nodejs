@@ -13,11 +13,12 @@ import { TokensByRefreshTokenQuery } from '@src/lib/bounded-contexts/iam/tokens/
 
 import { TokenGeneratedEvent } from '../../../tokens/domain/events/token-generated.event';
 import { TokensEntity } from '../../../tokens/domain/tokens.entity';
-import { PasswordIdentifierDTO } from '../../application/dto/password-identifier.dto';
 import { UserReadRepoPortToken } from '../../constants';
 import { UserLoggedInEvent } from '../../domain/events/user-logged-in.event';
 import { User } from '../../domain/user';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
+import { PasswordIdentifierDTO } from '../dto/password-identifier.dto';
+import { RefreshTokenDTO } from '../dto/refresh-token.dto';
 
 @Injectable()
 export class AuthenticationService {
@@ -30,19 +31,11 @@ export class AuthenticationService {
     @Inject(SecurityConfig.KEY) private securityConfig: ISecurityConfig,
   ) {}
 
-  async refreshToken(
-    refreshToken: string,
-    ip: string,
-    region: string,
-    userAgent: string,
-    requestId: string,
-    type: string,
-    port?: number | null,
-  ) {
+  async refreshToken(dto: RefreshTokenDTO) {
     const tokenDetails = await this.queryBus.execute<
       TokensByRefreshTokenQuery,
       TokensReadModel | null
-    >(new TokensByRefreshTokenQuery(refreshToken));
+    >(new TokensByRefreshTokenQuery(dto.refreshToken));
     if (!tokenDetails) {
       throw new NotFoundException('Refresh token not found.');
     }
@@ -68,12 +61,12 @@ export class AuthenticationService {
         tokensAggregate.userId,
         tokensAggregate.username,
         tokensAggregate.domain,
-        ip,
-        region,
-        userAgent,
-        requestId,
-        type,
-        port,
+        dto.ip,
+        dto.region,
+        dto.userAgent,
+        dto.requestId,
+        dto.type,
+        dto.port,
       ),
     );
 

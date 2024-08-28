@@ -8,6 +8,7 @@ import { USER_AGENT } from '@src/constants/rest.constant';
 import { Public } from '@src/infra/decorators/public.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { PasswordIdentifierDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
+import { RefreshTokenDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/refresh-token.dto';
 import { AuthenticationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
 import { Ip2regionService } from '@src/shared/ip2region/ip2region.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
@@ -69,15 +70,16 @@ export class AuthenticationController {
       const ip2regionResult = await Ip2regionService.getSearcher().search(ip);
       region = ip2regionResult.region || region;
     } catch (_) {}
-    //TODO DTO
     const token = await this.authenticationService.refreshToken(
-      refreshToken,
-      ip,
-      region,
-      request.headers[USER_AGENT] ?? '',
-      'TODO',
-      'PC',
-      port,
+      new RefreshTokenDTO(
+        refreshToken,
+        ip,
+        region,
+        request.headers[USER_AGENT] ?? '',
+        'TODO',
+        'PC',
+        port,
+      ),
     );
     return ApiRes.success(token);
   }
