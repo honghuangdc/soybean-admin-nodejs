@@ -230,3 +230,15 @@ model SysRoleMenu {
   @@id([roleId, menuId, domain])
   @@map("sys_role_menu")
 }
+
+model SysAccessKey {
+  id              String   @id @default(cuid())
+  domain          String
+  AccessKeyID     String   @map("access_key_id")
+  AccessKeySecret String   @map("access_key_secret")
+  status          Status
+  createdAt       DateTime @default(now()) @map("created_at")
+  createdBy       String   @map("created_by")
+
+  @@map("sys_access_key")
+}

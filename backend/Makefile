@@ -23,8 +23,10 @@ deploy_migration: check_timestamp
 rollback_migration: check_timestamp
 	npx prisma migrate rollback --schema $(SCHEMA_PATH)
 
-clean:
-	rm -rf prisma/migrations/$(shell cat $(TIMESTAMP_FILE))_migration/
+rm_temp_file:
 	rm -f $(TIMESTAMP_FILE)
+
+clean: rm_temp_file
+	rm -rf prisma/migrations/$(shell cat $(TIMESTAMP_FILE))_migration/
 
 .PHONY: all generate_migration deploy_migration resolve_migration rollback_migration clean check_timestamp
