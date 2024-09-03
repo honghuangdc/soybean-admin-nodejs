@@ -5,6 +5,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { AccessKeyCreateCommand } from '@src/lib/bounded-contexts/access-key/commands/access_key-create.command';
 import { AccessKeyDeleteCommand } from '@src/lib/bounded-contexts/access-key/commands/access_key-delete.command';
+import { BUILT_IN } from '@src/shared/prisma/db.constant';
 
 import { AccessKeyCreateDto } from '../dto/access_key.dto';
 
@@ -29,7 +30,7 @@ export class AccessKeyController {
   ): Promise<ApiRes<null>> {
     await this.commandBus.execute(
       new AccessKeyCreateCommand(
-        req.user.domain,
+        req.user.domain === BUILT_IN ? dto.domain : req.user.domain,
         dto.description,
         req.user.uid,
       ),
