@@ -188,8 +188,12 @@ Authorization: Bearer {{Authentication.response.body.data.$.token}}
   "userIds": ["3"]
 }
 
-### route 🌲
+### route列表
 GET {{host}}/v1/route
+Authorization: Bearer {{Authentication.response.body.data.$.token}}
+
+### route 🌲
+GET {{host}}/v1/route/tree
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
 ### auth-route 列举指定角色已授权路由
@@ -197,8 +201,8 @@ GET {{host}}/v1/route/auth-route/ROLE_SUPER
 Content-Type: application/json
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
-### 列举endpoints接口列表
-GET {{host}}/v1/api-endpoint/endpoints
+### endpoint 🌲
+GET {{host}}/v1/api-endpoint/tree
 Authorization: Bearer {{Authentication.response.body.data.$.token}}
 
 ### 列举指定角色已授权casbin data
