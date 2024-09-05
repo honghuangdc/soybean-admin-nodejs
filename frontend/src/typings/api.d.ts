@@ -103,6 +103,12 @@ declare namespace Api {
       description: string;
     }>;
 
+    /** role menu */
+    type RoleMenu = {
+      roleId: string;
+      routeIds: number[];
+    };
+
     /** role search params */
     type RoleSearchParams = CommonType.RecordNullable<
       Pick<Api.SystemManage.Role, 'name' | 'code' | 'status'> & CommonSearchParams
@@ -219,7 +225,7 @@ declare namespace Api {
     type MenuTree = {
       id: number;
       label: string;
-      pId: number;
+      pid: number;
       children?: MenuTree[];
     };
   }

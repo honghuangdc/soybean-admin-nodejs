@@ -65,8 +65,8 @@ export function fetchGetAllPages() {
 
 /** get menu tree */
 export function fetchGetMenuTree() {
-  return request<Api.SystemManage.MenuTree[]>({
-    url: '/systemManage/getMenuTree',
+  return request<Api.SystemManage.Menu[]>({
+    url: '/route/tree',
     method: 'get'
   });
 }
@@ -114,6 +114,38 @@ export function deleteRole(id: string) {
   return request({
     url: `/role/${id}`,
     method: 'delete'
+  });
+}
+
+/**
+ * 获取角色对应菜单数组集合
+ *
+ * @param roleId 角色ID
+ * @returns 菜单数组集合
+ */
+export function fetchGetRoleMenuIds(roleId: string) {
+  return request<number[]>({
+    url: `/route/auth-route/${roleId}`,
+    method: 'get'
+  });
+}
+
+/**
+ * 角色授权菜单
+ *
+ * @param req 授权角色菜单实体
+ * @returns nothing
+ */
+export function fetchAssignRoutes(req: Api.SystemManage.RoleMenu) {
+  return request<boolean>({
+    url: '/authorization/assign-routes',
+    method: 'post',
+    data: {
+      ...req,
+      // eslint-disable-next-line no-warning-comments
+      // TODO 超级管理员主动选择 domain管理员默认自身
+      domain: 'built-in'
+    }
   });
 }
 
