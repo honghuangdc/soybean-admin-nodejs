@@ -57,11 +57,11 @@ export class EndpointController {
     return ApiRes.success(result);
   }
 
-  @Get('endpoints')
+  @Get('tree')
   @ApiOperation({
     summary: 'Endpoints',
   })
-  async endpoints() {
+  async treeEndpoint() {
     const result = await this.queryBus.execute<
       EndpointsQuery,
       EndpointTreeProperties[]

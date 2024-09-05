@@ -67,6 +67,35 @@ export class MenuReadPostgresRepository implements MenuReadRepoPort {
     return [];
   }
 
+  async findMenusByRoleId(
+    roleId: string,
+    domain: string,
+  ): Promise<Readonly<MenuProperties[]> | []> {
+    const roleMenus = await this.prisma.sysRoleMenu.findMany({
+      where: {
+        roleId: roleId,
+        domain: domain,
+      },
+      select: {
+        menuId: true,
+      },
+    });
+
+    const menuIds = roleMenus.map((rm) => rm.menuId);
+
+    if (menuIds.length > 0) {
+      return this.prisma.sysMenu.findMany({
+        where: {
+          id: { in: menuIds },
+          status: Status.ENABLED,
+          constant: false,
+        },
+      });
+    }
+
+    return [];
+  }
+
   async getConstantRoutes(): Promise<Readonly<MenuProperties[]> | []> {
     return this.prisma.sysMenu.findMany({
       where: {
@@ -78,6 +107,16 @@ export class MenuReadPostgresRepository implements MenuReadRepoPort {
 
   async findAll(): Promise<MenuTreeProperties[] | []> {
     return this.prisma.sysMenu.findMany();
+  }
+
+  async findAllConstantMenu(
+    constant: boolean,
+  ): Promise<MenuTreeProperties[] | []> {
+    return this.prisma.sysMenu.findMany({
+      where: {
+        constant: constant,
+      },
+    });
   }
 
   async findMenusByIds(ids: number[]): Promise<MenuProperties[]> {

@@ -19,8 +19,9 @@ import { MenuCreateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/m
 import { MenuDeleteCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-delete.command';
 import { MenuUpdateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-update.command';
 import { MenuTreeProperties } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
-import { MenuIdsByRoleCodeAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_code&domain.query';
+import { MenuIdsByRoleIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_id&domain.query';
 import { MenusQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.query';
+import { MenusTreeQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.tree.query';
 
 import { RouteCreateDto, RouteUpdateDto } from '../dto/route.dto';
 
@@ -53,6 +54,18 @@ export class MenuController {
       MenusQuery,
       MenuTreeProperties[]
     >(new MenusQuery());
+    return ApiRes.success(result);
+  }
+
+  @Get('tree')
+  @ApiOperation({
+    summary: 'Routes',
+  })
+  async treeRoute() {
+    const result = await this.queryBus.execute<
+      MenusTreeQuery,
+      MenuTreeProperties[]
+    >(new MenusTreeQuery());
     return ApiRes.success(result);
   }
 
@@ -143,15 +156,15 @@ export class MenuController {
     return ApiRes.ok();
   }
 
-  @Get('auth-route/:roleCode')
+  @Get('auth-route/:roleId')
   @ApiOperation({
     summary: 'Authorized Routes',
   })
-  async authRoute(@Param('roleCode') roleCode: string, @Request() req: any) {
+  async authRoute(@Param('roleId') roleId: string, @Request() req: any) {
     const result = await this.queryBus.execute<
-      MenuIdsByRoleCodeAndDomainQuery,
+      MenuIdsByRoleIdAndDomainQuery,
       number[]
-    >(new MenuIdsByRoleCodeAndDomainQuery(roleCode, req.user.domain));
+    >(new MenuIdsByRoleIdAndDomainQuery(roleId, req.user.domain));
     return ApiRes.success(result);
   }
 }

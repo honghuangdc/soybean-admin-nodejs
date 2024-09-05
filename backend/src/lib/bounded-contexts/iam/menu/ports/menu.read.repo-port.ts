@@ -10,9 +10,16 @@ export interface MenuReadRepoPort {
     domain: string,
   ): Promise<Readonly<MenuProperties[]> | []>;
 
+  findMenusByRoleId(
+    roleId: string,
+    domain: string,
+  ): Promise<Readonly<MenuProperties[]> | []>;
+
   getConstantRoutes(): Promise<Readonly<MenuProperties[]> | []>;
 
   findAll(): Promise<MenuTreeProperties[] | []>;
+
+  findAllConstantMenu(constant: boolean): Promise<MenuTreeProperties[] | []>;
 
   findMenusByIds(ids: number[]): Promise<MenuProperties[]>;
 
