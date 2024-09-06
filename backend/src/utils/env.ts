@@ -26,3 +26,11 @@ export const getEnvNumber = (key: string, defaultValue: number): number => {
   }
   return defaultValue;
 };
+
+export const getEnvArray = <T = string>(
+  key: string,
+  defaultValue: T[] = [],
+): T[] => {
+  const value = process.env[key];
+  return value === undefined ? defaultValue : (value.split(',') as T[]);
+};

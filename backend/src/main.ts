@@ -13,7 +13,7 @@ import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { useContainer } from 'class-validator';
 
 import { initDocSwagger } from '@src/bootstrap/swagger/init-doc.swagger';
-import { ConfigKeyPaths, IAppConfig } from '@src/config';
+import { ConfigKeyPaths, IAppConfig, ICorsConfig } from '@src/config';
 import { fastifyApp } from '@src/infra/adapter/fastify.adapter';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
 import { isMainProcess } from '@src/utils/env';
@@ -34,6 +34,10 @@ async function bootstrap() {
   const { port } = configService.get<IAppConfig>('app', { infer: true });
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
+
+  const corsConfig = configService.get<ICorsConfig>('cors', { infer: true });
+
+  corsConfig.enabled && app.enableCors(corsConfig.corsOptions);
 
   app.useGlobalPipes(
     new ValidationPipe({
