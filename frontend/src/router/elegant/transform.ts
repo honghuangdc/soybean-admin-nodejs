@@ -101,9 +101,6 @@ function transformElegantRouteToVueRoute(
         const singleLevelRoute: RouteRecordRaw = {
           path,
           component: layouts[layout],
-          meta: {
-            title: route.meta?.title || ''
-          },
           children: [
             {
               name,
@@ -134,6 +131,7 @@ function transformElegantRouteToVueRoute(
     console.error(`Error transforming route "${route.name}": ${error.toString()}`);
     return [];
   }
+
 
   // add redirect to child
   if (children?.length && !vueRoute.redirect) {
