@@ -11,4 +11,6 @@ export interface ApiEndpointReadRepoPort {
   findEndpointsByIds(ids: string[]): Promise<EndpointProperties[]>;
 
   findAll(): Promise<EndpointProperties[]>;
+
+  findAllPermissionApi(): Promise<EndpointProperties[]>;
 }

@@ -494,6 +494,7 @@ declare namespace App {
             editRole: string;
             menuAuth: string;
             buttonAuth: string;
+            permissionAuth: string;
           };
           user: {
             title: string;

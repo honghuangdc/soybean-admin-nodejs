@@ -94,11 +94,21 @@ const {
       minWidth: 160,
       render: row => (
         <div class="flex-center gap-8px">
-          <NButton type="primary" quaternary size="small" onClick={() => roleMenu(row.id)}>
+          <NButton
+            type="primary"
+            quaternary
+            size="small"
+            onClick={() => handleRoleAction(row.id, row.code, openMenuAuthModal)}
+          >
             {$t('page.manage.role.menuAuth')}
           </NButton>
-          <NButton type="primary" quaternary size="small" onClick={() => openApiEndpointAuthModal()}>
-            {$t('page.manage.role.buttonAuth')}
+          <NButton
+            type="primary"
+            quaternary
+            size="small"
+            onClick={() => handleRoleAction(row.id, row.code, openApiEndpointAuthModal)}
+          >
+            {$t('page.manage.role.permissionAuth')}
           </NButton>
           <NButton type="primary" ghost size="small" onClick={() => edit(row.id)}>
             {$t('common.edit')}
@@ -132,6 +142,7 @@ const {
 } = useTableOperate(data, getData);
 
 const roleId = ref<string>('-1');
+const roleCode = ref<string>('-1');
 
 async function handleBatchDelete() {
   // request
@@ -154,9 +165,10 @@ function edit(id: string) {
   handleEdit(id);
 }
 
-function roleMenu(id: string) {
+function handleRoleAction(id: string, code: string, action: () => void): void {
   roleId.value = id;
-  openMenuAuthModal();
+  roleCode.value = code;
+  action();
 }
 </script>
 
@@ -195,7 +207,7 @@ function roleMenu(id: string) {
       />
     </NCard>
     <MenuAuthModal v-model:visible="menuAuthVisible" :role-id="roleId" />
-    <ApiEndpointAuthModal v-model:visible="apiEndpointAuthVisible" :role-id="roleId" />
+    <ApiEndpointAuthModal v-model:visible="apiEndpointAuthVisible" :role-id="roleId" :role-code="roleCode" />
   </div>
 </template>
 

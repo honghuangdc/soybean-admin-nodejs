@@ -82,4 +82,23 @@ export class ApiEndpointReadRepository implements ApiEndpointReadRepoPort {
   async findAll(): Promise<EndpointProperties[]> {
     return this.prisma.sysEndpoint.findMany();
   }
+
+  async findAllPermissionApi(): Promise<EndpointProperties[]> {
+    return this.prisma.sysEndpoint.findMany({
+      where: {
+        AND: [
+          {
+            action: {
+              not: '',
+            },
+          },
+          {
+            resource: {
+              not: '',
+            },
+          },
+        ],
+      },
+    });
+  }
 }
