@@ -149,6 +149,25 @@ export function fetchAssignRoutes(req: Api.SystemManage.RoleMenu) {
   });
 }
 
+/**
+ * 角色授权API
+ *
+ * @param req 授权角色API实体
+ * @returns nothing
+ */
+export function fetchAssignPermission(req: Api.SystemManage.RolePermission) {
+  return request<boolean>({
+    url: '/authorization/assign-permission',
+    method: 'post',
+    data: {
+      ...req,
+      // eslint-disable-next-line no-warning-comments
+      // TODO 超级管理员主动选择 domain管理员默认自身
+      domain: 'built-in'
+    }
+  });
+}
+
 export type RouteModel = Pick<
   Api.SystemManage.Menu,
   | 'menuType'
@@ -256,4 +275,27 @@ export function deleteUser(id: string) {
     url: `/user/${id}`,
     method: 'delete'
   });
+}
+
+/** get api-endpoint tree */
+export function fetchGetApiEndpointTree() {
+  return request<Api.SystemManage.ApiEndpoint[]>({
+    url: '/api-endpoint/tree',
+    method: 'get'
+  });
+}
+
+/**
+ * 获取角色对应API数组集合
+ *
+ * @param roleCode 角色code
+ * @returns API数组集合
+ */
+export async function fetchGetRoleApiEndpoints(roleCode: string) {
+  const response = await request<any[]>({
+    url: `/api-endpoint/auth-api-endpoint/${roleCode}`,
+    method: 'get'
+  });
+  const casbinRules = response.data || [];
+  return casbinRules.map(item => `${item.v1}:${item.v2}`);
 }

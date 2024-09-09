@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import { computed, shallowRef } from 'vue';
+import { computed, reactive, shallowRef, watch } from 'vue';
+import type { TreeOption } from 'naive-ui';
 import { $t } from '@/locales';
+import { fetchAssignPermission, fetchGetApiEndpointTree, fetchGetRoleApiEndpoints } from '@/service/api';
 
 defineOptions({
-  name: 'ButtonAuthModal'
+  name: 'ApiEndpointAuthModal'
 });
 
 interface Props {
   /** the roleId */
   roleId: string;
+  /** the roleCode */
+  roleCode: string;
 }
 
 const props = defineProps<Props>();
@@ -17,60 +21,110 @@ const visible = defineModel<boolean>('visible', {
   default: false
 });
 
+const title = computed(() => $t('common.edit') + $t('page.manage.role.menuAuth'));
+
+/** api tree data */
+const tree = shallowRef<TreeOption[]>([]);
+
+/** tree checks */
+const checks = shallowRef<string[]>([]);
+
+/** api auth model */
+const model: Api.SystemManage.RolePermission = reactive(createDefaultModel());
+
+function createDefaultModel(): Api.SystemManage.RolePermission {
+  return {
+    roleId: props.roleId,
+    permissions: []
+  };
+}
+
+/** init api-endpoint tree */
+async function getTree() {
+  const { error, data } = await fetchGetApiEndpointTree();
+  if (!error) {
+    tree.value = data.map(recursive);
+  }
+}
+
+/** init get apiEndpointIds for roleCode, belong checks */
+async function getApiEndpointId() {
+  const data = await fetchGetRoleApiEndpoints(props.roleCode);
+  checks.value = data;
+  getTree();
+}
+
+/** recursive api-endpoint tree data, add prefix transform treeOption format */
+function recursive(item: Api.SystemManage.ApiEndpoint): TreeOption {
+  const key =
+    item.resource && item.action && item.resource.trim() && item.action.trim()
+      ? `${item.resource}:${item.action}`
+      : item.id;
+
+  let label = item.summary || item.path || item.controller;
+  label += ` (${item.method})`;
+
+  const result: TreeOption = { key, label, id: item.id };
+  if (item.children && item.children.length > 0) {
+    result.children = item.children.map(recursive);
+  }
+  return result;
+}
+
+/** submit */
+async function handleSubmit() {
+  const ids = findIdsByKeys(checks.value, tree.value);
+
+  model.permissions = ids;
+  const { error } = await fetchAssignPermission(model);
+  if (!error) {
+    window.$message?.success?.($t('common.modifySuccess'));
+    closeModal();
+  }
+}
+
+function findIdsByKeys(keys: string[], nodes: TreeOption[]): string[] {
+  const ids: string[] = [];
+  console.log(keys, nodes);
+  for (const key of keys) {
+    // 查找与 key 匹配的节点的 id
+    const found = findNodeByKey(key, nodes);
+    if (found) {
+      ids.push(found.id as string);
+    }
+  }
+  return ids;
+}
+
+function findNodeByKey(key: string, nodes: TreeOption[]): TreeOption | undefined {
+  for (const node of nodes) {
+    if (node.key === key) {
+      return node;
+    }
+    if (node.children && node.children.length > 0) {
+      const result = findNodeByKey(key, node.children);
+      if (result) {
+        return result;
+      }
+    }
+  }
+  return undefined;
+}
+
 function closeModal() {
   visible.value = false;
 }
 
-const title = computed(() => $t('common.edit') + $t('page.manage.role.buttonAuth'));
-
-type ButtonConfig = {
-  id: number;
-  label: string;
-  code: string;
-};
-
-const tree = shallowRef<ButtonConfig[]>([]);
-
-async function getAllButtons() {
-  // request
-  tree.value = [
-    { id: 1, label: 'button1', code: 'code1' },
-    { id: 2, label: 'button2', code: 'code2' },
-    { id: 3, label: 'button3', code: 'code3' },
-    { id: 4, label: 'button4', code: 'code4' },
-    { id: 5, label: 'button5', code: 'code5' },
-    { id: 6, label: 'button6', code: 'code6' },
-    { id: 7, label: 'button7', code: 'code7' },
-    { id: 8, label: 'button8', code: 'code8' },
-    { id: 9, label: 'button9', code: 'code9' },
-    { id: 10, label: 'button10', code: 'code10' }
-  ];
-}
-
-const checks = shallowRef<number[]>([]);
-
-async function getChecks() {
-  console.log(props.roleId);
-  // request
-  checks.value = [1, 2, 3, 4, 5];
-}
-
-function handleSubmit() {
-  console.log(checks.value, props.roleId);
-  // request
-
-  window.$message?.success?.($t('common.modifySuccess'));
-
-  closeModal();
-}
-
 function init() {
-  getAllButtons();
-  getChecks();
+  Object.assign(model, createDefaultModel());
+  getApiEndpointId();
 }
 
-// init
-init();
+watch(visible, val => {
+  if (val) {
+    init();
+  }
+});
 </script>
 
 <template>
@@ -78,19 +132,19 @@ init();
     <NTree
       v-model:checked-keys="checks"
       :data="tree"
-      key-field="id"
       block-line
-      checkable
       expand-on-click
+      checkable
+      cascade
       virtual-scroll
-      class="h-280px"
+      class="h-500px"
     />
     <template #footer>
       <NSpace justify="end">
-        <NButton size="small" class="mt-16px" @click="closeModal">
+        <NButton quaternary @click="closeModal">
           {{ $t('common.cancel') }}
         </NButton>
-        <NButton type="primary" size="small" class="mt-16px" @click="handleSubmit">
+        <NButton type="primary" @click="handleSubmit">
           {{ $t('common.confirm') }}
         </NButton>
       </NSpace>
