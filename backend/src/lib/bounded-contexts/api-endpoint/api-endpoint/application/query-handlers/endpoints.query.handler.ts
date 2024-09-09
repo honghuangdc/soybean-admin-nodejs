@@ -21,7 +21,7 @@ export class EndpointsQueryHandler
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _: EndpointsQuery,
   ): Promise<Readonly<EndpointTreeProperties[]> | []> {
-    const endpoints = await this.repository.findAll();
+    const endpoints = await this.repository.findAllPermissionApi();
     return this.createEndpointTree(endpoints);
   }
 
