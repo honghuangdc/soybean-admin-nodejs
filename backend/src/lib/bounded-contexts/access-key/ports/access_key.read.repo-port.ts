@@ -1,6 +1,9 @@
 import { PaginationResult } from '@src/shared/prisma/pagination';
 
-import { AccessKeyProperties } from '../domain/access_key.read.model';
+import {
+  AccessKeyProperties,
+  AccessKeyReadModel,
+} from '../domain/access_key.read.model';
 import { PageAccessKeysQuery } from '../queries/page-access_key.query';
 
 export interface AccessKeyReadRepoPort {
@@ -8,5 +11,5 @@ export interface AccessKeyReadRepoPort {
 
   pageAccessKeys(
     query: PageAccessKeysQuery,
-  ): Promise<PaginationResult<AccessKeyProperties>>;
+  ): Promise<PaginationResult<AccessKeyReadModel>>;
 }
