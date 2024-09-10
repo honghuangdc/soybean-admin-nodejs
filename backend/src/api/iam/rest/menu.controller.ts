@@ -151,7 +151,7 @@ export class MenuController {
     description: 'The route has been successfully deleted.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async deleteUser(@Param('id') id: number): Promise<ApiRes<null>> {
+  async deleteRoute(@Param('id') id: number): Promise<ApiRes<null>> {
     await this.commandBus.execute(new MenuDeleteCommand(id));
     return ApiRes.ok();
   }

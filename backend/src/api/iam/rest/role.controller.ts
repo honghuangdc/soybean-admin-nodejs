@@ -113,7 +113,7 @@ export class RoleController {
     description: 'The role has been successfully deleted.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async deleteUser(@Param('id') id: string): Promise<ApiRes<null>> {
+  async deleteRole(@Param('id') id: string): Promise<ApiRes<null>> {
     await this.commandBus.execute(new RoleDeleteCommand(id));
     return ApiRes.ok();
   }

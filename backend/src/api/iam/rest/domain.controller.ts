@@ -108,7 +108,7 @@ export class DomainController {
     description: 'The domain has been successfully deleted.',
   })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  async deleteUser(@Param('id') id: string): Promise<ApiRes<null>> {
+  async deleteDomain(@Param('id') id: string): Promise<ApiRes<null>> {
     await this.commandBus.execute(new DomainDeleteCommand(id));
     return ApiRes.ok();
   }
