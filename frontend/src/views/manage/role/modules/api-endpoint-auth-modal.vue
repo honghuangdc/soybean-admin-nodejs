@@ -85,7 +85,6 @@ async function handleSubmit() {
 
 function findIdsByKeys(keys: string[], nodes: TreeOption[]): string[] {
   const ids: string[] = [];
-  console.log(keys, nodes);
   for (const key of keys) {
     // 查找与 key 匹配的节点的 id
     const found = findNodeByKey(key, nodes);
