@@ -4,6 +4,7 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
+import { ApiRes } from '@src/infra/rest/res.response';
 import {
   LoginLogProperties,
   LoginLogReadModel,
@@ -27,7 +28,7 @@ export class LoginLogController {
   @ApiResponseDoc({ type: LoginLogReadModel, isPaged: true })
   async page(
     @Query() queryDto: PageLoginLogsQueryDto,
-  ): Promise<PaginationResult<LoginLogProperties>> {
+  ): Promise<ApiRes<PaginationResult<LoginLogProperties>>> {
     const query = new PageLoginLogsQuery({
       current: queryDto.current,
       size: queryDto.size,
@@ -36,9 +37,11 @@ export class LoginLogController {
       address: queryDto.address,
       type: queryDto.type,
     });
-    return this.queryBus.execute<
+    const result = await this.queryBus.execute<
       PageLoginLogsQuery,
       PaginationResult<LoginLogProperties>
     >(query);
+
+    return ApiRes.success(result);
   }
 }
