@@ -6,42 +6,67 @@ export const initSysRoleMenu = async () => {
   const data: Prisma.SysRoleMenuCreateInput[] = [
     {
       roleId: '1',
-      menuId: 5,
+      menuId: 50,
       domain: 'built-in',
     },
     {
       roleId: '1',
-      menuId: 7,
+      menuId: 54,
       domain: 'built-in',
     },
     {
       roleId: '1',
-      menuId: 8,
+      menuId: 62,
       domain: 'built-in',
     },
     {
       roleId: '1',
-      menuId: 9,
+      menuId: 63,
       domain: 'built-in',
     },
     {
       roleId: '1',
-      menuId: 10,
+      menuId: 64,
       domain: 'built-in',
     },
     {
       roleId: '1',
-      menuId: 11,
+      menuId: 65,
       domain: 'built-in',
     },
     {
       roleId: '2',
-      menuId: 5,
+      menuId: 50,
+      domain: 'built-in',
+    },
+    {
+      roleId: '2',
+      menuId: 62,
       domain: 'built-in',
     },
     {
       roleId: '3',
-      menuId: 5,
+      menuId: 50,
+      domain: 'built-in',
+    },
+    {
+      roleId: '1',
+      menuId: 51,
+      domain: 'built-in',
+    },
+    {
+      roleId: '1',
+      menuId: 52,
+      domain: 'built-in',
+    },
+    {
+      roleId: '1',
+      menuId: 71,
+      domain: 'built-in',
+    },
+    {
+      roleId: '1',
+      menuId: 72,
       domain: 'built-in',
     },
   ];
