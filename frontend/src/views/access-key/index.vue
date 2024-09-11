@@ -129,10 +129,7 @@ async function handleDelete(id: string) {
   // request
   const { error } = await deleteAccessKey(id);
   if (error) return;
-
-  window.$message?.success($t('common.deleteSuccess'));
-
-  onDeleted();
+  await onDeleted();
 }
 
 function edit(id: string) {

@@ -49,9 +49,8 @@ async function getTree() {
 
 /** init get apiEndpointIds for roleCode, belong checks */
 async function getApiEndpointId() {
-  const data = await fetchGetRoleApiEndpoints(props.roleCode);
-  checks.value = data;
-  getTree();
+  checks.value = await fetchGetRoleApiEndpoints(props.roleCode);
+  await getTree();
 }
 
 /** recursive api-endpoint tree data, add prefix transform treeOption format */
@@ -73,9 +72,7 @@ function recursive(item: Api.SystemManage.ApiEndpoint): TreeOption {
 
 /** submit */
 async function handleSubmit() {
-  const ids = findIdsByKeys(checks.value, tree.value);
-
-  model.permissions = ids;
+  model.permissions = findIdsByKeys(checks.value, tree.value);
   const { error } = await fetchAssignPermission(model);
   if (!error) {
     window.$message?.success?.($t('common.modifySuccess'));

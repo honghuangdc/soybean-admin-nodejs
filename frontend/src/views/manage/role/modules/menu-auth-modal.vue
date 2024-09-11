@@ -50,7 +50,7 @@ async function getMenuId() {
   const { error, data } = await fetchGetRoleMenuIds(props.roleId);
   if (!error) {
     checks.value = data;
-    getTree();
+    await getTree();
   }
 }
 

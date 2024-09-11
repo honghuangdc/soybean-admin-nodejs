@@ -150,17 +150,14 @@ async function handleBatchDelete() {
   onBatchDeleted();
 }
 
-async function handleDelete(id: number) {
+async function handleDelete(id: string) {
   // request
   const { error } = await deleteUser(id);
   if (error) return;
-
-  window.$message?.success($t('common.deleteSuccess'));
-
-  onDeleted();
+  await onDeleted();
 }
 
-function edit(id: number) {
+function edit(id: string) {
   handleEdit(id);
 }
 </script>

@@ -190,9 +190,6 @@ async function handleDelete(id: number) {
   // request
   const { error } = await deleteRoute(id);
   if (error) return;
-
-  window.$message?.success($t('common.deleteSuccess'));
-
   await onDeleted();
 }
 

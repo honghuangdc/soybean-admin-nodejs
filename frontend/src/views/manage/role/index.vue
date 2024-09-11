@@ -155,9 +155,6 @@ async function handleDelete(id: string) {
   // request
   const { error } = await deleteRole(id);
   if (error) return;
-
-  window.$message?.success($t('common.deleteSuccess'));
-
   await onDeleted();
 }
 
