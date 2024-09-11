@@ -159,7 +159,11 @@ const local: App.I18n.Schema = {
     manage_user: 'User Manage',
     'manage_user-detail': 'User Detail',
     manage_role: 'Role Manage',
-    manage_menu: 'Menu Manage'
+    manage_menu: 'Menu Manage',
+    'access-key': 'AccessKey',
+    log: 'Log',
+    log_login: 'Login Log',
+    log_operation: 'Operation Log'
   },
   page: {
     login: {
@@ -273,6 +277,8 @@ const local: App.I18n.Schema = {
         userRole: 'User Role',
         form: {
           userName: 'Please enter user name',
+          password: 'Please enter password',
+          domain: 'Please enter domain',
           userGender: 'Please select gender',
           nickName: 'Please enter nick name',
           userPhone: 'Please enter phone number',
