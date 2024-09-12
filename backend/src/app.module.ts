@@ -1,11 +1,12 @@
+import { ThrottlerStorageRedisService } from '@nest-lab/throttler-storage-redis';
 import { ExecutionContext, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { TerminusModule } from '@nestjs/terminus';
-import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule, ThrottlerStorage } from '@nestjs/throttler';
+import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage-record.interface';
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
-import { ThrottlerStorageRedisService } from 'nestjs-throttler-storage-redis';
 
 import { ApiModule } from '@src/api/api.module';
 import { BootstrapModule } from '@src/bootstrap/bootstrap.module';
@@ -31,6 +32,17 @@ import config, {
 } from './config';
 
 const strategies = [JwtStrategy];
+
+// 原nestjs-throttler-storage-redis废弃,迁移至@nest-lab/throttler-storage-redis
+// https://github.com/kkoomen/nestjs-throttler-storage-redis
+// https://github.com/jmcdo29/nest-lab/tree/main/packages/throttler-storage-redis
+class ThrottlerStorageAdapter implements ThrottlerStorage {
+  constructor(private storageService: ThrottlerStorageRedisService) {}
+
+  async increment(key: string, ttl: number): Promise<ThrottlerStorageRecord> {
+    return this.storageService.increment(key, ttl, 10, 60, 'default');
+  }
+}
 
 @Module({
   imports: [
@@ -93,15 +105,14 @@ const strategies = [JwtStrategy];
           );
         }
 
+        const storageAdapter = new ThrottlerStorageAdapter(
+          throttlerStorageRedisService,
+        );
+
         return {
           errorMessage: errorMessage,
-          throttlers: [
-            {
-              ttl: ttl,
-              limit: limit,
-            },
-          ],
-          storage: throttlerStorageRedisService,
+          throttlers: [{ ttl, limit }],
+          storage: storageAdapter,
         };
       },
     }),
