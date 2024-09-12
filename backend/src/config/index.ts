@@ -1,4 +1,5 @@
 import { AppConfig, IAppConfig, appConfigToken } from './app.config';
+import { CorsConfig, corsRegToken, ICorsConfig } from './cors.config';
 import { RedisConfig, IRedisConfig, redisRegToken } from './redis.config';
 import {
   SecurityConfig,
@@ -15,12 +16,14 @@ export * from './app.config';
 export * from './redis.config';
 export * from './security.config';
 export * from './throttler.config';
+export * from './cors.config';
 
 export interface AllConfigType {
   [appConfigToken]: IAppConfig;
   [redisRegToken]: IRedisConfig;
   [securityRegToken]: ISecurityConfig;
   [throttlerConfigToken]: IThrottlerConfig;
+  [corsRegToken]: ICorsConfig;
 }
 
 export type ConfigKeyPaths = RecordNamePaths<AllConfigType>;
@@ -30,4 +33,5 @@ export default {
   RedisConfig,
   SecurityConfig,
   ThrottlerConfig,
+  CorsConfig,
 };
