@@ -52,6 +52,9 @@ export class ApiKeyGuard implements CanActivate {
         : this.simpleApiKeyService;
 
     const validateOptions: ValidateKeyOptions = {
+      algorithm: request.query['Algorithm'],
+      algorithmVersion: request.query['AlgorithmVersion'],
+      apiVersion: request.query['ApiVersion'],
       timestamp: request.query['timestamp'],
       nonce: request.query['nonce'],
       signature: request.query['signature'],

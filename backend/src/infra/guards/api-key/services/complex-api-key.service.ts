@@ -1,16 +1,17 @@
-import * as crypto from 'crypto';
-
 import {
   BadRequestException,
   Inject,
   Injectable,
   OnModuleInit,
 } from '@nestjs/common';
+import CryptoJS from 'crypto-js';
 import Redis, { Cluster } from 'ioredis';
 
 import { ISecurityConfig, SecurityConfig } from '@src/config';
 import { CacheConstant } from '@src/constants/cache.constant';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
+
+import { SignatureAlgorithm } from '../api-key.signature.algorithm';
 
 import { IApiKeyService, ValidateKeyOptions } from './api-key.interface';
 
@@ -38,26 +39,46 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     });
   }
 
+  private algorithmHandlers: {
+    [key in SignatureAlgorithm]: (data: string, secret: string) => string;
+  } = {
+    [SignatureAlgorithm.MD5]: (data, secret) =>
+      CryptoJS.MD5(data + `&key=${secret}`).toString(),
+    [SignatureAlgorithm.SHA1]: (data, secret) =>
+      CryptoJS.SHA1(data + `&key=${secret}`).toString(),
+    [SignatureAlgorithm.SHA256]: (data, secret) =>
+      CryptoJS.SHA256(data + `&key=${secret}`).toString(),
+    [SignatureAlgorithm.HMAC_SHA256]: (data, secret) =>
+      CryptoJS.HmacSHA256(data, secret).toString(),
+  };
+
   async validateKey(
     apiKey: string,
-    options?: ValidateKeyOptions,
+    options: ValidateKeyOptions,
   ): Promise<boolean> {
-    if (
-      !options ||
-      !options.timestamp ||
-      !options.nonce ||
-      !options.signature
-    ) {
+    const { timestamp, nonce, signature, algorithm } = options;
+
+    if (!algorithm) {
+      throw new BadRequestException(
+        'Algorithm is required for signature verification.',
+      );
+    }
+
+    if (!Object.values(SignatureAlgorithm).includes(algorithm)) {
+      throw new BadRequestException(`Unsupported algorithm: ${algorithm}`);
+    }
+
+    if (!timestamp || !nonce || !signature) {
       throw new BadRequestException(
         'Missing required fields for signature verification.',
       );
     }
 
-    if (!this.isValidTimestamp(options.timestamp)) {
+    if (!this.isValidTimestamp(timestamp)) {
       throw new BadRequestException('Invalid or expired timestamp.');
     }
 
-    if (!(await this.isValidNonce(options.nonce))) {
+    if (!(await this.isValidNonce(nonce))) {
       throw new BadRequestException(
         'Nonce has already been used or is too old.',
       );
@@ -69,8 +90,19 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     }
 
     const params = options.requestParams ?? {};
-    const calculatedSignature = this.calculateSignature(params, secret);
-    return calculatedSignature === options.signature;
+
+    // Ensure Algorithm, AlgorithmVersion, ApiVersion are included in params
+    params['Algorithm'] = algorithm;
+    params['AlgorithmVersion'] = options.algorithmVersion || 'v1';
+    params['ApiVersion'] = options.apiVersion || 'v1';
+
+    const calculatedSignature = this.calculateSignature(
+      params,
+      secret,
+      algorithm,
+    );
+
+    return calculatedSignature === signature;
   }
 
   private isValidTimestamp(timestamp: string): boolean {
@@ -100,11 +132,16 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
   private calculateSignature(
     params: Record<string, any>,
     secret: string,
+    algorithm: SignatureAlgorithm,
   ): string {
+    // Exclude the 'signature' parameter from the params
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { signature, ...paramsToSign } = params;
 
+    // Sort the keys
     const sortedKeys = Object.keys(paramsToSign).sort();
+
+    // Build the signing string
     const signingString = sortedKeys
       .map((key) => {
         const value = encodeURIComponent(paramsToSign[key]);
@@ -112,10 +149,12 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
       })
       .join('&');
 
-    return crypto
-      .createHmac('sha256', secret)
-      .update(signingString)
-      .digest('hex');
+    const handler = this.algorithmHandlers[algorithm];
+    if (!handler) {
+      throw new Error(`Unsupported algorithm: ${algorithm}`);
+    }
+
+    return handler(signingString, secret);
   }
 
   async addKey(apiKey: string, secret: string): Promise<void> {

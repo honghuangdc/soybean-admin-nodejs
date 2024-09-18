@@ -108,7 +108,7 @@ export class AppController {
   @Public()
   @ApiKeyAuth({
     strategy: ApiKeyAuthStrategy.SignedRequest,
-    keyName: 'api-key',
+    keyName: 'AccessKeyId',
   })
   @UseGuards(ApiKeyGuard)
   async apiKeyAndSecret() {
