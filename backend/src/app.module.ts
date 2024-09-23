@@ -19,6 +19,7 @@ import config, {
   throttlerConfigToken,
 } from '@app/config';
 import { GlobalCqrsModule } from '@app/global/global.module';
+import { SharedModule } from '@app/global/shared.module';
 
 import { ApiModule } from '@src/api/api.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';
@@ -26,7 +27,6 @@ import { AllExceptionsFilter } from '@src/infra/filters/all-exceptions.filter';
 import { ApiKeyModule } from '@src/infra/guards/api-key/api-key.module';
 import { JwtAuthGuard } from '@src/infra/guards/jwt.auth.guard';
 import { JwtStrategy } from '@src/infra/strategies/jwt.passport-strategy';
-import { SharedModule } from '@src/shared/shared.module';
 
 //nest init
 import { AppController } from './app.controller';
