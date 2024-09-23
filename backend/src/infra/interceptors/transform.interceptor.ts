@@ -13,7 +13,8 @@ import { catchError, map, timeout } from 'rxjs/operators';
 import {
   RESPONSE_SUCCESS_CODE,
   RESPONSE_SUCCESS_MSG,
-} from '@src/constants/rest.constant';
+} from '@app/constants/rest.constant';
+
 import { BYPASS_TRANSFORM_KEY } from '@src/infra/decorators/bypass-transform.decorator';
 
 @Injectable()

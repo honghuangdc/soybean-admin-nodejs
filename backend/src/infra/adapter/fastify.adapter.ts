@@ -2,7 +2,7 @@ import fastifyMultipart from '@fastify/multipart';
 import { Logger } from '@nestjs/common';
 import { FastifyAdapter } from '@nestjs/platform-fastify';
 
-import { USER_AGENT } from '@src/constants/rest.constant';
+import { USER_AGENT } from '@app/constants/rest.constant';
 
 const app: FastifyAdapter = new FastifyAdapter({
   logger: false,

@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   RESPONSE_SUCCESS_CODE,
   RESPONSE_SUCCESS_MSG,
-} from '@src/constants/rest.constant';
+} from '@app/constants/rest.constant';
 
 export class ApiRes<T> {
   @ApiProperty({ type: 'object', description: 'data' })

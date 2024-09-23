@@ -2,8 +2,9 @@ import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
+import { UlidGenerator } from '@app/utils/id.util';
+
 import { Password } from '@src/lib/bounded-contexts/iam/authentication/domain/password.value-object';
-import { UlidGenerator } from '@src/utils/id.util';
 
 import { UserCreateCommand } from '../../commands/user-create.command';
 import { UserReadRepoPortToken, UserWriteRepoPortToken } from '../../constants';

@@ -3,8 +3,10 @@ import { CommandBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FastifyRequest } from 'fastify';
 
-import { CacheConstant } from '@src/constants/cache.constant';
-import { USER_AGENT } from '@src/constants/rest.constant';
+import { CacheConstant } from '@app/constants/cache.constant';
+import { USER_AGENT } from '@app/constants/rest.constant';
+import { getClientIpAndPort } from '@app/utils/ip.util';
+
 import { Public } from '@src/infra/decorators/public.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { PasswordIdentifierDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
@@ -12,7 +14,6 @@ import { RefreshTokenDTO } from '@src/lib/bounded-contexts/iam/authentication/ap
 import { AuthenticationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
 import { Ip2regionService } from '@src/shared/ip2region/ip2region.service';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
-import { getClientIpAndPort } from '@src/utils/ip.util';
 
 import { PasswordLoginDto } from '../dto/password-login.dto';
 

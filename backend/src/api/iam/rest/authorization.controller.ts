@@ -10,7 +10,8 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { CacheConstant } from '@src/constants/cache.constant';
+import { CacheConstant } from '@app/constants/cache.constant';
+
 import { AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { AuthorizationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authorization.service';

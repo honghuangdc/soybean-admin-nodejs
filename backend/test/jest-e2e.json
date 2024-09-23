@@ -9,5 +9,21 @@
   "testRegex": ".e2e-spec.ts$",
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
+  },
+  "moduleNameMapper": {
+    "@app/bootstrap/(.*)": "<rootDir>/../libs/bootstrap/src/$1",
+    "@app/bootstrap": "<rootDir>/../libs/bootstrap/src",
+    "@app/utils/(.*)": "<rootDir>/../libs/utils/src/$1",
+    "@app/utils": "<rootDir>/../libs/utils/src",
+    "@app/typings/(.*)": "<rootDir>/../libs/typings/src/$1",
+    "@app/typings": "<rootDir>/../libs/typings/src",
+    "@app/shared/(.*)": "<rootDir>/../libs/shared/src/$1",
+    "@app/shared": "<rootDir>/../libs/shared/src",
+    "@app/global/(.*)": "<rootDir>/../libs/global/src/$1",
+    "@app/global": "<rootDir>/../libs/global/src",
+    "@app/constants/(.*)": "<rootDir>/../libs/constants/src/$1",
+    "@app/constants": "<rootDir>/../libs/constants/src",
+    "@app/config/(.*)": "<rootDir>/../libs/config/src/$1",
+    "@app/config": "<rootDir>/../libs/config/src"
   }
 }

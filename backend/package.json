@@ -11,7 +11,7 @@
   "license": "MIT",
   "scripts": {
     "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name auto",
     "prisma:update": "prisma migrate dev --name auto && prisma generate",
@@ -21,7 +21,7 @@
     "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/src/main",
     "pm2:start:prod": "cross-env NODE_ENV=production pm2 start ecosystem.config.js",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" \"libs/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
@@ -109,7 +109,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
+    "rootDir": ".",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
@@ -117,14 +117,25 @@
     "collectCoverageFrom": [
       "**/*.(t|j)s"
     ],
-    "coverageDirectory": "../coverage",
+    "coverageDirectory": "./coverage",
     "testEnvironment": "node",
     "moduleNameMapper": {
       "@src/(.*)": "<rootDir>/$1",
       "@config/(.*)": "<rootDir>/config/$1",
       "@lib/(.*)": "<rootDir>/lib/$1",
-      "@tests/(.*)": "tests/$1"
-    }
+      "@tests/(.*)": "tests/$1",
+      "^@app/bootstrap(|/.*)$": "<rootDir>/libs/bootstrap/src/$1",
+      "^@app/utils(|/.*)$": "<rootDir>/libs/utils/src/$1",
+      "^@app/typings(|/.*)$": "<rootDir>/libs/typings/src/$1",
+      "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1",
+      "^@app/global(|/.*)$": "<rootDir>/libs/global/src/$1",
+      "^@app/constants(|/.*)$": "<rootDir>/libs/constants/src/$1",
+      "^@app/config(|/.*)$": "<rootDir>/libs/config/src/$1"
+    },
+    "roots": [
+      "<rootDir>/src/",
+      "<rootDir>/libs/"
+    ]
   },
   "prisma": {
     "seed": "ts-node -r tsconfig-paths/register prisma/seeds"

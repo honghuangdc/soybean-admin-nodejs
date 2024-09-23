@@ -8,9 +8,19 @@ import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
 
+import { BootstrapModule } from '@app/bootstrap/bootstrap.module';
+import config, {
+  ConfigKeyPaths,
+  IRedisConfig,
+  ISecurityConfig,
+  IThrottlerConfig,
+  redisRegToken,
+  securityRegToken,
+  throttlerConfigToken,
+} from '@app/config';
+import { GlobalCqrsModule } from '@app/global/global.module';
+
 import { ApiModule } from '@src/api/api.module';
-import { BootstrapModule } from '@src/bootstrap/bootstrap.module';
-import { GlobalCqrsModule } from '@src/global/module/global.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';
 import { AllExceptionsFilter } from '@src/infra/filters/all-exceptions.filter';
 import { ApiKeyModule } from '@src/infra/guards/api-key/api-key.module';
@@ -21,15 +31,6 @@ import { SharedModule } from '@src/shared/shared.module';
 //nest init
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import config, {
-  ConfigKeyPaths,
-  IRedisConfig,
-  ISecurityConfig,
-  IThrottlerConfig,
-  redisRegToken,
-  securityRegToken,
-  throttlerConfigToken,
-} from './config';
 
 const strategies = [JwtStrategy];
 

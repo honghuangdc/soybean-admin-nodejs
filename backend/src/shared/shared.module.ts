@@ -7,7 +7,7 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
 import * as yaml from 'js-yaml';
 
-import { isDevEnvironment } from '@src/utils/env';
+import { isDevEnvironment } from '@app/utils/env';
 
 import { CacheManagerModule } from './cache-manager/cache-manager.module';
 import { Ip2regionModule } from './ip2region/ip2region.module';

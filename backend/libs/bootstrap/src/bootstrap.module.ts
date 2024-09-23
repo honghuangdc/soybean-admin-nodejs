@@ -1,6 +1,6 @@
 import { Module, Global } from '@nestjs/common';
 
-import { ApiDataService } from '.';
+import { ApiDataService } from './index';
 
 @Global()
 @Module({

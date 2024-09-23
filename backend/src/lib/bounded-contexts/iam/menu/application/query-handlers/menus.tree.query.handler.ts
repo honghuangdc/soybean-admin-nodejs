@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { buildTree } from '@src/utils/tree.util';
+import { buildTree } from '@app/utils/tree.util';
 
 import { MenuReadRepoPortToken } from '../../constants';
 import { MenuTreeProperties } from '../../domain/menu.read.model';

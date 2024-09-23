@@ -4,7 +4,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { redisStore } from 'cache-manager-ioredis-yet';
 import { RedisOptions } from 'ioredis';
 
-import { ConfigKeyPaths, IRedisConfig, redisRegToken } from '@src/config';
+import { ConfigKeyPaths, IRedisConfig, redisRegToken } from '@app/config';
 
 @Module({
   imports: [

@@ -1,6 +1,6 @@
 import { ConfigType, registerAs } from '@nestjs/config';
 
-import { getEnvBoolean, getEnvNumber, getEnvString } from '@src/utils/env';
+import { getEnvBoolean, getEnvNumber, getEnvString } from '@app/utils/env';
 
 export const appConfigToken = 'app';
 

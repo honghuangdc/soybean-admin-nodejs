@@ -8,7 +8,8 @@ import {
 import { Reflector } from '@nestjs/core';
 import * as casbin from 'casbin';
 
-import { CacheConstant } from '@src/constants/cache.constant';
+import { CacheConstant } from '@app/constants/cache.constant';
+
 import {
   AUTHZ_ENFORCER,
   AUTHZ_MODULE_OPTIONS,

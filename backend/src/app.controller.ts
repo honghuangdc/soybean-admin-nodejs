@@ -9,16 +9,17 @@ import {
 } from '@nestjs/terminus';
 
 import {
+  ApiKeyAuthSource,
+  ApiKeyAuthStrategy,
+} from '@app/constants/api-key.constant';
+
+import {
   ComplexApiKeyServiceToken,
   SimpleApiKeyServiceToken,
 } from '@src/infra/guards/api-key/api-key.constants';
 import { IApiKeyService } from '@src/infra/guards/api-key/services/api-key.interface';
 
 import { AppService } from './app.service';
-import {
-  ApiKeyAuthSource,
-  ApiKeyAuthStrategy,
-} from './constants/api-key.constant';
 import { ApiKeyAuth } from './infra/decorators/api-key.decorator';
 import { BypassTransform } from './infra/decorators/bypass-transform.decorator';
 import { Public } from './infra/decorators/public.decorator';

@@ -4,7 +4,7 @@ import {
   API_KEY_AUTH_OPTIONS,
   ApiKeyAuthSource,
   ApiKeyAuthStrategy,
-} from '@src/constants/api-key.constant';
+} from '@app/constants/api-key.constant';
 
 export interface ApiKeyAuthOptions {
   strategy: ApiKeyAuthStrategy;

@@ -10,8 +10,9 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { LOG_OPERATION } from '@src/constants/event-emitter-token.constant';
-import { USER_AGENT } from '@src/constants/rest.constant';
+import { LOG_OPERATION } from '@app/constants/event-emitter-token.constant';
+import { USER_AGENT } from '@app/constants/rest.constant';
+
 import { LOG_KEY } from '@src/infra/decorators/log.decorator';
 import { OperationLogProperties } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
 

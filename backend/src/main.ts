@@ -12,11 +12,12 @@ import { NestFactory } from '@nestjs/core';
 import { NestFastifyApplication } from '@nestjs/platform-fastify';
 import { useContainer } from 'class-validator';
 
-import { initDocSwagger } from '@src/bootstrap/swagger/init-doc.swagger';
-import { ConfigKeyPaths, IAppConfig, ICorsConfig } from '@src/config';
+import { initDocSwagger } from '@app/bootstrap/swagger/init-doc.swagger';
+import { ConfigKeyPaths, IAppConfig, ICorsConfig } from '@app/config';
+import { isMainProcess } from '@app/utils/env';
+
 import { fastifyApp } from '@src/infra/adapter/fastify.adapter';
 import { RedisUtility } from '@src/shared/redis/services/redis.util';
-import { isMainProcess } from '@src/utils/env';
 
 import { AppModule } from './app.module';
 
