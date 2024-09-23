@@ -1,7 +1,7 @@
 import { IQuery } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
-import { PaginationParams } from '@src/shared/prisma/pagination';
+import { PaginationParams } from '@app/shared/prisma/pagination';
 
 export class PageRolesQuery extends PaginationParams implements IQuery {
   readonly code?: string;

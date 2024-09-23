@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Status } from '@prisma/client';
 
-import { UpdateAuditInfo } from '@src/shared/prisma/db.constant';
+import { UpdateAuditInfo } from '@app/shared/prisma/db.constant';
 
 export type UserEssentialProperties = Readonly<
   Required<{

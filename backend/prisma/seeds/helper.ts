@@ -1,3 +1,3 @@
-import { PrismaService } from '@src/shared/prisma/prisma.service';
+import { PrismaService } from '@app/shared/prisma/prisma.service';
 
 export const prisma = new PrismaService();

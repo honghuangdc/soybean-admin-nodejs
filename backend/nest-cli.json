@@ -12,9 +12,12 @@
       {
         "include": "**/*.yaml",
         "outDir": "./dist/src"
+      },
+      {
+        "include": "**/*.xdb",
+        "outDir": "./dist/src"
       }
-    ],
-    "webpack": true
+    ]
   },
   "projects": {
     "bootstrap": {
@@ -78,6 +81,51 @@
       "sourceRoot": "libs/config/src",
       "compilerOptions": {
         "tsConfigPath": "libs/config/tsconfig.lib.json"
+      }
+    },
+    "shared/redis": {
+      "type": "library",
+      "root": "libs/shared/redis",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/redis/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/redis/tsconfig.lib.json"
+      }
+    },
+    "shared/prisma": {
+      "type": "library",
+      "root": "libs/shared/prisma",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/prisma/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/prisma/tsconfig.lib.json"
+      }
+    },
+    "shared/oss": {
+      "type": "library",
+      "root": "libs/shared/oss",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/oss/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/oss/tsconfig.lib.json"
+      }
+    },
+    "shared/ip2region": {
+      "type": "library",
+      "root": "libs/shared/ip2region",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/ip2region/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/ip2region/tsconfig.lib.json"
+      }
+    },
+    "shared/errors": {
+      "type": "library",
+      "root": "libs/shared/errors",
+      "entryFile": "index",
+      "sourceRoot": "libs/shared/errors/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/shared/errors/tsconfig.lib.json"
       }
     }
   }

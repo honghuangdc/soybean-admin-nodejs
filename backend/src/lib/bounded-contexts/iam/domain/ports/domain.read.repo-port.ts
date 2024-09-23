@@ -1,4 +1,4 @@
-import { PaginationResult } from '@src/shared/prisma/pagination';
+import { PaginationResult } from '@app/shared/prisma/pagination';
 
 import { DomainProperties } from '../domain/domain.read.model';
 import { PageDomainsQuery } from '../queries/page-domains.query';

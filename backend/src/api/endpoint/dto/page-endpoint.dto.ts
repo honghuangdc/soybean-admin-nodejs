@@ -24,7 +24,7 @@ export class PageEndpointsQueryDto extends PaginationParams {
 
   @ApiProperty({ required: false })
   @IsOptional()
-  @IsString({ message: 'resource must be a string' })
-  @IsNotEmpty({ message: 'resource cannot be empty' })
+  @IsString({ message: 'resources must be a string' })
+  @IsNotEmpty({ message: 'resources cannot be empty' })
   resource?: string;
 }

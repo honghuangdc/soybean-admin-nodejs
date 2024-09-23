@@ -11,7 +11,7 @@ import {
   BizException,
   ErrorCode,
   ErrorMessages,
-} from '@src/shared/errors/error-code.enum';
+} from '@app/shared/errors/error-code.enum';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

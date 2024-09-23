@@ -24,6 +24,16 @@
     "@app/constants/(.*)": "<rootDir>/../libs/constants/src/$1",
     "@app/constants": "<rootDir>/../libs/constants/src",
     "@app/config/(.*)": "<rootDir>/../libs/config/src/$1",
-    "@app/config": "<rootDir>/../libs/config/src"
+    "@app/config": "<rootDir>/../libs/config/src",
+    "@app/shared/redis/(.*)": "<rootDir>/../libs/shared/redis/src/$1",
+    "@app/shared/redis": "<rootDir>/../libs/shared/redis/src",
+    "@app/shared/prisma/(.*)": "<rootDir>/../libs/shared/prisma/src/$1",
+    "@app/shared/prisma": "<rootDir>/../libs/shared/prisma/src",
+    "@app/shared/oss/(.*)": "<rootDir>/../libs/shared/oss/src/$1",
+    "@app/shared/oss": "<rootDir>/../libs/shared/oss/src",
+    "@app/shared/ip2region/(.*)": "<rootDir>/../libs/shared/ip2region/src/$1",
+    "@app/shared/ip2region": "<rootDir>/../libs/shared/ip2region/src",
+    "@app/shared/errors/(.*)": "<rootDir>/../libs/shared/errors/src/$1",
+    "@app/shared/errors": "<rootDir>/../libs/shared/errors/src"
   }
 }

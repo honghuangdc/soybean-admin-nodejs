@@ -5,6 +5,8 @@ import { FastifyRequest } from 'fastify';
 
 import { CacheConstant } from '@app/constants/cache.constant';
 import { USER_AGENT } from '@app/constants/rest.constant';
+import { Ip2regionService } from '@app/shared/ip2region/ip2region.service';
+import { RedisUtility } from '@app/shared/redis/redis.util';
 import { getClientIpAndPort } from '@app/utils/ip.util';
 
 import { Public } from '@src/infra/decorators/public.decorator';
@@ -12,8 +14,6 @@ import { ApiRes } from '@src/infra/rest/res.response';
 import { PasswordIdentifierDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
 import { RefreshTokenDTO } from '@src/lib/bounded-contexts/iam/authentication/application/dto/refresh-token.dto';
 import { AuthenticationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
-import { Ip2regionService } from '@src/shared/ip2region/ip2region.service';
-import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
 import { PasswordLoginDto } from '../dto/password-login.dto';
 

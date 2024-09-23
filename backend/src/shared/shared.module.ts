@@ -7,12 +7,12 @@ import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ScheduleModule } from '@nestjs/schedule';
 import * as yaml from 'js-yaml';
 
+import { Ip2regionModule } from '@app/shared/ip2region/ip2region.module';
+import { OssModule } from '@app/shared/oss/oss.module';
+import { PrismaModule } from '@app/shared/prisma/prisma.module';
 import { isDevEnvironment } from '@app/utils/env';
 
 import { CacheManagerModule } from './cache-manager/cache-manager.module';
-import { Ip2regionModule } from './ip2region/ip2region.module';
-import { OssModule } from './oss/oss.module';
-import { PrismaModule } from './prisma/prisma.module';
 
 @Global()
 @Module({
@@ -22,14 +22,14 @@ import { PrismaModule } from './prisma/prisma.module';
         async () =>
           yaml.load(
             fs.readFileSync(
-              `${isDevEnvironment ? '' : './dist/'}src/shared/oss/oss.config.yaml`,
+              `${isDevEnvironment ? '' : './dist/'}src/resources/oss.config.yaml`,
               'utf8',
             ),
           ),
         async () =>
           yaml.load(
             fs.readFileSync(
-              `${isDevEnvironment ? '' : './dist/'}src/shared/ip2region/ip2region.config.yaml`,
+              `${isDevEnvironment ? '' : './dist/'}src/resources/ip2region.config.yaml`,
               'utf8',
             ),
           ),

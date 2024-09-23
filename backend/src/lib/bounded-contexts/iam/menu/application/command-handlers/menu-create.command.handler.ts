@@ -1,7 +1,7 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ROOT_ROUTE_PID } from '@src/shared/prisma/db.constant';
+import { ROOT_ROUTE_PID } from '@app/shared/prisma/db.constant';
 
 import { MenuCreateCommand } from '../../commands/menu-create.command';
 import { MenuReadRepoPortToken, MenuWriteRepoPortToken } from '../../constants';

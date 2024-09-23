@@ -1,7 +1,7 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ROOT_PID } from '@src/shared/prisma/db.constant';
+import { ROOT_PID } from '@app/shared/prisma/db.constant';
 
 import { RoleUpdateCommand } from '../../commands/role-update.command';
 import { RoleReadRepoPortToken, RoleWriteRepoPortToken } from '../../constants';

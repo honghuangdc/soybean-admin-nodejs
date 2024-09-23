@@ -75,6 +75,36 @@
       ],
       "@app/config/*": [
         "libs/config/src/*"
+      ],
+      "@app/shared/redis": [
+        "libs/shared/redis/src"
+      ],
+      "@app/shared/redis/*": [
+        "libs/shared/redis/src/*"
+      ],
+      "@app/shared/prisma": [
+        "libs/shared/prisma/src"
+      ],
+      "@app/shared/prisma/*": [
+        "libs/shared/prisma/src/*"
+      ],
+      "@app/shared/oss": [
+        "libs/shared/oss/src"
+      ],
+      "@app/shared/oss/*": [
+        "libs/shared/oss/src/*"
+      ],
+      "@app/shared/ip2region": [
+        "libs/shared/ip2region/src"
+      ],
+      "@app/shared/ip2region/*": [
+        "libs/shared/ip2region/src/*"
+      ],
+      "@app/shared/errors": [
+        "libs/shared/errors/src"
+      ],
+      "@app/shared/errors/*": [
+        "libs/shared/errors/src/*"
       ]
     },
     "resolveJsonModule": true

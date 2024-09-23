@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
+import { PrismaService } from '@app/shared/prisma/prisma.service';
+
 import { Domain } from '@src/lib/bounded-contexts/iam/domain/domain/domain.model';
 import { DomainWriteRepoPort } from '@src/lib/bounded-contexts/iam/domain/ports/domain.write.repo-port';
-import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
 export class DomainWriteRepository implements DomainWriteRepoPort {

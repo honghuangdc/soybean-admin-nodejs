@@ -3,9 +3,9 @@ import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
 import { ISecurityConfig, SecurityConfig } from '@app/config';
 import { CacheConstant } from '@app/constants/cache.constant';
+import { RedisUtility } from '@app/shared/redis/redis.util';
 
 import { UserLoggedInEvent } from '@src/lib/bounded-contexts/iam/authentication/domain/events/user-logged-in.event';
-import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
 import { RoleReadRepoPortToken } from '../../constants';
 import { RoleReadRepoPort } from '../../ports/role.read.repo-port';

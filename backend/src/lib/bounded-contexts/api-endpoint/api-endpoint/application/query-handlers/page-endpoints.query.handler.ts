@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { PaginationResult } from '@src/shared/prisma/pagination';
+import { PaginationResult } from '@app/shared/prisma/pagination';
 
 import { ApiEndpointReadRepoPortToken } from '../../constants';
 import { EndpointProperties } from '../../domain/endpoint.read.model';

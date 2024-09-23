@@ -12,6 +12,7 @@ import {
   ApiKeyAuthSource,
   ApiKeyAuthStrategy,
 } from '@app/constants/api-key.constant';
+import { PrismaService } from '@app/shared/prisma/prisma.service';
 
 import {
   ComplexApiKeyServiceToken,
@@ -25,7 +26,6 @@ import { BypassTransform } from './infra/decorators/bypass-transform.decorator';
 import { Public } from './infra/decorators/public.decorator';
 import { ApiKeyGuard } from './infra/guards/api-key/api-key.guard';
 import { ApiRes } from './infra/rest/res.response';
-import { PrismaService } from './shared/prisma/prisma.service';
 
 @Controller()
 export class AppController {

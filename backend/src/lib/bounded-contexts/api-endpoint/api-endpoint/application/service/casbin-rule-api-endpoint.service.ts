@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@src/shared/prisma/prisma.service';
+import { PrismaService } from '@app/shared/prisma/prisma.service';
 
 @Injectable()
 export class CasbinRuleApiEndpointService {

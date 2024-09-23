@@ -9,13 +9,13 @@ import { Reflector } from '@nestjs/core';
 import * as casbin from 'casbin';
 
 import { CacheConstant } from '@app/constants/cache.constant';
+import { RedisUtility } from '@app/shared/redis/redis.util';
 
 import {
   AUTHZ_ENFORCER,
   AUTHZ_MODULE_OPTIONS,
   PERMISSIONS_METADATA,
 } from '@src/infra/casbin/constants/authz.constants';
-import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
 import { AuthZModuleOptions, Permission } from '../interfaces';
 

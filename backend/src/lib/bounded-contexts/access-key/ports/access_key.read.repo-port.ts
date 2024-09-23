@@ -1,4 +1,4 @@
-import { PaginationResult } from '@src/shared/prisma/pagination';
+import { PaginationResult } from '@app/shared/prisma/pagination';
 
 import {
   AccessKeyProperties,

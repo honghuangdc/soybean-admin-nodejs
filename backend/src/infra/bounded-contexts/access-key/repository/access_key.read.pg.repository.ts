@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
+import { PaginationResult } from '@app/shared/prisma/pagination';
+import { PrismaService } from '@app/shared/prisma/prisma.service';
+
 import {
   AccessKeyProperties,
   AccessKeyReadModel,
 } from '@src/lib/bounded-contexts/access-key/domain/access_key.read.model';
 import { AccessKeyReadRepoPort } from '@src/lib/bounded-contexts/access-key/ports/access_key.read.repo-port';
 import { PageAccessKeysQuery } from '@src/lib/bounded-contexts/access-key/queries/page-access_key.query';
-import { PaginationResult } from '@src/shared/prisma/pagination';
-import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
 export class AccessKeyReadPostgresRepository implements AccessKeyReadRepoPort {

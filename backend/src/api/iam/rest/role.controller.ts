@@ -12,6 +12,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+import { PaginationResult } from '@app/shared/prisma/pagination';
+
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { RoleCreateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-create.command';
@@ -22,7 +24,6 @@ import {
   RoleReadModel,
 } from '@src/lib/bounded-contexts/iam/role/domain/role.read.model';
 import { PageRolesQuery } from '@src/lib/bounded-contexts/iam/role/queries/page-roles.query';
-import { PaginationResult } from '@src/shared/prisma/pagination';
 
 import { PageRolesDto } from '../dto/page-roles.dto';
 import { RoleCreateDto, RoleUpdateDto } from '../dto/role.dto';

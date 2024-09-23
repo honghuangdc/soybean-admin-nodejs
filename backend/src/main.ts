@@ -14,10 +14,10 @@ import { useContainer } from 'class-validator';
 
 import { initDocSwagger } from '@app/bootstrap/swagger/init-doc.swagger';
 import { ConfigKeyPaths, IAppConfig, ICorsConfig } from '@app/config';
+import { RedisUtility } from '@app/shared/redis/redis.util';
 import { isMainProcess } from '@app/utils/env';
 
 import { fastifyApp } from '@src/infra/adapter/fastify.adapter';
-import { RedisUtility } from '@src/shared/redis/services/redis.util';
 
 import { AppModule } from './app.module';
 

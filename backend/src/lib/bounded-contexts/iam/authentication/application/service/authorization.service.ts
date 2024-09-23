@@ -1,6 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
+import { PrismaService } from '@app/shared/prisma/prisma.service';
+
 import { AuthZRBACService } from '@src/infra/casbin';
 import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
 import { FindEndpointsByIdsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
@@ -11,7 +13,6 @@ import { MenuIdsByUserIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/men
 import { MenusByIdsQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
 import { RoleProperties } from '@src/lib/bounded-contexts/iam/role/domain/role.read.model';
 import { FindRoleByIdQuery } from '@src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
-import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 import { RoleAssignPermissionCommand } from '../../commands/role-assign-permission.command';
 import { RoleAssignRouteCommand } from '../../commands/role-assign-route.command';

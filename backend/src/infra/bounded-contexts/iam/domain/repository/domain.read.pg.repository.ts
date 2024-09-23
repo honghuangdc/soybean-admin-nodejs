@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
+import { PaginationResult } from '@app/shared/prisma/pagination';
+import { PrismaService } from '@app/shared/prisma/prisma.service';
+
 import { DomainProperties } from '@src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
 import { DomainReadRepoPort } from '@src/lib/bounded-contexts/iam/domain/ports/domain.read.repo-port';
 import { PageDomainsQuery } from '@src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
-import { PaginationResult } from '@src/shared/prisma/pagination';
-import { PrismaService } from '@src/shared/prisma/prisma.service';
 
 @Injectable()
 export class DomainReadRepository implements DomainReadRepoPort {
