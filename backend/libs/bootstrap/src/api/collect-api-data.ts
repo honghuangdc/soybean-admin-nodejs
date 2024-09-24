@@ -11,14 +11,14 @@ import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { Module } from '@nestjs/core/injector/module';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-import { API_ENDPOINT } from '@app/constants/event-emitter-token.constant';
+import { API_ENDPOINT } from '@lib/constants/event-emitter-token.constant';
 import {
   FUNCTION,
   METHOD,
   PATH,
   SWAGGER_API_OPERATION,
-} from '@app/constants/rest.constant';
-import { isMainCluster } from '@app/utils/env';
+} from '@lib/constants/rest.constant';
+import { isMainCluster } from '@lib/utils/env';
 
 import { Permission, PERMISSIONS_METADATA } from '@src/infra/casbin';
 import { ApiEndpoint } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/api-endpoint.model';

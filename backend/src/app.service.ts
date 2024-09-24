@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as si from 'systeminformation';
 
-import { RedisUtility } from '@app/shared/redis/redis.util';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 @Injectable()
 export class AppService {

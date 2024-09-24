@@ -34,76 +34,76 @@
       "@tests/*": [
         "tests/*"
       ],
-      "@app/bootstrap": [
+      "@lib/bootstrap": [
         "libs/bootstrap/src"
       ],
-      "@app/bootstrap/*": [
+      "@lib/bootstrap/*": [
         "libs/bootstrap/src/*"
       ],
-      "@app/utils": [
+      "@lib/utils": [
         "libs/utils/src"
       ],
-      "@app/utils/*": [
+      "@lib/utils/*": [
         "libs/utils/src/*"
       ],
-      "@app/typings": [
+      "@lib/typings": [
         "libs/typings/src"
       ],
-      "@app/typings/*": [
+      "@lib/typings/*": [
         "libs/typings/src/*"
       ],
-      "@app/shared": [
+      "@lib/shared": [
         "libs/shared/src"
       ],
-      "@app/shared/*": [
+      "@lib/shared/*": [
         "libs/shared/src/*"
       ],
-      "@app/global": [
+      "@lib/global": [
         "libs/global/src"
       ],
-      "@app/global/*": [
+      "@lib/global/*": [
         "libs/global/src/*"
       ],
-      "@app/constants": [
+      "@lib/constants": [
         "libs/constants/src"
       ],
-      "@app/constants/*": [
+      "@lib/constants/*": [
         "libs/constants/src/*"
       ],
-      "@app/config": [
+      "@lib/config": [
         "libs/config/src"
       ],
-      "@app/config/*": [
+      "@lib/config/*": [
         "libs/config/src/*"
       ],
-      "@app/shared/redis": [
+      "@lib/shared/redis": [
         "libs/shared/redis/src"
       ],
-      "@app/shared/redis/*": [
+      "@lib/shared/redis/*": [
         "libs/shared/redis/src/*"
       ],
-      "@app/shared/prisma": [
+      "@lib/shared/prisma": [
         "libs/shared/prisma/src"
       ],
-      "@app/shared/prisma/*": [
+      "@lib/shared/prisma/*": [
         "libs/shared/prisma/src/*"
       ],
-      "@app/shared/oss": [
+      "@lib/shared/oss": [
         "libs/shared/oss/src"
       ],
-      "@app/shared/oss/*": [
+      "@lib/shared/oss/*": [
         "libs/shared/oss/src/*"
       ],
-      "@app/shared/ip2region": [
+      "@lib/shared/ip2region": [
         "libs/shared/ip2region/src"
       ],
-      "@app/shared/ip2region/*": [
+      "@lib/shared/ip2region/*": [
         "libs/shared/ip2region/src/*"
       ],
-      "@app/shared/errors": [
+      "@lib/shared/errors": [
         "libs/shared/errors/src"
       ],
-      "@app/shared/errors/*": [
+      "@lib/shared/errors/*": [
         "libs/shared/errors/src/*"
       ]
     },

@@ -5,7 +5,7 @@ import {
   getEnvBoolean,
   getEnvNumber,
   getEnvString,
-} from '@app/utils/env';
+} from '@lib/utils/env';
 
 export const corsRegToken = 'cors';
 

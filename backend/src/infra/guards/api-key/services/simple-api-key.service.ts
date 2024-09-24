@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import Redis, { Cluster } from 'ioredis';
 
-import { CacheConstant } from '@app/constants/cache.constant';
-import { RedisUtility } from '@app/shared/redis/redis.util';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 import { IApiKeyService, ValidateKeyOptions } from './api-key.interface';
 

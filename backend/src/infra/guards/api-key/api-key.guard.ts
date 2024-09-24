@@ -10,7 +10,7 @@ import {
   API_KEY_AUTH_OPTIONS,
   ApiKeyAuthSource,
   ApiKeyAuthStrategy,
-} from '@app/constants/api-key.constant';
+} from '@lib/constants/api-key.constant';
 
 import { ApiKeyAuthOptions } from '../../decorators/api-key.decorator';
 

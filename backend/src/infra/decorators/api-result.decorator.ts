@@ -4,7 +4,7 @@ import { ApiExtraModels, ApiResponse, getSchemaPath } from '@nestjs/swagger';
 import {
   RESPONSE_SUCCESS_CODE,
   RESPONSE_SUCCESS_MSG,
-} from '@app/constants/rest.constant';
+} from '@lib/constants/rest.constant';
 
 export function ApiResponseDoc<T extends new (...args: any[]) => any>({
   type,

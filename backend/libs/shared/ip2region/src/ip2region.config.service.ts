@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { isDevEnvironment } from '@app/utils/env';
+import { isDevEnvironment } from '@lib/utils/env';
 
 import { Ip2RegionConfig } from './ip2region.config.interface';
 

@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { CacheConstant } from '@app/constants/cache.constant';
-import { RedisUtility } from '@app/shared/redis/redis.util';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 import { AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiRes } from '@src/infra/rest/res.response';

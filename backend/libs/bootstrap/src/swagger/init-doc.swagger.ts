@@ -4,7 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import chalk from 'chalk';
 import gradient from 'gradient-string';
 
-import { appConfigToken, ConfigKeyPaths, IAppConfig } from '@app/config';
+import { appConfigToken, ConfigKeyPaths, IAppConfig } from '@lib/config';
 
 import { ApiRes } from '@src/infra/rest/res.response';
 

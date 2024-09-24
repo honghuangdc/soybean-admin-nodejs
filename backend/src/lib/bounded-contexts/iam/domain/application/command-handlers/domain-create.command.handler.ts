@@ -2,7 +2,7 @@ import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
-import { UlidGenerator } from '@app/utils/id.util';
+import { UlidGenerator } from '@lib/utils/id.util';
 
 import { DomainCreateCommand } from '../../commands/domain-create.command';
 import {

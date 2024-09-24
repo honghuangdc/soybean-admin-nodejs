@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 
-import { PaginationResult } from '@app/shared/prisma/pagination';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { RoleReadRepoPortToken } from '../../constants';
 import { RoleProperties } from '../../domain/role.read.model';

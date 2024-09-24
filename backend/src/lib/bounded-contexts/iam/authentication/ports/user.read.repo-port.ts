@@ -1,4 +1,4 @@
-import { PaginationResult } from '@app/shared/prisma/pagination';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { UserProperties } from '../domain/user.read.model';
 import { PageUsersQuery } from '../queries/page-users.query';

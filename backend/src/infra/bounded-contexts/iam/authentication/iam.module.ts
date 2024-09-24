@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
-import { ConfigKeyPaths, ISecurityConfig, securityRegToken } from '@app/config';
+import { ConfigKeyPaths, ISecurityConfig, securityRegToken } from '@lib/config';
 
 import { AuthenticationModule } from '@src/lib/bounded-contexts/iam/authentication/authentication.module';
 import {

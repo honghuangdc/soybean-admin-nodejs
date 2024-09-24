@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { OnEvent } from '@nestjs/event-emitter';
 
-import { API_ENDPOINT } from '@app/constants/event-emitter-token.constant';
+import { API_ENDPOINT } from '@lib/constants/event-emitter-token.constant';
 
 import { ApiEndpointWriteRepoPortToken } from '../../constants';
 import { ApiEndpoint } from '../../domain/api-endpoint.model';

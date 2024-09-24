@@ -8,8 +8,8 @@ import {
 import { Reflector } from '@nestjs/core';
 import * as casbin from 'casbin';
 
-import { CacheConstant } from '@app/constants/cache.constant';
-import { RedisUtility } from '@app/shared/redis/redis.util';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 import {
   AUTHZ_ENFORCER,

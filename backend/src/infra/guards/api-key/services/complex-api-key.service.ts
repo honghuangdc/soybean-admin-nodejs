@@ -7,9 +7,9 @@ import {
 import CryptoJS from 'crypto-js';
 import Redis, { Cluster } from 'ioredis';
 
-import { ISecurityConfig, SecurityConfig } from '@app/config';
-import { CacheConstant } from '@app/constants/cache.constant';
-import { RedisUtility } from '@app/shared/redis/redis.util';
+import { ISecurityConfig, SecurityConfig } from '@lib/config';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 import { SignatureAlgorithm } from '../api-key.signature.algorithm';
 

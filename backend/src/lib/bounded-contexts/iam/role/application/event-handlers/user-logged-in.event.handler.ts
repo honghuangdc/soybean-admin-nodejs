@@ -1,9 +1,9 @@
 import { Inject } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
-import { ISecurityConfig, SecurityConfig } from '@app/config';
-import { CacheConstant } from '@app/constants/cache.constant';
-import { RedisUtility } from '@app/shared/redis/redis.util';
+import { ISecurityConfig, SecurityConfig } from '@lib/config';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 import { UserLoggedInEvent } from '@src/lib/bounded-contexts/iam/authentication/domain/events/user-logged-in.event';
 

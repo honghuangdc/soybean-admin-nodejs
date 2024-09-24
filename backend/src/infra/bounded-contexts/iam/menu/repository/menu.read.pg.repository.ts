@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Status } from '@prisma/client';
 
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import {
   MenuProperties,

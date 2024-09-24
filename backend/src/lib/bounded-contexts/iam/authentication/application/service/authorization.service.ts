@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import { AuthZRBACService } from '@src/infra/casbin';
 import { EndpointProperties } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';

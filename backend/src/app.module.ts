@@ -8,7 +8,7 @@ import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
 
-import { BootstrapModule } from '@app/bootstrap/bootstrap.module';
+import { BootstrapModule } from '@lib/bootstrap/bootstrap.module';
 import config, {
   ConfigKeyPaths,
   IRedisConfig,
@@ -17,9 +17,9 @@ import config, {
   redisRegToken,
   securityRegToken,
   throttlerConfigToken,
-} from '@app/config';
-import { GlobalCqrsModule } from '@app/global/global.module';
-import { SharedModule } from '@app/global/shared.module';
+} from '@lib/config';
+import { GlobalCqrsModule } from '@lib/global/global.module';
+import { SharedModule } from '@lib/global/shared.module';
 
 import { ApiModule } from '@src/api/api.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import { User } from '@src/lib/bounded-contexts/iam/authentication/domain/user';
 import { UserWriteRepoPort } from '@src/lib/bounded-contexts/iam/authentication/ports/user.write.repo-port';

@@ -2,7 +2,7 @@ import { Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
-import { UlidGenerator } from '@app/utils/id.util';
+import { UlidGenerator } from '@lib/utils/id.util';
 
 import { AccessKeyCreateCommand } from '../../commands/access_key-create.command';
 import { AccessKeyWriteRepoPortToken } from '../../constants';

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PaginationResult } from '@app/shared/prisma/pagination';
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import { UserProperties } from '@src/lib/bounded-contexts/iam/authentication/domain/user.read.model';
 import { UserReadRepoPort } from '@src/lib/bounded-contexts/iam/authentication/ports/user.read.repo-port';

@@ -8,7 +8,7 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { PaginationResult } from '@app/shared/prisma/pagination';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';

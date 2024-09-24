@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Status, MenuType } from '@prisma/client';
 
-import { UpdateAuditInfo } from '@app/shared/prisma/db.constant';
+import { UpdateAuditInfo } from '@lib/shared/prisma/db.constant';
 
 export type MenuEssentialProperties = Readonly<
   Required<{

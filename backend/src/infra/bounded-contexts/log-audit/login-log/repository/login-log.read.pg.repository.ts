@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { PaginationResult } from '@app/shared/prisma/pagination';
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import { LoginLogProperties } from '@src/lib/bounded-contexts/log-audit/login-log/domain/login-log.read.model';
 import { LoginLogReadRepoPort } from '@src/lib/bounded-contexts/log-audit/login-log/ports/login-log.read.repo-port';

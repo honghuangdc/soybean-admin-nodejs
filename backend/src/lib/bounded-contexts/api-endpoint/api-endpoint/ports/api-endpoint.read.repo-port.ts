@@ -1,4 +1,4 @@
-import { PaginationResult } from '@app/shared/prisma/pagination';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { EndpointProperties } from '../domain/endpoint.read.model';
 import { PageEndpointsQuery } from '../queries/page-endpoints.query';

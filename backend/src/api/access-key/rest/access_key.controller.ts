@@ -11,8 +11,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { BUILT_IN } from '@app/shared/prisma/db.constant';
-import { PaginationResult } from '@app/shared/prisma/pagination';
+import { BUILT_IN } from '@lib/shared/prisma/db.constant';
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';

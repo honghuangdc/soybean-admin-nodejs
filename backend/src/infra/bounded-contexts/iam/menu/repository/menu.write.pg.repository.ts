@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import { Menu } from '@src/lib/bounded-contexts/iam/menu/domain/menu.model';
 import { MenuWriteRepoPort } from '@src/lib/bounded-contexts/iam/menu/ports/menu.write.repo-port';

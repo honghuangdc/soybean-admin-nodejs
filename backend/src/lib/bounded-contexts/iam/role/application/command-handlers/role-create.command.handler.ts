@@ -1,8 +1,8 @@
 import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 
-import { ROOT_PID } from '@app/shared/prisma/db.constant';
-import { UlidGenerator } from '@app/utils/id.util';
+import { ROOT_PID } from '@lib/shared/prisma/db.constant';
+import { UlidGenerator } from '@lib/utils/id.util';
 
 import { RoleCreateCommand } from '../../commands/role-create.command';
 import { RoleReadRepoPortToken, RoleWriteRepoPortToken } from '../../constants';

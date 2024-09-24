@@ -11,8 +11,8 @@ import {
 import {
   ApiKeyAuthSource,
   ApiKeyAuthStrategy,
-} from '@app/constants/api-key.constant';
-import { PrismaService } from '@app/shared/prisma/prisma.service';
+} from '@lib/constants/api-key.constant';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import {
   ComplexApiKeyServiceToken,
