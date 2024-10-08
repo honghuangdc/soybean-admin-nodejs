@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@lib/shared/prisma/prisma.service';
-
 import { LoginLogEntity } from '@src/lib/bounded-contexts/log-audit/login-log/domain/login-log.entity';
 import { LoginLogWriteRepoPort } from '@src/lib/bounded-contexts/log-audit/login-log/ports/login-log.write.repo-port';
+
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 @Injectable()
 export class LoginLogWriteRepository implements LoginLogWriteRepoPort {

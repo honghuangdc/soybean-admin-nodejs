@@ -58,6 +58,11 @@ module.exports = {
           'pattern': '@tests/**',
           'group': 'internal',
           'position': 'after'
+        },
+        {
+          'pattern': '@lib/**',
+          'group': 'internal',
+          'position': 'after'
         }
       ],
       'pathGroupsExcludedImportTypes': ['builtin'],

@@ -7,10 +7,10 @@ import {
 import { EventPublisher, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
 
-import { ISecurityConfig, SecurityConfig } from '@lib/config';
-
 import { TokensReadModel } from '@src/lib/bounded-contexts/iam/tokens/domain/tokens.read.model';
 import { TokensByRefreshTokenQuery } from '@src/lib/bounded-contexts/iam/tokens/queries/tokens.by-refresh_token.query';
+
+import { ISecurityConfig, SecurityConfig } from '@lib/config';
 
 import { TokenGeneratedEvent } from '../../../tokens/domain/events/token-generated.event';
 import { TokensEntity } from '../../../tokens/domain/tokens.entity';

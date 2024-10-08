@@ -8,8 +8,6 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { PaginationResult } from '@lib/shared/prisma/pagination';
-
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { Log } from '@src/infra/decorators/log.decorator';
@@ -20,6 +18,8 @@ import {
   OperationLogReadModel,
 } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
 import { PageOperationLogsQuery } from '@src/lib/bounded-contexts/log-audit/operation-log/queries/page-operation-logs.query';
+
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageOperationLogsQueryDto } from '../dto/page-operation-log.dto';
 

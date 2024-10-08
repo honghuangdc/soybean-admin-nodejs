@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
-import { PrismaService } from '@lib/shared/prisma/prisma.service';
-
 import { TokensReadModel } from '@src/lib/bounded-contexts/iam/tokens/domain/tokens.read.model';
 import { TokensReadRepoPort } from '@src/lib/bounded-contexts/iam/tokens/ports/tokens.read.repo-port';
+
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 @Injectable()
 export class TokensReadRepository implements TokensReadRepoPort {

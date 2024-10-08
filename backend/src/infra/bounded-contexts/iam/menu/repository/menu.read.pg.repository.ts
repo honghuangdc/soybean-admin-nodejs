@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Status } from '@prisma/client';
 
-import { PrismaService } from '@lib/shared/prisma/prisma.service';
-
 import {
   MenuProperties,
   MenuTreeProperties,
 } from '@src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
 import { MenuReadRepoPort } from '@src/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
+
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 @Injectable()
 export class MenuReadPostgresRepository implements MenuReadRepoPort {

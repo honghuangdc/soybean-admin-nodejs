@@ -12,8 +12,6 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { PaginationResult } from '@lib/shared/prisma/pagination';
-
 import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
 import { ApiRes } from '@src/infra/rest/res.response';
 import { DomainCreateCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-create.command';
@@ -24,6 +22,8 @@ import {
   DomainReadModel,
 } from '@src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
 import { PageDomainsQuery } from '@src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
+
+import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { DomainCreateDto, DomainUpdateDto } from '../dto/domain.dto';
 import { PageDomainsDto } from '../dto/page-domains.dto';

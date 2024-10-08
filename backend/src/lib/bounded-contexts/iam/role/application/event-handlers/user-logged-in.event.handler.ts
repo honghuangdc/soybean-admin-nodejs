@@ -1,11 +1,11 @@
 import { Inject } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
+import { UserLoggedInEvent } from '@src/lib/bounded-contexts/iam/authentication/domain/events/user-logged-in.event';
+
 import { ISecurityConfig, SecurityConfig } from '@lib/config';
 import { CacheConstant } from '@lib/constants/cache.constant';
 import { RedisUtility } from '@lib/shared/redis/redis.util';
-
-import { UserLoggedInEvent } from '@src/lib/bounded-contexts/iam/authentication/domain/events/user-logged-in.event';
 
 import { RoleReadRepoPortToken } from '../../constants';
 import { RoleReadRepoPort } from '../../ports/role.read.repo-port';

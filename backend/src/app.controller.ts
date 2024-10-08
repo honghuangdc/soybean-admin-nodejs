@@ -9,16 +9,16 @@ import {
 } from '@nestjs/terminus';
 
 import {
-  ApiKeyAuthSource,
-  ApiKeyAuthStrategy,
-} from '@lib/constants/api-key.constant';
-import { PrismaService } from '@lib/shared/prisma/prisma.service';
-
-import {
   ComplexApiKeyServiceToken,
   SimpleApiKeyServiceToken,
 } from '@src/infra/guards/api-key/api-key.constants';
 import { IApiKeyService } from '@src/infra/guards/api-key/services/api-key.interface';
+
+import {
+  ApiKeyAuthSource,
+  ApiKeyAuthStrategy,
+} from '@lib/constants/api-key.constant';
+import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
 import { AppService } from './app.service';
 import { ApiKeyAuth } from './infra/decorators/api-key.decorator';
