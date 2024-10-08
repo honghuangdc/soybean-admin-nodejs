@@ -1,10 +1,10 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { redisStore } from 'cache-manager-ioredis-yet';
-import { RedisOptions } from 'ioredis';
 
 import { ConfigKeyPaths, IRedisConfig, redisRegToken } from '@lib/config';
+
+import { KeyvCacheStore } from './keyv-cache-store';
 
 @Module({
   imports: [
@@ -17,27 +17,10 @@ import { ConfigKeyPaths, IRedisConfig, redisRegToken } from '@lib/config';
           { infer: true },
         );
 
-        let storeOptions;
-        if (redisConfig.mode === 'cluster') {
-          storeOptions = {
-            clusterConfig: {
-              nodes: redisConfig.cluster,
-              options: {},
-            },
-          };
-        } else {
-          storeOptions = {
-            host: redisConfig.standalone.host,
-            port: redisConfig.standalone.port,
-            password: redisConfig.standalone.password,
-            db: redisConfig.standalone.db,
-          } as RedisOptions;
-        }
-
-        const store = await redisStore(storeOptions);
+        const keyvCacheStore = new KeyvCacheStore(redisConfig);
 
         return {
-          store: store,
+          store: keyvCacheStore,
           isCacheableValue: (value: any) =>
             value !== null && value !== undefined,
         };
