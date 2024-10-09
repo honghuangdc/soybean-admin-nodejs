@@ -10,19 +10,19 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { LOG_KEY } from '@src/infra/decorators/log.decorator';
 import { OperationLogProperties } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
 
 import { LOG_OPERATION } from '@lib/constants/event-emitter-token.constant';
 import { USER_AGENT } from '@lib/constants/rest.constant';
+import { LOG_KEY } from '@lib/infra/decorators/log.decorator';
 
 @Injectable()
 export class LogInterceptor implements NestInterceptor {
   private readonly logger = new Logger(LogInterceptor.name);
 
   constructor(
-    private reflector: Reflector,
-    private eventEmitter: EventEmitter2,
+    private readonly reflector: Reflector,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {

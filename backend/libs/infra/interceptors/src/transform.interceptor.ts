@@ -10,12 +10,11 @@ import { FastifyReply } from 'fastify';
 import { Observable, TimeoutError } from 'rxjs';
 import { catchError, map, timeout } from 'rxjs/operators';
 
-import { BYPASS_TRANSFORM_KEY } from '@src/infra/decorators/bypass-transform.decorator';
-
 import {
   RESPONSE_SUCCESS_CODE,
   RESPONSE_SUCCESS_MSG,
 } from '@lib/constants/rest.constant';
+import { BYPASS_TRANSFORM_KEY } from '@lib/infra/decorators/bypass-transform.decorator';
 
 @Injectable()
 export class TransformInterceptor<T>

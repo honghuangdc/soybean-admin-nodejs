@@ -8,27 +8,27 @@ import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
 
+import { AllExceptionsFilter } from 'libs/infra/filters/src/all-exceptions.filter';
+import { JwtStrategy } from 'libs/infra/strategies/src/jwt.passport-strategy';
+
 import { ApiModule } from '@src/api/api.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';
-import { AllExceptionsFilter } from '@src/infra/filters/all-exceptions.filter';
-import { ApiKeyModule } from '@src/infra/guards/api-key/api-key.module';
-import { JwtAuthGuard } from '@src/infra/guards/jwt.auth.guard';
-import { JwtStrategy } from '@src/infra/strategies/jwt.passport-strategy';
 
+//nest init
 import { BootstrapModule } from '@lib/bootstrap/bootstrap.module';
 import config, {
   ConfigKeyPaths,
-  IRedisConfig,
-  ISecurityConfig,
   IThrottlerConfig,
-  redisRegToken,
-  securityRegToken,
   throttlerConfigToken,
+  IRedisConfig,
+  redisRegToken,
 } from '@lib/config';
+import { ISecurityConfig, securityRegToken } from '@lib/config/security.config';
 import { GlobalCqrsModule } from '@lib/global/global.module';
 import { SharedModule } from '@lib/global/shared.module';
+import { ApiKeyModule } from '@lib/infra/guard/api-key/api-key.module';
+import { JwtAuthGuard } from '@lib/infra/guard/jwt.auth.guard';
 
-//nest init
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -38,7 +38,7 @@ const strategies = [JwtStrategy];
 // https://github.com/kkoomen/nestjs-throttler-storage-redis
 // https://github.com/jmcdo29/nest-lab/tree/main/packages/throttler-storage-redis
 class ThrottlerStorageAdapter implements ThrottlerStorage {
-  constructor(private storageService: ThrottlerStorageRedisService) {}
+  constructor(private readonly storageService: ThrottlerStorageRedisService) {}
 
   async increment(key: string, ttl: number): Promise<ThrottlerStorageRecord> {
     return this.storageService.increment(key, ttl, 10, 60, 'default');

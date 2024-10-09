@@ -12,8 +12,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { RoleCreateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-create.command';
 import { RoleDeleteCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-delete.command';
 import { RoleUpdateCommand } from '@src/lib/bounded-contexts/iam/role/commands/role-update.command';
@@ -23,6 +23,7 @@ import {
 } from '@src/lib/bounded-contexts/iam/role/domain/role.read.model';
 import { PageRolesQuery } from '@src/lib/bounded-contexts/iam/role/queries/page-roles.query';
 
+import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageRolesDto } from '../dto/page-roles.dto';
@@ -32,8 +33,8 @@ import { RoleCreateDto, RoleUpdateDto } from '../dto/role.dto';
 @Controller('role')
 export class RoleController {
   constructor(
-    private queryBus: QueryBus,
-    private commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Get()

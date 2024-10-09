@@ -11,8 +11,7 @@ import {
   ApiKeyAuthSource,
   ApiKeyAuthStrategy,
 } from '@lib/constants/api-key.constant';
-
-import { ApiKeyAuthOptions } from '../../decorators/api-key.decorator';
+import { ApiKeyAuthOptions } from '@lib/infra/decorators/api-key.decorator';
 
 import {
   ComplexApiKeyServiceToken,
@@ -26,11 +25,11 @@ import {
 @Injectable()
 export class ApiKeyGuard implements CanActivate {
   constructor(
-    private reflector: Reflector,
+    private readonly reflector: Reflector,
     @Inject(SimpleApiKeyServiceToken)
-    private simpleApiKeyService: IApiKeyService,
+    private readonly simpleApiKeyService: IApiKeyService,
     @Inject(ComplexApiKeyServiceToken)
-    private complexApiKeyService: IApiKeyService,
+    private readonly complexApiKeyService: IApiKeyService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

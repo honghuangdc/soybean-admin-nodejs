@@ -7,7 +7,8 @@ import { ISecurityConfig, SecurityConfig } from '@lib/config';
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
-    @Inject(SecurityConfig.KEY) private securityConfig: ISecurityConfig,
+    @Inject(SecurityConfig.KEY)
+    private readonly securityConfig: ISecurityConfig,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

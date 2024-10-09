@@ -5,7 +5,7 @@ import { OssConfig } from './oss.config.interface';
 
 @Injectable()
 export class OssConfigService {
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   getOssConfig(key: string): OssConfig {
     const config = this.configService.get(`oss.${key}`);

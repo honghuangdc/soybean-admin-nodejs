@@ -111,6 +111,48 @@
       ],
       "@lib/infra/adapter/*": [
         "libs/infra/adapter/src/*"
+      ],
+      "@lib/infra/casbin": [
+        "libs/infra/casbin/src"
+      ],
+      "@lib/infra/casbin/*": [
+        "libs/infra/casbin/src/*"
+      ],
+      "@lib/infra/decorators": [
+        "libs/infra/decorators/src"
+      ],
+      "@lib/infra/decorators/*": [
+        "libs/infra/decorators/src/*"
+      ],
+      "@lib/infra/filters": [
+        "libs/infra/filters/src"
+      ],
+      "@lib/infra/filters/*": [
+        "libs/infra/filters/src/*"
+      ],
+      "@lib/infra/guard": [
+        "libs/infra/guard/src"
+      ],
+      "@lib/infra/guard/*": [
+        "libs/infra/guard/src/*"
+      ],
+      "@lib/infra/interceptors": [
+        "libs/infra/interceptors/src"
+      ],
+      "@lib/infra/interceptors/*": [
+        "libs/infra/interceptors/src/*"
+      ],
+      "@lib/infra/rest": [
+        "libs/infra/rest/src"
+      ],
+      "@lib/infra/rest/*": [
+        "libs/infra/rest/src/*"
+      ],
+      "@lib/infra/strategies": [
+        "libs/infra/strategies/src"
+      ],
+      "@lib/infra/strategies/*": [
+        "libs/infra/strategies/src/*"
       ]
     },
     "resolveJsonModule": true

@@ -8,7 +8,9 @@ import { Ip2regionConfigService } from './ip2region.config.service';
 export class Ip2regionService implements OnModuleInit {
   private static searcher: Searcher | null = null;
 
-  constructor(private ip2regionConfigService: Ip2regionConfigService) {}
+  constructor(
+    private readonly ip2regionConfigService: Ip2regionConfigService,
+  ) {}
 
   async onModuleInit(): Promise<void> {
     const config: Ip2RegionConfig =

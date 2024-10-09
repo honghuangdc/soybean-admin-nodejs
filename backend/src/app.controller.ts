@@ -9,38 +9,38 @@ import {
 } from '@nestjs/terminus';
 
 import {
-  ComplexApiKeyServiceToken,
-  SimpleApiKeyServiceToken,
-} from '@src/infra/guards/api-key/api-key.constants';
-import { IApiKeyService } from '@src/infra/guards/api-key/services/api-key.interface';
-
-import {
   ApiKeyAuthSource,
   ApiKeyAuthStrategy,
 } from '@lib/constants/api-key.constant';
+import { ApiKeyAuth } from '@lib/infra/decorators/api-key.decorator';
+import { BypassTransform } from '@lib/infra/decorators/bypass-transform.decorator';
+import { Public } from '@lib/infra/decorators/public.decorator';
+import {
+  ComplexApiKeyServiceToken,
+  SimpleApiKeyServiceToken,
+} from '@lib/infra/guard/api-key/api-key.constants';
+import { ApiKeyGuard } from '@lib/infra/guard/api-key/api-key.guard';
+import { IApiKeyService } from '@lib/infra/guard/api-key/services/api-key.interface';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 
+import { ApiRes } from '../libs/infra/rest/src/res.response';
+
 import { AppService } from './app.service';
-import { ApiKeyAuth } from './infra/decorators/api-key.decorator';
-import { BypassTransform } from './infra/decorators/bypass-transform.decorator';
-import { Public } from './infra/decorators/public.decorator';
-import { ApiKeyGuard } from './infra/guards/api-key/api-key.guard';
-import { ApiRes } from './infra/rest/res.response';
 
 @Controller()
 export class AppController {
   constructor(
     private readonly appService: AppService,
     private readonly prisma: PrismaService,
-    private http: HttpHealthIndicator,
-    private health: HealthCheckService,
-    private db: PrismaHealthIndicator,
-    private memory: MemoryHealthIndicator,
-    private disk: DiskHealthIndicator,
+    private readonly http: HttpHealthIndicator,
+    private readonly health: HealthCheckService,
+    private readonly db: PrismaHealthIndicator,
+    private readonly memory: MemoryHealthIndicator,
+    private readonly disk: DiskHealthIndicator,
     @Inject(SimpleApiKeyServiceToken)
-    private simpleApiKeyService: IApiKeyService,
+    private readonly simpleApiKeyService: IApiKeyService,
     @Inject(ComplexApiKeyServiceToken)
-    private complexApiKeyService: IApiKeyService,
+    private readonly complexApiKeyService: IApiKeyService,
   ) {}
 
   @Get()

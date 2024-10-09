@@ -11,8 +11,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { AccessKeyCreateCommand } from '@src/lib/bounded-contexts/access-key/commands/access_key-create.command';
 import { AccessKeyDeleteCommand } from '@src/lib/bounded-contexts/access-key/commands/access_key-delete.command';
 import {
@@ -21,6 +21,7 @@ import {
 } from '@src/lib/bounded-contexts/access-key/domain/access_key.read.model';
 import { PageAccessKeysQuery } from '@src/lib/bounded-contexts/access-key/queries/page-access_key.query';
 
+import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { BUILT_IN } from '@lib/shared/prisma/db.constant';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
@@ -31,8 +32,8 @@ import { PageAccessKeysQueryDto } from '../dto/page-access_key.dto';
 @Controller('access-key')
 export class AccessKeyController {
   constructor(
-    private queryBus: QueryBus,
-    private commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Get()

@@ -8,7 +8,7 @@ import { IApiKeyService, ValidateKeyOptions } from './api-key.interface';
 
 @Injectable()
 export class SimpleApiKeyService implements OnModuleInit, IApiKeyService {
-  private apiKeys: Set<string> = new Set();
+  private readonly apiKeys: Set<string> = new Set();
   private readonly redisService: Redis | Cluster;
 
   private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}simple-api-keys`;

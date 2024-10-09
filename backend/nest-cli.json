@@ -137,6 +137,69 @@
       "compilerOptions": {
         "tsConfigPath": "libs/infra/adapter/tsconfig.lib.json"
       }
+    },
+    "infra/casbin": {
+      "type": "library",
+      "root": "libs/infra/casbin",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/casbin/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/casbin/tsconfig.lib.json"
+      }
+    },
+    "infra/decorators": {
+      "type": "library",
+      "root": "libs/infra/decorators",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/decorators/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/decorators/tsconfig.lib.json"
+      }
+    },
+    "infra/filters": {
+      "type": "library",
+      "root": "libs/infra/filters",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/filters/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/filters/tsconfig.lib.json"
+      }
+    },
+    "infra/guard": {
+      "type": "library",
+      "root": "libs/infra/guard",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/guard/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/guard/tsconfig.lib.json"
+      }
+    },
+    "infra/interceptors": {
+      "type": "library",
+      "root": "libs/infra/interceptors",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/interceptors/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/interceptors/tsconfig.lib.json"
+      }
+    },
+    "infra/rest": {
+      "type": "library",
+      "root": "libs/infra/rest",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/rest/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/rest/tsconfig.lib.json"
+      }
+    },
+    "infra/strategies": {
+      "type": "library",
+      "root": "libs/infra/strategies",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/strategies/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/strategies/tsconfig.lib.json"
+      }
     }
   }
 }

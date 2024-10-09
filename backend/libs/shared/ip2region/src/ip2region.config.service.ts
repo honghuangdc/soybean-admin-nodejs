@@ -7,7 +7,7 @@ import { Ip2RegionConfig } from './ip2region.config.interface';
 
 @Injectable()
 export class Ip2regionConfigService {
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   getIp2RegionConfig(): Ip2RegionConfig {
     const config = this.configService.get(`ip2region`);

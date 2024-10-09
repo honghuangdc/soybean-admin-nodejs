@@ -10,8 +10,9 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { AuthZGuard, UsePermissions } from '@src/infra/casbin';
-import { ApiRes } from '@src/infra/rest/res.response';
 import { AuthorizationService } from '@src/lib/bounded-contexts/iam/authentication/application/service/authorization.service';
 import { RoleAssignPermissionCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-permission.command';
 import { RoleAssignRouteCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/role-assign-route.command';

@@ -9,9 +9,9 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
-import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
 import { CasbinRuleApiEndpointService } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/application/service/casbin-rule-api-endpoint.service';
 import {
   EndpointProperties,
@@ -21,6 +21,7 @@ import {
 import { EndpointsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.query';
 import { PageEndpointsQuery } from '@src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
 
+import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageEndpointsQueryDto } from '../dto/page-endpoint.dto';
@@ -30,8 +31,8 @@ import { PageEndpointsQueryDto } from '../dto/page-endpoint.dto';
 @Controller('api-endpoint')
 export class EndpointController {
   constructor(
-    private queryBus: QueryBus,
-    private casbinRuleApiEndpointService: CasbinRuleApiEndpointService,
+    private readonly queryBus: QueryBus,
+    private readonly casbinRuleApiEndpointService: CasbinRuleApiEndpointService,
   ) {}
 
   @Get()

@@ -4,8 +4,8 @@ import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import {
   ComplexApiKeyServiceToken,
   SimpleApiKeyServiceToken,
-} from '@src/infra/guards/api-key/api-key.constants';
-import { IApiKeyService } from '@src/infra/guards/api-key/services/api-key.interface';
+} from '@lib/infra/guard/api-key/api-key.constants';
+import { IApiKeyService } from '@lib/infra/guard/api-key/services/api-key.interface';
 
 import { AccessKeyCreatedEvent } from '../../domain/events/access_key-created.event';
 
@@ -15,9 +15,9 @@ export class AccessKeyCreatedHandler
 {
   constructor(
     @Inject(SimpleApiKeyServiceToken)
-    private simpleApiKeyService: IApiKeyService,
+    private readonly simpleApiKeyService: IApiKeyService,
     @Inject(ComplexApiKeyServiceToken)
-    private complexApiKeyService: IApiKeyService,
+    private readonly complexApiKeyService: IApiKeyService,
   ) {}
 
   async handle(event: AccessKeyCreatedEvent) {

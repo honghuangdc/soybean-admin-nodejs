@@ -12,8 +12,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { UserCreateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-create.command';
 import { UserDeleteCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-delete.command';
 import { UserUpdateCommand } from '@src/lib/bounded-contexts/iam/authentication/commands/user-update.command';
@@ -23,6 +23,7 @@ import {
 } from '@src/lib/bounded-contexts/iam/authentication/domain/user.read.model';
 import { PageUsersQuery } from '@src/lib/bounded-contexts/iam/authentication/queries/page-users.query';
 
+import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageUsersDto } from '../dto/page-users.dto';
@@ -32,8 +33,8 @@ import { UserCreateDto, UserUpdateDto } from '../dto/user.dto';
 @Controller('user')
 export class UserController {
   constructor(
-    private queryBus: QueryBus,
-    private commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Get()

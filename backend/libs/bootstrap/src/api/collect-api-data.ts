@@ -28,7 +28,7 @@ export class ApiDataService implements OnModuleInit {
   constructor(
     private readonly modulesContainer: ModulesContainer,
     private readonly reflector: Reflector,
-    private eventEmitter: EventEmitter2,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   private readonly logger = new Logger(ApiDataService.name);

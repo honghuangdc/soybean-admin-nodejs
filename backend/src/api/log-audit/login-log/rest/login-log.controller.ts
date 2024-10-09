@@ -2,15 +2,16 @@ import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
-import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
 import {
   LoginLogProperties,
   LoginLogReadModel,
 } from '@src/lib/bounded-contexts/log-audit/login-log/domain/login-log.read.model';
 import { PageLoginLogsQuery } from '@src/lib/bounded-contexts/log-audit/login-log/queries/page-login-logs.query';
 
+import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageLoginLogsQueryDto } from '../dto/page-login-log.dto';
@@ -19,7 +20,7 @@ import { PageLoginLogsQueryDto } from '../dto/page-login-log.dto';
 @ApiTags('Login Log - Module')
 @Controller('login-log')
 export class LoginLogController {
-  constructor(private queryBus: QueryBus) {}
+  constructor(private readonly queryBus: QueryBus) {}
 
   @Get()
   @UsePermissions({ resource: 'login-log', action: AuthActionVerb.READ })

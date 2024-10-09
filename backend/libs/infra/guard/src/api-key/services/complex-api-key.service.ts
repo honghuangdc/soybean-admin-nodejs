@@ -17,13 +17,14 @@ import { IApiKeyService, ValidateKeyOptions } from './api-key.interface';
 
 @Injectable()
 export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
-  private apiSecrets: Map<string, string> = new Map();
+  private readonly apiSecrets: Map<string, string> = new Map();
   private readonly redisService: Redis | Cluster;
 
   private readonly cacheKey = `${CacheConstant.CACHE_PREFIX}complex-api-secrets`;
 
   constructor(
-    @Inject(SecurityConfig.KEY) private securityConfig: ISecurityConfig,
+    @Inject(SecurityConfig.KEY)
+    private readonly securityConfig: ISecurityConfig,
   ) {
     this.redisService = RedisUtility.instance;
   }
@@ -39,7 +40,7 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     });
   }
 
-  private algorithmHandlers: {
+  private readonly algorithmHandlers: {
     [key in SignatureAlgorithm]: (data: string, secret: string) => string;
   } = {
     [SignatureAlgorithm.MD5]: (data, secret) =>

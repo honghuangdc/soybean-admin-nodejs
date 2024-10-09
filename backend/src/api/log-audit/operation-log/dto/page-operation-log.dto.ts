@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-import { PaginationParams } from '@src/infra/rest/pagination-params';
+import { PaginationParams } from 'libs/infra/rest/src/pagination-params';
 
 export class PageOperationLogsQueryDto extends PaginationParams {
   @ApiProperty({ required: false })

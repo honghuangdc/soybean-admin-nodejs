@@ -137,7 +137,14 @@
       "^@lib/shared/oss(|/.*)$": "<rootDir>/libs/shared/oss/src/$1",
       "^@lib/shared/ip2region(|/.*)$": "<rootDir>/libs/shared/ip2region/src/$1",
       "^@lib/shared/errors(|/.*)$": "<rootDir>/libs/shared/errors/src/$1",
-      "^@lib/infra/adapter(|/.*)$": "<rootDir>/libs/infra/adapter/src/$1"
+      "^@lib/infra/adapter(|/.*)$": "<rootDir>/libs/infra/adapter/src/$1",
+      "^@lib/infra/casbin(|/.*)$": "<rootDir>/libs/infra/casbin/src/$1",
+      "^@lib/infra/decorators(|/.*)$": "<rootDir>/libs/infra/decorators/src/$1",
+      "^@lib/infra/filters(|/.*)$": "<rootDir>/libs/infra/filters/src/$1",
+      "^@lib/infra/guard(|/.*)$": "<rootDir>/libs/infra/guard/src/$1",
+      "^@lib/infra/interceptors(|/.*)$": "<rootDir>/libs/infra/interceptors/src/$1",
+      "^@lib/infra/rest(|/.*)$": "<rootDir>/libs/infra/rest/src/$1",
+      "^@lib/infra/strategies(|/.*)$": "<rootDir>/libs/infra/strategies/src/$1"
     },
     "roots": [
       "<rootDir>/src/",

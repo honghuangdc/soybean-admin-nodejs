@@ -11,8 +11,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { Public } from '@src/infra/decorators/public.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { MenuRoute } from '@src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
 import { MenuService } from '@src/lib/bounded-contexts/iam/menu/application/service/menu.service';
 import { MenuCreateCommand } from '@src/lib/bounded-contexts/iam/menu/commands/menu-create.command';
@@ -23,15 +23,17 @@ import { MenuIdsByRoleIdAndDomainQuery } from '@src/lib/bounded-contexts/iam/men
 import { MenusQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.query';
 import { MenusTreeQuery } from '@src/lib/bounded-contexts/iam/menu/queries/menus.tree.query';
 
+import { Public } from '@lib/infra/decorators/public.decorator';
+
 import { RouteCreateDto, RouteUpdateDto } from '../dto/route.dto';
 
 @ApiTags('Menu - Module')
 @Controller('route')
 export class MenuController {
   constructor(
-    private queryBus: QueryBus,
-    private commandBus: CommandBus,
-    private menuService: MenuService,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
+    private readonly menuService: MenuService,
   ) {}
 
   @Public()

@@ -12,8 +12,8 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { ApiResponseDoc } from '@src/infra/decorators/api-result.decorator';
-import { ApiRes } from '@src/infra/rest/res.response';
+import { ApiRes } from 'libs/infra/rest/src/res.response';
+
 import { DomainCreateCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-create.command';
 import { DomainDeleteCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-delete.command';
 import { DomainUpdateCommand } from '@src/lib/bounded-contexts/iam/domain/commands/domain-update.command';
@@ -23,6 +23,7 @@ import {
 } from '@src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
 import { PageDomainsQuery } from '@src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
 
+import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { DomainCreateDto, DomainUpdateDto } from '../dto/domain.dto';
@@ -32,8 +33,8 @@ import { PageDomainsDto } from '../dto/page-domains.dto';
 @Controller('domain')
 export class DomainController {
   constructor(
-    private queryBus: QueryBus,
-    private commandBus: CommandBus,
+    private readonly queryBus: QueryBus,
+    private readonly commandBus: CommandBus,
   ) {}
 
   @Get()

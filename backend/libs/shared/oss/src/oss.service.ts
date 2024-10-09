@@ -5,9 +5,9 @@ import { OssConfigService } from './oss.config.service';
 
 @Injectable()
 export class OssService implements OnModuleDestroy {
-  private ossClients: Map<string, OSS> = new Map();
+  private readonly ossClients: Map<string, OSS> = new Map();
 
-  constructor(private ossConfigService: OssConfigService) {}
+  constructor(private readonly ossConfigService: OssConfigService) {}
 
   private async getClient(key: string): Promise<OSS> {
     if (!this.ossClients.has(key)) {
