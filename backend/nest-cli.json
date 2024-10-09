@@ -17,7 +17,8 @@
         "include": "**/*.xdb",
         "outDir": "./dist/src"
       }
-    ]
+    ],
+    "webpack": false
   },
   "projects": {
     "bootstrap": {
@@ -126,6 +127,15 @@
       "sourceRoot": "libs/shared/errors/src",
       "compilerOptions": {
         "tsConfigPath": "libs/shared/errors/tsconfig.lib.json"
+      }
+    },
+    "infra/adapter": {
+      "type": "library",
+      "root": "libs/infra/adapter",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/adapter/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/adapter/tsconfig.lib.json"
       }
     }
   }

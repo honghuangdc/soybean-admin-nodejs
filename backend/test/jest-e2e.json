@@ -34,6 +34,8 @@
     "@lib/shared/ip2region/(.*)": "<rootDir>/../libs/shared/ip2region/src/$1",
     "@lib/shared/ip2region": "<rootDir>/../libs/shared/ip2region/src",
     "@lib/shared/errors/(.*)": "<rootDir>/../libs/shared/errors/src/$1",
-    "@lib/shared/errors": "<rootDir>/../libs/shared/errors/src"
+    "@lib/shared/errors": "<rootDir>/../libs/shared/errors/src",
+    "@lib/infra/adapter/(.*)": "<rootDir>/../libs/infra/adapter/src/$1",
+    "@lib/infra/adapter": "<rootDir>/../libs/infra/adapter/src"
   }
 }

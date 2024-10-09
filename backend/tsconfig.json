@@ -105,6 +105,12 @@
       ],
       "@lib/shared/errors/*": [
         "libs/shared/errors/src/*"
+      ],
+      "@lib/infra/adapter": [
+        "libs/infra/adapter/src"
+      ],
+      "@lib/infra/adapter/*": [
+        "libs/infra/adapter/src/*"
       ]
     },
     "resolveJsonModule": true
