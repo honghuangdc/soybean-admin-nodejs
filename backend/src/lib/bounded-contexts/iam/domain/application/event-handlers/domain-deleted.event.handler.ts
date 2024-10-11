@@ -1,7 +1,7 @@
 import { Logger } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
-import { AuthZManagementService } from '@src/infra/casbin';
+import { AuthZManagementService } from '@lib/infra/casbin';
 
 import { DomainDeletedEvent } from '../../domain/events/domain-deleted.event';
 

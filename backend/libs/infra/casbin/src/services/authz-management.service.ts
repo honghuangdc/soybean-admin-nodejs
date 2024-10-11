@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import * as casbin from 'casbin';
 
-import { AUTHZ_ENFORCER } from '@src/infra/casbin/constants/authz.constants';
+import { AUTHZ_ENFORCER } from '../constants/authz.constants';
 
 /**
  * A wrapper of casbin management API

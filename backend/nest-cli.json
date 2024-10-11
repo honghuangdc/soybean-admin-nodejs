@@ -6,7 +6,7 @@
     "deleteOutDir": true,
     "assets": [
       {
-        "include": "infra/casbin/config/*.conf",
+        "include": "**/*.conf",
         "outDir": "./dist/src"
       },
       {

@@ -12,7 +12,6 @@ import { AllExceptionsFilter } from 'libs/infra/filters/src/all-exceptions.filte
 import { JwtStrategy } from 'libs/infra/strategies/src/jwt.passport-strategy';
 
 import { ApiModule } from '@src/api/api.module';
-import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@src/infra/casbin';
 
 //nest init
 import { BootstrapModule } from '@lib/bootstrap/bootstrap.module';
@@ -26,6 +25,7 @@ import config, {
 import { ISecurityConfig, securityRegToken } from '@lib/config/security.config';
 import { GlobalCqrsModule } from '@lib/global/global.module';
 import { SharedModule } from '@lib/global/shared.module';
+import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@lib/infra/casbin';
 import { ApiKeyModule } from '@lib/infra/guard/api-key/api-key.module';
 import { JwtAuthGuard } from '@lib/infra/guard/jwt.auth.guard';
 

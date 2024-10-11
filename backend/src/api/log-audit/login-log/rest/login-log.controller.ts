@@ -4,13 +4,13 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { ApiRes } from 'libs/infra/rest/src/res.response';
 
-import { AuthActionVerb, AuthZGuard, UsePermissions } from '@src/infra/casbin';
 import {
   LoginLogProperties,
   LoginLogReadModel,
 } from '@src/lib/bounded-contexts/log-audit/login-log/domain/login-log.read.model';
 import { PageLoginLogsQuery } from '@src/lib/bounded-contexts/log-audit/login-log/queries/page-login-logs.query';
 
+import { AuthActionVerb, AuthZGuard, UsePermissions } from '@lib/infra/casbin';
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 

@@ -186,7 +186,7 @@ export class PrismaAdapter implements Adapter {
     return this.#prisma.$disconnect();
   }
 
-  #open = async (): Promise<void> => {
+  readonly #open = async (): Promise<void> => {
     if (!this.#option) {
       this.#option = {};
     }
@@ -196,7 +196,7 @@ export class PrismaAdapter implements Adapter {
     await this.#prisma.$connect();
   };
 
-  #loadPolicyLine = (
+  readonly #loadPolicyLine = (
     line: Prisma.CasbinRuleCreateInput,
     model: Model,
   ): void => {
@@ -209,7 +209,7 @@ export class PrismaAdapter implements Adapter {
     Helper.loadPolicyLine(result, model);
   };
 
-  #savePolicyLine = (
+  readonly #savePolicyLine = (
     ptype: string,
     rule: string[],
   ): Prisma.CasbinRuleCreateInput => {

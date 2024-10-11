@@ -7,7 +7,7 @@ export const securityRegToken = 'security';
 export const SecurityConfig = registerAs(securityRegToken, () => ({
   casbinModel: getEnvString(
     'CASBIN_MODEL',
-    `${isDevEnvironment ? '' : './dist/'}src/infra/casbin/config/model.conf`,
+    `${isDevEnvironment ? '' : './dist/'}src/resources/model.conf`,
   ),
   jwtSecret: getEnvString('JWT_SECRET', 'JWT_SECRET-soybean-admin-nest!@#123.'),
   jwtExpiresIn: getEnvNumber('JWT_EXPIRE_IN', 60 * 60 * 2),

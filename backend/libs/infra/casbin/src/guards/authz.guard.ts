@@ -8,23 +8,22 @@ import {
 import { Reflector } from '@nestjs/core';
 import * as casbin from 'casbin';
 
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
+
 import {
   AUTHZ_ENFORCER,
   AUTHZ_MODULE_OPTIONS,
   PERMISSIONS_METADATA,
-} from '@src/infra/casbin/constants/authz.constants';
-
-import { CacheConstant } from '@lib/constants/cache.constant';
-import { RedisUtility } from '@lib/shared/redis/redis.util';
-
+} from '../constants/authz.constants';
 import { AuthZModuleOptions, Permission } from '../interfaces';
 
 @Injectable()
 export class AuthZGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
-    @Inject(AUTHZ_ENFORCER) private enforcer: casbin.Enforcer,
-    @Inject(AUTHZ_MODULE_OPTIONS) private options: AuthZModuleOptions,
+    @Inject(AUTHZ_ENFORCER) private readonly enforcer: casbin.Enforcer,
+    @Inject(AUTHZ_MODULE_OPTIONS) private readonly options: AuthZModuleOptions,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
