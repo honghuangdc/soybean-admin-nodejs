@@ -7,7 +7,11 @@ import {
 } from './constants/authz.constants';
 import { AuthZGuard } from './guards/authz.guard';
 import { AuthZModuleOptions } from './interfaces';
-import { AuthZRBACService, AuthZManagementService } from './services';
+import {
+  AuthZRBACService,
+  AuthZManagementService,
+  AuthZService,
+} from './services';
 
 @Global()
 @Module({})
@@ -54,6 +58,7 @@ export class AuthZModule {
         AuthZGuard,
         AuthZRBACService,
         AuthZManagementService,
+        AuthZService,
       ],
       imports: importsModule,
       exports: [
@@ -62,6 +67,7 @@ export class AuthZModule {
         AuthZGuard,
         AuthZRBACService,
         AuthZManagementService,
+        AuthZService,
       ],
     };
   }

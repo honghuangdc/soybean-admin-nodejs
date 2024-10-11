@@ -3,10 +3,13 @@ import * as casbin from 'casbin';
 
 import { AUTHZ_ENFORCER } from '../constants/authz.constants';
 
+import * as authzAPI from './authz-api';
+
 /**
  * A wrapper of casbin RBAC API.
  * All methods are transformed to async in terms of possible IO operations
  * in the future.
+ * @deprecated This service will be removed and replace by AuthZService in a later release.
  */
 @Injectable()
 export class AuthZRBACService {
@@ -24,7 +27,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   getRolesForUser(name: string, domain?: string): Promise<string[]> {
-    return this.enforcer.getRolesForUser(name, domain);
+    return authzAPI.getRolesForUser(this.enforcer, name, domain);
   }
 
   /**
@@ -36,7 +39,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   getUsersForRole(name: string, domain?: string): Promise<string[]> {
-    return this.enforcer.getUsersForRole(name, domain);
+    return authzAPI.getUsersForRole(this.enforcer, name, domain);
   }
 
   /**
@@ -53,7 +56,7 @@ export class AuthZRBACService {
     role: string,
     domain?: string,
   ): Promise<boolean> {
-    return this.enforcer.hasRoleForUser(name, role, domain);
+    return authzAPI.hasRoleForUser(this.enforcer, name, role, domain);
   }
 
   /**
@@ -71,7 +74,7 @@ export class AuthZRBACService {
     role: string,
     domain?: string,
   ): Promise<boolean> {
-    return this.enforcer.addRoleForUser(user, role, domain);
+    return authzAPI.addRoleForUser(this.enforcer, user, role, domain);
   }
 
   /**
@@ -89,7 +92,7 @@ export class AuthZRBACService {
     role: string,
     domain?: string,
   ): Promise<boolean> {
-    return this.enforcer.deleteRoleForUser(user, role, domain);
+    return authzAPI.deleteRoleForUser(this.enforcer, user, role, domain);
   }
 
   /**
@@ -101,7 +104,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   deleteRolesForUser(user: string, domain?: string): Promise<boolean> {
-    return this.enforcer.deleteRolesForUser(user, domain);
+    return authzAPI.deleteRolesForUser(this.enforcer, user, domain);
   }
 
   /**
@@ -113,7 +116,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   async deleteUser(user: string): Promise<boolean> {
-    return this.enforcer.deleteUser(user);
+    return authzAPI.deleteUser(this.enforcer, user);
   }
 
   /**
@@ -124,7 +127,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   deleteRole(role: string): Promise<boolean> {
-    return this.enforcer.deleteRole(role);
+    return authzAPI.deleteRole(this.enforcer, role);
   }
 
   /**
@@ -136,7 +139,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   deletePermission(...permission: string[]): Promise<boolean> {
-    return this.enforcer.deletePermission(...permission);
+    return authzAPI.deletePermission(this.enforcer, ...permission);
   }
 
   /**
@@ -152,7 +155,11 @@ export class AuthZRBACService {
     userOrRole: string,
     ...permission: string[]
   ): Promise<boolean> {
-    return this.enforcer.addPermissionForUser(userOrRole, ...permission);
+    return authzAPI.addPermissionForUser(
+      this.enforcer,
+      userOrRole,
+      ...permission,
+    );
   }
 
   /**
@@ -168,7 +175,11 @@ export class AuthZRBACService {
     userOrRole: string,
     ...permission: string[]
   ): Promise<boolean> {
-    return this.enforcer.deletePermissionForUser(userOrRole, ...permission);
+    return authzAPI.deletePermissionForUser(
+      this.enforcer,
+      userOrRole,
+      ...permission,
+    );
   }
 
   /**
@@ -180,7 +191,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   deletePermissionsForUser(userOrRole: string): Promise<boolean> {
-    return this.enforcer.deletePermissionsForUser(userOrRole);
+    return authzAPI.deletePermissionsForUser(this.enforcer, userOrRole);
   }
 
   /**
@@ -191,7 +202,7 @@ export class AuthZRBACService {
    * @memberof AuthZRBACService
    */
   getPermissionsForUser(userOrRole: string): Promise<string[][]> {
-    return this.enforcer.getPermissionsForUser(userOrRole);
+    return authzAPI.getPermissionsForUser(this.enforcer, userOrRole);
   }
 
   /**
@@ -206,7 +217,7 @@ export class AuthZRBACService {
     user: string,
     ...permission: string[]
   ): Promise<boolean> {
-    return this.enforcer.hasPermissionForUser(user, ...permission);
+    return authzAPI.hasPermissionForUser(this.enforcer, user, ...permission);
   }
 
   /**
@@ -231,7 +242,7 @@ export class AuthZRBACService {
     name: string,
     ...domain: string[]
   ): Promise<string[]> {
-    return this.enforcer.getImplicitRolesForUser(name, ...domain);
+    return authzAPI.getImplicitRolesForUser(this.enforcer, name, ...domain);
   }
 
   /**
@@ -254,7 +265,11 @@ export class AuthZRBACService {
     user: string,
     ...domain: string[]
   ): Promise<string[][]> {
-    return this.enforcer.getImplicitPermissionsForUser(user, ...domain);
+    return authzAPI.getImplicitPermissionsForUser(
+      this.enforcer,
+      user,
+      ...domain,
+    );
   }
   /**
    * getImplicitUsersForPermission gets implicit users for a permission.
@@ -267,6 +282,6 @@ export class AuthZRBACService {
    * Note: only users will be returned, roles (2nd arg in "g") will be excluded.
    */
   getImplicitUsersForPermission(...permission: string[]): Promise<string[]> {
-    return this.enforcer.getImplicitUsersForPermission(...permission);
+    return authzAPI.getImplicitUsersForPermission(this.enforcer, ...permission);
   }
 }
