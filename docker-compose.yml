@@ -20,7 +20,7 @@ services:
     image: soybean-admin-backend:0.0.1
     environment:
       TZ: Asia/Shanghai
-      CASBIN_MODEL: './dist/src/infra/casbin/config/model.conf'
+      CASBIN_MODEL: './dist/src/resources/model.conf'
       NODE_ENV: production
       APP_PORT: 9528
       DOC_SWAGGER_ENABLE: 'true'
