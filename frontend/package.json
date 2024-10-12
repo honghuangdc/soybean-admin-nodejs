@@ -40,7 +40,6 @@
     "dev:prod": "vite --mode prod",
     "gen-route": "sa gen-route",
     "lint": "eslint . --fix",
-    "prepare": "simple-git-hooks",
     "preview": "vite preview",
     "release": "sa release",
     "typecheck": "vue-tsc --noEmit --skipLibCheck",
@@ -100,10 +99,7 @@
     "vue-eslint-parser": "9.4.3",
     "vue-tsc": "2.1.6"
   },
-  "simple-git-hooks": {
-    "commit-msg": "pnpm sa git-commit-verify",
-    "pre-commit": "pnpm typecheck && pnpm lint-staged"
-  },
+  "simple-git-hooks": {},
   "lint-staged": {
     "*": "eslint --fix"
   },

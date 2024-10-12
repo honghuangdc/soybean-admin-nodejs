@@ -209,3 +209,47 @@ CREATE UNIQUE INDEX "sys_organization_code_key" ON "sys_organization"("code");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "sys_menu_route_name_key" ON "sys_menu"("route_name");
+
+DROP TABLE IF EXISTS "sys_tokens";
+
+-- CreateTable
+CREATE TABLE "sys_tokens" (
+    "id" TEXT NOT NULL,
+    "access_token" TEXT NOT NULL,
+    "refresh_token" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
+    "domain" TEXT NOT NULL,
+    "login_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "ip" TEXT NOT NULL,
+    "port" INTEGER,
+    "address" TEXT NOT NULL,
+    "user_agent" TEXT NOT NULL,
+    "request_id" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+
+    CONSTRAINT "sys_tokens_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "sys_access_key" (
+    "id" TEXT NOT NULL,
+    "domain" TEXT NOT NULL,
+    "access_key_id" TEXT NOT NULL,
+    "access_key_secret" TEXT NOT NULL,
+    "status" "Status" NOT NULL,
+    "description" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "created_by" TEXT NOT NULL,
+
+    CONSTRAINT "sys_access_key_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "sys_access_key_access_key_id_key" ON "sys_access_key"("access_key_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "sys_access_key_access_key_secret_key" ON "sys_access_key"("access_key_secret");

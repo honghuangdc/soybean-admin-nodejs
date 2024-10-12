@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: 'soybean-admin-nest-backend',
-      script: './dist/src/main.js',
+      script: './dist/apps/base-system/src/main.js',
       autorestart: true,
       instances: -1,
       exec_mode: 'cluster',
