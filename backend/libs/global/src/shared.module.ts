@@ -11,7 +11,7 @@ import { CacheManagerModule } from '@lib/global/cache-manager.module';
 import { Ip2regionModule } from '@lib/shared/ip2region/ip2region.module';
 import { OssModule } from '@lib/shared/oss/oss.module';
 import { PrismaModule } from '@lib/shared/prisma/prisma.module';
-import { isDevEnvironment } from '@lib/utils/env';
+import { getConfigPath } from '@lib/utils/env';
 
 @Global()
 @Module({
@@ -19,18 +19,10 @@ import { isDevEnvironment } from '@lib/utils/env';
     ConfigModule.forRoot({
       load: [
         async () =>
-          yaml.load(
-            fs.readFileSync(
-              `${isDevEnvironment ? '' : './dist/'}src/resources/oss.config.yaml`,
-              'utf8',
-            ),
-          ),
+          yaml.load(fs.readFileSync(getConfigPath('oss.config.yaml'), 'utf8')),
         async () =>
           yaml.load(
-            fs.readFileSync(
-              `${isDevEnvironment ? '' : './dist/'}src/resources/ip2region.config.yaml`,
-              'utf8',
-            ),
+            fs.readFileSync(getConfigPath('ip2region.config.yaml'), 'utf8'),
           ),
       ],
       isGlobal: true,

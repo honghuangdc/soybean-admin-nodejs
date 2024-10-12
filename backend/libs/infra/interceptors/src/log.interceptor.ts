@@ -10,11 +10,12 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
-import { OperationLogProperties } from '@src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
+import { OperationLogProperties } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
 
 import { LOG_OPERATION } from '@lib/constants/event-emitter-token.constant';
 import { USER_AGENT } from '@lib/constants/rest.constant';
 import { LOG_KEY } from '@lib/infra/decorators/log.decorator';
+import { IAuthentication } from '@lib/typings/global';
 
 @Injectable()
 export class LogInterceptor implements NestInterceptor {

@@ -13,6 +13,7 @@ import {
   ErrorCode,
   ErrorMessages,
 } from '@lib/shared/errors/error-code.enum';
+import { ApiResponse } from '@lib/typings/global';
 
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {

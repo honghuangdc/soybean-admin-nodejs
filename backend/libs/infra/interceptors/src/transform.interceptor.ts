@@ -15,6 +15,7 @@ import {
   RESPONSE_SUCCESS_MSG,
 } from '@lib/constants/rest.constant';
 import { BYPASS_TRANSFORM_KEY } from '@lib/infra/decorators/bypass-transform.decorator';
+import { ApiResponse } from '@lib/typings/global';
 
 @Injectable()
 export class TransformInterceptor<T>

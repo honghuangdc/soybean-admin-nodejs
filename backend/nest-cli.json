@@ -1,23 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/base-system/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "assets": [
-      {
-        "include": "**/*.conf",
-        "outDir": "./dist/src"
-      },
-      {
-        "include": "**/*.yaml",
-        "outDir": "./dist/src"
-      },
-      {
-        "include": "**/*.xdb",
-        "outDir": "./dist/src"
-      }
-    ],
     "webpack": false
   },
   "projects": {
@@ -200,6 +186,33 @@
       "compilerOptions": {
         "tsConfigPath": "libs/infra/strategies/tsconfig.lib.json"
       }
+    },
+    "base-system": {
+      "type": "application",
+      "root": "apps/base-system",
+      "entryFile": "main",
+      "sourceRoot": "apps/base-system/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/base-system/tsconfig.app.json",
+        "assets": [
+          {
+            "include": "**/*.(conf|yaml|xdb)",
+            "outDir": "./dist/apps/base-system/src"
+          }
+        ],
+        "watchAssets": true
+      }
+    },
+    "base-demo": {
+      "type": "application",
+      "root": "apps/base-demo",
+      "entryFile": "main",
+      "sourceRoot": "apps/base-demo/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/base-demo/tsconfig.app.json"
+      }
     }
-  }
+  },
+  "monorepo": true,
+  "root": "apps/base-system"
 }

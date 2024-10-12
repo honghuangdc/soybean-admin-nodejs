@@ -1,3 +1,5 @@
+import { RecordNamePaths } from '@lib/typings/utils';
+
 import { AppConfig, IAppConfig, appConfigToken } from './app.config';
 import { CorsConfig, corsRegToken, ICorsConfig } from './cors.config';
 import { RedisConfig, IRedisConfig, redisRegToken } from './redis.config';

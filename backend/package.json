@@ -10,23 +10,23 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "build": "nest build",
-    "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\" \"libs/**/*.ts\"",
+    "build": "nest build base-system",
+    "format": "prettier --write \"apps/**/*.ts\" \"libs/**/*.ts\"",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev --name auto",
     "prisma:update": "prisma migrate dev --name auto && prisma generate",
     "prisma:studio": "prisma studio",
-    "start": "nest start",
-    "start:dev": "cross-env NODE_ENV=development nest start --watch --path tsconfig.json",
-    "start:debug": "cross-env NODE_ENV=development nest start --debug --watch",
-    "start:prod": "cross-env NODE_ENV=production node dist/src/main",
+    "start": "nest start base-system",
+    "start:dev": "cross-env NODE_ENV=development nest start base-system --watch",
+    "start:debug": "cross-env NODE_ENV=development nest start base-system --debug --watch",
+    "start:prod": "cross-env NODE_ENV=production node dist/apps/base-system/src/main",
     "pm2:start:prod": "cross-env NODE_ENV=production pm2 start ecosystem.config.js",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" \"libs/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./apps/base-system/test/jest-e2e.json"
   },
   "dependencies": {
     "@fastify/compress": "^7.0.3",
@@ -147,8 +147,8 @@
       "^@lib/infra/strategies(|/.*)$": "<rootDir>/libs/infra/strategies/src/$1"
     },
     "roots": [
-      "<rootDir>/src/",
-      "<rootDir>/libs/"
+      "<rootDir>/libs/",
+      "<rootDir>/apps/"
     ]
   },
   "prisma": {

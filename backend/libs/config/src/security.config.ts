@@ -1,14 +1,11 @@
 import { ConfigType, registerAs } from '@nestjs/config';
 
-import { getEnvNumber, getEnvString, isDevEnvironment } from '@lib/utils/env';
+import { getEnvNumber, getEnvString } from '@lib/utils/env';
 
 export const securityRegToken = 'security';
 
 export const SecurityConfig = registerAs(securityRegToken, () => ({
-  casbinModel: getEnvString(
-    'CASBIN_MODEL',
-    `${isDevEnvironment ? '' : './dist/'}src/resources/model.conf`,
-  ),
+  casbinModel: getEnvString('CASBIN_MODEL', 'model.conf'),
   jwtSecret: getEnvString('JWT_SECRET', 'JWT_SECRET-soybean-admin-nest!@#123.'),
   jwtExpiresIn: getEnvNumber('JWT_EXPIRE_IN', 60 * 60 * 2),
   refreshJwtSecret: getEnvString(

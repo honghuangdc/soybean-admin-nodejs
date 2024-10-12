@@ -6,6 +6,8 @@ import {
   Type,
 } from '@nestjs/common';
 
+import { IAuthentication } from '@lib/typings/global';
+
 export interface AuthZModuleOptions<T = any> {
   model?: string;
   policy?: string | Promise<T>;
