@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  UnprocessableEntityException,
 } from '@nestjs/common';
 import { FastifyReply } from 'fastify';
 
@@ -25,7 +26,17 @@ export class AllExceptionsFilter implements ExceptionFilter {
       message: ErrorMessages[ErrorCode.INTERNAL_SERVER_ERROR],
     };
 
-    if (exception instanceof HttpException) {
+    if (exception instanceof UnprocessableEntityException) {
+      statusCode = HttpStatus.UNPROCESSABLE_ENTITY;
+      const exceptionResponse = exception.getResponse() as any;
+      errorDetails = {
+        code: ErrorCode.UNPROCESSABLE_ENTITY,
+        message: exceptionResponse.message || 'Validation failed',
+        ...(exceptionResponse.errors
+          ? { errors: exceptionResponse.errors }
+          : {}),
+      };
+    } else if (exception instanceof HttpException) {
       statusCode = exception.getStatus();
       errorDetails = this.buildErrorResponse(exception);
     } else if (exception instanceof BizException) {

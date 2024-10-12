@@ -5,7 +5,9 @@ import {
   HttpStatus,
   Logger,
   UnprocessableEntityException,
+  ValidationError,
   ValidationPipe,
+  ValidationPipeOptions,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
@@ -20,6 +22,47 @@ import { isMainProcess } from '@lib/utils/env';
 
 import { AppModule } from './app.module';
 
+interface ValidationErrors {
+  [key: string]: string[] | ValidationErrors;
+}
+
+const validationPipeOptions: ValidationPipeOptions = {
+  transform: true,
+  whitelist: true,
+  transformOptions: { enableImplicitConversion: true },
+  errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
+  exceptionFactory: (errors: ValidationError[]) => {
+    const formattedErrors = formatErrors(errors);
+    return new UnprocessableEntityException({
+      message: 'Validation failed',
+      errors: formattedErrors,
+    });
+  },
+};
+
+function formatErrors(
+  errors: ValidationError[],
+  parentPath: string = '',
+): ValidationErrors {
+  return errors.reduce((acc, error) => {
+    const property = parentPath
+      ? `${parentPath}.${error.property}`
+      : error.property;
+
+    if (error.constraints) {
+      acc[property] = Object.values(error.constraints);
+    }
+
+    if (error.children && error.children.length > 0) {
+      const nestedErrors = formatErrors(error.children, property);
+      // 合并嵌套错误
+      acc[property] = { ...acc[property], ...nestedErrors };
+    }
+
+    return acc;
+  }, {} as ValidationErrors);
+}
+
 async function bootstrap() {
   await RedisUtility.client();
 
@@ -30,33 +73,20 @@ async function bootstrap() {
   );
 
   const configService = app.get(ConfigService<ConfigKeyPaths>);
-
   const { port } = configService.get<IAppConfig>('app', { infer: true });
+  const corsConfig = configService.get<ICorsConfig>('cors', { infer: true });
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  const corsConfig = configService.get<ICorsConfig>('cors', { infer: true });
+  if (corsConfig.enabled) {
+    app.enableCors(corsConfig.corsOptions);
+  }
 
-  corsConfig.enabled && app.enableCors(corsConfig.corsOptions);
+  const GLOBAL_PREFIX = 'v1';
+  app.setGlobalPrefix(GLOBAL_PREFIX);
 
-  app.useGlobalPipes(
-    new ValidationPipe({
-      transform: true,
-      whitelist: true,
-      transformOptions: { enableImplicitConversion: true },
-      errorHttpStatusCode: HttpStatus.UNPROCESSABLE_ENTITY,
-      stopAtFirstError: true,
-      exceptionFactory: (errors) =>
-        new UnprocessableEntityException(
-          errors.map((e) => {
-            const rule = Object.keys(e.constraints!)[0];
-            return e.constraints![rule];
-          })[0],
-        ),
-    }),
-  );
+  app.useGlobalPipes(new ValidationPipe(validationPipeOptions));
 
-  app.setGlobalPrefix('v1');
   initDocSwagger(app, configService);
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
