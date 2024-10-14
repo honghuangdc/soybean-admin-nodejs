@@ -18,6 +18,7 @@
     "prisma:studio": "prisma studio",
     "start": "nest start base-system",
     "start:dev": "cross-env NODE_ENV=development nest start base-system --watch",
+    "start:dev:demo": "cross-env NODE_ENV=development nest start base-demo --watch",
     "start:debug": "cross-env NODE_ENV=development nest start base-system --debug --watch",
     "start:prod": "cross-env NODE_ENV=production node dist/apps/base-system/src/main",
     "pm2:start:prod": "cross-env NODE_ENV=production pm2 start ecosystem.config.js",

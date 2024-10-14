@@ -209,7 +209,14 @@
       "entryFile": "main",
       "sourceRoot": "apps/base-demo/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/base-demo/tsconfig.app.json"
+        "tsConfigPath": "apps/base-demo/tsconfig.app.json",
+        "assets": [
+          {
+            "include": "**/*.(conf|yaml|xdb)",
+            "outDir": "./dist/apps/base-demo/src"
+          }
+        ],
+        "watchAssets": true
       }
     }
   },

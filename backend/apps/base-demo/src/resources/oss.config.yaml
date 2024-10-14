@@ -1,0 +1,12 @@
+oss:
+  default:
+    region: oss-cn-beijing
+    accessKeyId: x
+    accessKeySecret: x
+    bucket: x
+#   more
+#   default:
+#     region: oss-cn-beijing
+#     accessKeyId: x
+#     accessKeySecret: x
+#     bucket: x

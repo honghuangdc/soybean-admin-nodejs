@@ -1,0 +1,3 @@
+ip2region:
+  xdbPath: 'apps/base-system/src/resources/ip2region.xdb'
+  mode: VECTOR_INDEX
