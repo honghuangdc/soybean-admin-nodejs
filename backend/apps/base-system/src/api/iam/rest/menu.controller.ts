@@ -11,18 +11,18 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { MenuRoute } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
-import { MenuService } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/application/service/menu.service';
-import { MenuCreateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/commands/menu-create.command';
-import { MenuDeleteCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/commands/menu-delete.command';
-import { MenuUpdateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/commands/menu-update.command';
-import { MenuTreeProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
-import { MenuIdsByRoleIdAndDomainQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_id&domain.query';
-import { MenusQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/queries/menus.query';
-import { MenusTreeQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/queries/menus.tree.query';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+import { MenuRoute } from '@app/base-system/lib/bounded-contexts/iam/menu/application/dto/route.dto';
+import { MenuService } from '@app/base-system/lib/bounded-contexts/iam/menu/application/service/menu.service';
+import { MenuCreateCommand } from '@app/base-system/lib/bounded-contexts/iam/menu/commands/menu-create.command';
+import { MenuDeleteCommand } from '@app/base-system/lib/bounded-contexts/iam/menu/commands/menu-delete.command';
+import { MenuUpdateCommand } from '@app/base-system/lib/bounded-contexts/iam/menu/commands/menu-update.command';
+import { MenuTreeProperties } from '@app/base-system/lib/bounded-contexts/iam/menu/domain/menu.read.model';
+import { MenuIdsByRoleIdAndDomainQuery } from '@app/base-system/lib/bounded-contexts/iam/menu/queries/menu-ids.by-role_id&domain.query';
+import { MenusQuery } from '@app/base-system/lib/bounded-contexts/iam/menu/queries/menus.query';
+import { MenusTreeQuery } from '@app/base-system/lib/bounded-contexts/iam/menu/queries/menus.tree.query';
 
 import { Public } from '@lib/infra/decorators/public.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 
 import { RouteCreateDto, RouteUpdateDto } from '../dto/route.dto';
 

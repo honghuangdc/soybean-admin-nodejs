@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
-import { MenuReadRepoPortToken } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/constants';
-import { MenuReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
+import { MenuReadRepoPortToken } from '@app/base-system/lib/bounded-contexts/iam/menu/constants';
+import { MenuReadRepoPort } from '@app/base-system/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
 
 import { ROOT_ROUTE_PID } from '@lib/shared/prisma/db.constant';
 

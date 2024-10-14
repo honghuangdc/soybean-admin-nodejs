@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 
-import { AccessKeyModule } from 'apps/base-system/src/lib/bounded-contexts/access-key/access_key.module';
+import { AccessKeyModule } from '@app/base-system/lib/bounded-contexts/access-key/access_key.module';
 import {
   AccessKeyReadRepoPortToken,
   AccessKeyWriteRepoPortToken,
-} from 'apps/base-system/src/lib/bounded-contexts/access-key/constants';
+} from '@app/base-system/lib/bounded-contexts/access-key/constants';
 
 import { AccessKeyReadPostgresRepository } from './repository/access_key.read.pg.repository';
 import { AccessKeyWritePostgresRepository } from './repository/access_key.write.pg.repository';

@@ -34,6 +34,9 @@
       "@tests/*": [
         "tests/*"
       ],
+      "@app/base-system/*": [
+        "apps/base-system/src/*"
+      ],
       "@lib/bootstrap": [
         "libs/bootstrap/src"
       ],

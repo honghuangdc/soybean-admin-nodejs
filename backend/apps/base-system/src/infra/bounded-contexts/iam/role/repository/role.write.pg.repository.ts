@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Role } from 'apps/base-system/src/lib/bounded-contexts/iam/role/domain/role.model';
-import { RoleWriteRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/role/ports/role.write.repo-port';
+import { Role } from '@app/base-system/lib/bounded-contexts/iam/role/domain/role.model';
+import { RoleWriteRepoPort } from '@app/base-system/lib/bounded-contexts/iam/role/ports/role.write.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

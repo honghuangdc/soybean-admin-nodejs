@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { AccessKey } from 'apps/base-system/src/lib/bounded-contexts/access-key/domain/access_key.model';
-import { AccessKeyWriteRepoPort } from 'apps/base-system/src/lib/bounded-contexts/access-key/ports/access_key.write.repo-port';
+import { AccessKey } from '@app/base-system/lib/bounded-contexts/access-key/domain/access_key.model';
+import { AccessKeyWriteRepoPort } from '@app/base-system/lib/bounded-contexts/access-key/ports/access_key.write.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

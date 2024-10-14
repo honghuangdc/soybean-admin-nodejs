@@ -11,14 +11,14 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   OperationLogProperties,
   OperationLogReadModel,
-} from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
-import { PageOperationLogsQuery } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/queries/page-operation-logs.query';
-import { LogInterceptor } from 'libs/infra/interceptors/src/log.interceptor';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+} from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
+import { PageOperationLogsQuery } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/queries/page-operation-logs.query';
 
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@lib/infra/casbin';
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { Log } from '@lib/infra/decorators/log.decorator';
+import { LogInterceptor } from '@lib/infra/interceptors/log.interceptor';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageOperationLogsQueryDto } from '../dto/page-operation-log.dto';

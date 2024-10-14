@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { DomainProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
-import { DomainReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/ports/domain.read.repo-port';
-import { PageDomainsQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
+import { DomainProperties } from '@app/base-system/lib/bounded-contexts/iam/domain/domain/domain.read.model';
+import { DomainReadRepoPort } from '@app/base-system/lib/bounded-contexts/iam/domain/ports/domain.read.repo-port';
+import { PageDomainsQuery } from '@app/base-system/lib/bounded-contexts/iam/domain/queries/page-domains.query';
 
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

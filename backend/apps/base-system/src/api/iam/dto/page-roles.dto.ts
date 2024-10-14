@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Status } from '@prisma/client';
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-import { PaginationParams } from 'libs/infra/rest/src/pagination-params';
+import { PaginationParams } from '@lib/infra/rest/pagination-params';
 
 export class PageRolesDto extends PaginationParams {
   @ApiProperty({ required: false })

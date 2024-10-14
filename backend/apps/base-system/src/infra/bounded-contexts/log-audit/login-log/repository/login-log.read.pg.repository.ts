@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { LoginLogProperties } from 'apps/base-system/src/lib/bounded-contexts/log-audit/login-log/domain/login-log.read.model';
-import { LoginLogReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/log-audit/login-log/ports/login-log.read.repo-port';
-import { PageLoginLogsQuery } from 'apps/base-system/src/lib/bounded-contexts/log-audit/login-log/queries/page-login-logs.query';
+import { LoginLogProperties } from '@app/base-system/lib/bounded-contexts/log-audit/login-log/domain/login-log.read.model';
+import { LoginLogReadRepoPort } from '@app/base-system/lib/bounded-contexts/log-audit/login-log/ports/login-log.read.repo-port';
+import { PageLoginLogsQuery } from '@app/base-system/lib/bounded-contexts/log-audit/login-log/queries/page-login-logs.query';
 
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

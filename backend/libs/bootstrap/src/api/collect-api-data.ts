@@ -11,7 +11,7 @@ import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { Module } from '@nestjs/core/injector/module';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 
-import { ApiEndpoint } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/api-endpoint.model';
+import { ApiEndpoint } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/domain/api-endpoint.model';
 
 import { API_ENDPOINT } from '@lib/constants/event-emitter-token.constant';
 import {

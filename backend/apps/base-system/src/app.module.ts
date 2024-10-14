@@ -8,10 +8,6 @@ import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage
 import * as casbin from 'casbin';
 import { Redis } from 'ioredis';
 
-import { ApiModule } from 'apps/base-system/src/api/api.module';
-import { AllExceptionsFilter } from 'libs/infra/filters/src/all-exceptions.filter';
-import { JwtStrategy } from 'libs/infra/strategies/src/jwt.passport-strategy';
-
 //nest init
 import { BootstrapModule } from '@lib/bootstrap/bootstrap.module';
 import config, {
@@ -25,11 +21,14 @@ import { ISecurityConfig, securityRegToken } from '@lib/config/security.config';
 import { GlobalCqrsModule } from '@lib/global/global.module';
 import { SharedModule } from '@lib/global/shared.module';
 import { AuthZModule, AUTHZ_ENFORCER, PrismaAdapter } from '@lib/infra/casbin';
+import { AllExceptionsFilter } from '@lib/infra/filters/all-exceptions.filter';
 import { ApiKeyModule } from '@lib/infra/guard/api-key/api-key.module';
 import { JwtAuthGuard } from '@lib/infra/guard/jwt.auth.guard';
+import { JwtStrategy } from '@lib/infra/strategies/jwt.passport-strategy';
 import { IAuthentication } from '@lib/typings/global';
 import { getConfigPath } from '@lib/utils/env';
 
+import { ApiModule } from './api/api.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 

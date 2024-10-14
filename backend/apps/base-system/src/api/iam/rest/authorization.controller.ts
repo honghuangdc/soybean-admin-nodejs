@@ -10,16 +10,16 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { AuthorizationService } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/application/service/authorization.service';
-import { RoleAssignPermissionCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/commands/role-assign-permission.command';
-import { RoleAssignRouteCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/commands/role-assign-route.command';
-import { RoleAssignUserCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/commands/role-assign-user.command';
-import { UserRoute } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/application/dto/route.dto';
-import { MenuService } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/application/service/menu.service';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+import { AuthorizationService } from '@app/base-system/lib/bounded-contexts/iam/authentication/application/service/authorization.service';
+import { RoleAssignPermissionCommand } from '@app/base-system/lib/bounded-contexts/iam/authentication/commands/role-assign-permission.command';
+import { RoleAssignRouteCommand } from '@app/base-system/lib/bounded-contexts/iam/authentication/commands/role-assign-route.command';
+import { RoleAssignUserCommand } from '@app/base-system/lib/bounded-contexts/iam/authentication/commands/role-assign-user.command';
+import { UserRoute } from '@app/base-system/lib/bounded-contexts/iam/menu/application/dto/route.dto';
+import { MenuService } from '@app/base-system/lib/bounded-contexts/iam/menu/application/service/menu.service';
 
 import { CacheConstant } from '@lib/constants/cache.constant';
 import { AuthZGuard, UsePermissions } from '@lib/infra/casbin';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { RedisUtility } from '@lib/shared/redis/redis.util';
 import { IAuthentication } from '@lib/typings/global';
 

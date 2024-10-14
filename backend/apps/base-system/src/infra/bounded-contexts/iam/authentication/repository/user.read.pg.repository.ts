@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { UserProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/domain/user.read.model';
-import { UserReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/ports/user.read.repo-port';
-import { PageUsersQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/queries/page-users.query';
+import { UserProperties } from '@app/base-system/lib/bounded-contexts/iam/authentication/domain/user.read.model';
+import { UserReadRepoPort } from '@app/base-system/lib/bounded-contexts/iam/authentication/ports/user.read.repo-port';
+import { PageUsersQuery } from '@app/base-system/lib/bounded-contexts/iam/authentication/queries/page-users.query';
 
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

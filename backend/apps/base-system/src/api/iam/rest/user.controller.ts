@@ -12,17 +12,17 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { UserCreateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/commands/user-create.command';
-import { UserDeleteCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/commands/user-delete.command';
-import { UserUpdateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/commands/user-update.command';
+import { UserCreateCommand } from '@app/base-system/lib/bounded-contexts/iam/authentication/commands/user-create.command';
+import { UserDeleteCommand } from '@app/base-system/lib/bounded-contexts/iam/authentication/commands/user-delete.command';
+import { UserUpdateCommand } from '@app/base-system/lib/bounded-contexts/iam/authentication/commands/user-update.command';
 import {
   UserProperties,
   UserReadModel,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/domain/user.read.model';
-import { PageUsersQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/queries/page-users.query';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+} from '@app/base-system/lib/bounded-contexts/iam/authentication/domain/user.read.model';
+import { PageUsersQuery } from '@app/base-system/lib/bounded-contexts/iam/authentication/queries/page-users.query';
 
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageUsersDto } from '../dto/page-users.dto';

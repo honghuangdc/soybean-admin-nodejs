@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { RoleProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/role/domain/role.read.model';
-import { RoleReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/role/ports/role.read.repo-port';
-import { PageRolesQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/role/queries/page-roles.query';
+import { RoleProperties } from '@app/base-system/lib/bounded-contexts/iam/role/domain/role.read.model';
+import { RoleReadRepoPort } from '@app/base-system/lib/bounded-contexts/iam/role/ports/role.read.repo-port';
+import { PageRolesQuery } from '@app/base-system/lib/bounded-contexts/iam/role/queries/page-roles.query';
 
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

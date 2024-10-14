@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { OperationLog } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.model';
-import { OperationLogWriteRepoPort } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/ports/operation-log.write.repo-port';
+import { OperationLog } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.model';
+import { OperationLogWriteRepoPort } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/ports/operation-log.write.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

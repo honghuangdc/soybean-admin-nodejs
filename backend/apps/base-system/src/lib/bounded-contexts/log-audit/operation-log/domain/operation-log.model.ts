@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 
-import { OperationLogProperties } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
+import { OperationLogProperties } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
 
 export class OperationLog extends AggregateRoot {
   readonly userId: string;

@@ -1,7 +1,7 @@
 import { Inject } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
-import { UserLoggedInEvent } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/domain/events/user-logged-in.event';
+import { UserLoggedInEvent } from '@app/base-system/lib/bounded-contexts/iam/authentication/domain/events/user-logged-in.event';
 
 import { ISecurityConfig, SecurityConfig } from '@lib/config';
 import { CacheConstant } from '@lib/constants/cache.constant';

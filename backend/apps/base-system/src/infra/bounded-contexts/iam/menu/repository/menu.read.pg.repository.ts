@@ -4,8 +4,8 @@ import { Status } from '@prisma/client';
 import {
   MenuProperties,
   MenuTreeProperties,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
-import { MenuReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
+} from '@app/base-system/lib/bounded-contexts/iam/menu/domain/menu.read.model';
+import { MenuReadRepoPort } from '@app/base-system/lib/bounded-contexts/iam/menu/ports/menu.read.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

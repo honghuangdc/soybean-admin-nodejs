@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Menu } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/domain/menu.model';
-import { MenuWriteRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/ports/menu.write.repo-port';
+import { Menu } from '@app/base-system/lib/bounded-contexts/iam/menu/domain/menu.model';
+import { MenuWriteRepoPort } from '@app/base-system/lib/bounded-contexts/iam/menu/ports/menu.write.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

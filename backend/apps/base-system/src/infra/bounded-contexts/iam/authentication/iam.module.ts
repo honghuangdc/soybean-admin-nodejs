@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 
-import { AuthenticationModule } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/authentication.module';
+import { AuthenticationModule } from '@app/base-system/lib/bounded-contexts/iam/authentication/authentication.module';
 import {
   UserReadRepoPortToken,
   UserWriteRepoPortToken,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/constants';
+} from '@app/base-system/lib/bounded-contexts/iam/authentication/constants';
 
 import { ConfigKeyPaths, ISecurityConfig, securityRegToken } from '@lib/config';
 

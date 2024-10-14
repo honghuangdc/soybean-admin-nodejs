@@ -1,15 +1,15 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
 
-import { EndpointProperties } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
-import { FindEndpointsByIdsQuery } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
-import { DomainProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
-import { FindDomainByCodeQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/queries/domain.by-code.query';
-import { MenuProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/domain/menu.read.model';
-import { MenuIdsByUserIdAndDomainQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/queries/menu-ids.by-user_id&domain.query';
-import { MenusByIdsQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
-import { RoleProperties } from 'apps/base-system/src/lib/bounded-contexts/iam/role/domain/role.read.model';
-import { FindRoleByIdQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/role/queries/role.by-id.query';
+import { EndpointProperties } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
+import { FindEndpointsByIdsQuery } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.by-ids.query';
+import { DomainProperties } from '@app/base-system/lib/bounded-contexts/iam/domain/domain/domain.read.model';
+import { FindDomainByCodeQuery } from '@app/base-system/lib/bounded-contexts/iam/domain/queries/domain.by-code.query';
+import { MenuProperties } from '@app/base-system/lib/bounded-contexts/iam/menu/domain/menu.read.model';
+import { MenuIdsByUserIdAndDomainQuery } from '@app/base-system/lib/bounded-contexts/iam/menu/queries/menu-ids.by-user_id&domain.query';
+import { MenusByIdsQuery } from '@app/base-system/lib/bounded-contexts/iam/menu/queries/menus.by-ids.query';
+import { RoleProperties } from '@app/base-system/lib/bounded-contexts/iam/role/domain/role.read.model';
+import { FindRoleByIdQuery } from '@app/base-system/lib/bounded-contexts/iam/role/queries/role.by-id.query';
 
 import { AuthZRBACService } from '@lib/infra/casbin';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

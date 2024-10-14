@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { EndpointProperties } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
-import { ApiEndpointReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/ports/api-endpoint.read.repo-port';
-import { PageEndpointsQuery } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
+import { EndpointProperties } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
+import { ApiEndpointReadRepoPort } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/ports/api-endpoint.read.repo-port';
+import { PageEndpointsQuery } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
 
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

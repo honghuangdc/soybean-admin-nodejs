@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 import {
   OperationLogReadRepoPortToken,
   OperationLogWriteRepoPortToken,
-} from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/constants';
-import { OperationLogModule } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/operation-log.module';
+} from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/constants';
+import { OperationLogModule } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/operation-log.module';
 
 import { OperationLogReadRepository } from './repository/operation-log.read.pg.repository';
 import { OperationLogWriteRepository } from './repository/operation-log.write.pg.repository';

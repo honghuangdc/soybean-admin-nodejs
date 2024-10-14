@@ -7,8 +7,8 @@ import {
 import { EventPublisher, QueryBus } from '@nestjs/cqrs';
 import { JwtService } from '@nestjs/jwt';
 
-import { TokensReadModel } from 'apps/base-system/src/lib/bounded-contexts/iam/tokens/domain/tokens.read.model';
-import { TokensByRefreshTokenQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/tokens/queries/tokens.by-refresh_token.query';
+import { TokensReadModel } from '@app/base-system/lib/bounded-contexts/iam/tokens/domain/tokens.read.model';
+import { TokensByRefreshTokenQuery } from '@app/base-system/lib/bounded-contexts/iam/tokens/queries/tokens.by-refresh_token.query';
 
 import { ISecurityConfig, SecurityConfig } from '@lib/config';
 import { IAuthentication } from '@lib/typings/global';

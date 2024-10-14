@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 
-import { OperationLogProperties } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
-import { OperationLogReadRepoPort } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/ports/operation-log.read.repo-port';
-import { PageOperationLogsQuery } from 'apps/base-system/src/lib/bounded-contexts/log-audit/operation-log/queries/page-operation-logs.query';
+import { OperationLogProperties } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/domain/operation-log.read.model';
+import { OperationLogReadRepoPort } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/ports/operation-log.read.repo-port';
+import { PageOperationLogsQuery } from '@app/base-system/lib/bounded-contexts/log-audit/operation-log/queries/page-operation-logs.query';
 
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 import { PrismaService } from '@lib/shared/prisma/prisma.service';

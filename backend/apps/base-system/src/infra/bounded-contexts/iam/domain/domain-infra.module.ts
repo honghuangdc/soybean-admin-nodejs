@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 import {
   DomainReadRepoPortToken,
   DomainWriteRepoPortToken,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/domain/constants';
-import { DomainModule } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/domain.module';
+} from '@app/base-system/lib/bounded-contexts/iam/domain/constants';
+import { DomainModule } from '@app/base-system/lib/bounded-contexts/iam/domain/domain.module';
 
 import { DomainReadRepository } from './repository/domain.read.pg.repository';
 import { DomainWriteRepository } from './repository/domain.write.pg.repository';

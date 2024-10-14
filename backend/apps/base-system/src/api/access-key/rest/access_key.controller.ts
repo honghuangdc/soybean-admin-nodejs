@@ -11,16 +11,16 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { AccessKeyCreateCommand } from 'apps/base-system/src/lib/bounded-contexts/access-key/commands/access_key-create.command';
-import { AccessKeyDeleteCommand } from 'apps/base-system/src/lib/bounded-contexts/access-key/commands/access_key-delete.command';
+import { AccessKeyCreateCommand } from '@app/base-system/lib/bounded-contexts/access-key/commands/access_key-create.command';
+import { AccessKeyDeleteCommand } from '@app/base-system/lib/bounded-contexts/access-key/commands/access_key-delete.command';
 import {
   AccessKeyProperties,
   AccessKeyReadModel,
-} from 'apps/base-system/src/lib/bounded-contexts/access-key/domain/access_key.read.model';
-import { PageAccessKeysQuery } from 'apps/base-system/src/lib/bounded-contexts/access-key/queries/page-access_key.query';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+} from '@app/base-system/lib/bounded-contexts/access-key/domain/access_key.read.model';
+import { PageAccessKeysQuery } from '@app/base-system/lib/bounded-contexts/access-key/queries/page-access_key.query';
 
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { BUILT_IN } from '@lib/shared/prisma/db.constant';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 

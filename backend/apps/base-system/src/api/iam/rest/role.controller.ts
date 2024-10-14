@@ -12,17 +12,17 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { RoleCreateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/role/commands/role-create.command';
-import { RoleDeleteCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/role/commands/role-delete.command';
-import { RoleUpdateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/role/commands/role-update.command';
+import { RoleCreateCommand } from '@app/base-system/lib/bounded-contexts/iam/role/commands/role-create.command';
+import { RoleDeleteCommand } from '@app/base-system/lib/bounded-contexts/iam/role/commands/role-delete.command';
+import { RoleUpdateCommand } from '@app/base-system/lib/bounded-contexts/iam/role/commands/role-update.command';
 import {
   RoleProperties,
   RoleReadModel,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/role/domain/role.read.model';
-import { PageRolesQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/role/queries/page-roles.query';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+} from '@app/base-system/lib/bounded-contexts/iam/role/domain/role.read.model';
+import { PageRolesQuery } from '@app/base-system/lib/bounded-contexts/iam/role/queries/page-roles.query';
 
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageRolesDto } from '../dto/page-roles.dto';

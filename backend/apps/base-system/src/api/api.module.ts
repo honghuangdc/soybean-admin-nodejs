@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 
-import { AccessKeyInfraModule } from 'apps/base-system/src/infra/bounded-contexts/access-key/access_key.infra.module';
-import { ApiEndpointInfraModule } from 'apps/base-system/src/infra/bounded-contexts/api-endpoint/api-endpoint/api-endpoint.infra.module';
-import { IamModule } from 'apps/base-system/src/infra/bounded-contexts/iam/authentication/iam.module';
-import { DomainInfraModule } from 'apps/base-system/src/infra/bounded-contexts/iam/domain/domain-infra.module';
-import { MenuInfraModule } from 'apps/base-system/src/infra/bounded-contexts/iam/menu/menu.infra.module';
-import { RoleInfraModule } from 'apps/base-system/src/infra/bounded-contexts/iam/role/role.infra.module';
-import { TokensInfraModule } from 'apps/base-system/src/infra/bounded-contexts/iam/tokens/tokens.infra.module';
-import { LoginLogInfraModule } from 'apps/base-system/src/infra/bounded-contexts/log-audit/login-log/login-log.infra.module';
-import { OperationLogInfraModule } from 'apps/base-system/src/infra/bounded-contexts/log-audit/operation-log/operation-log.infra.module';
+import { AccessKeyInfraModule } from '@app/base-system/infra/bounded-contexts/access-key/access_key.infra.module';
+import { ApiEndpointInfraModule } from '@app/base-system/infra/bounded-contexts/api-endpoint/api-endpoint/api-endpoint.infra.module';
+import { IamModule } from '@app/base-system/infra/bounded-contexts/iam/authentication/iam.module';
+import { DomainInfraModule } from '@app/base-system/infra/bounded-contexts/iam/domain/domain-infra.module';
+import { MenuInfraModule } from '@app/base-system/infra/bounded-contexts/iam/menu/menu.infra.module';
+import { RoleInfraModule } from '@app/base-system/infra/bounded-contexts/iam/role/role.infra.module';
+import { TokensInfraModule } from '@app/base-system/infra/bounded-contexts/iam/tokens/tokens.infra.module';
+import { LoginLogInfraModule } from '@app/base-system/infra/bounded-contexts/log-audit/login-log/login-log.infra.module';
+import { OperationLogInfraModule } from '@app/base-system/infra/bounded-contexts/log-audit/operation-log/operation-log.infra.module';
 
 import { Controllers as AccessKeyRest } from './access-key/rest';
 import { Controllers as EndpointRest } from './endpoint/rest';

@@ -2,7 +2,7 @@ import { BadRequestException, Inject } from '@nestjs/common';
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { Status } from '@prisma/client';
 
-import { Password } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/domain/password.value-object';
+import { Password } from '@app/base-system/lib/bounded-contexts/iam/authentication/domain/password.value-object';
 
 import { UlidGenerator } from '@lib/utils/id.util';
 

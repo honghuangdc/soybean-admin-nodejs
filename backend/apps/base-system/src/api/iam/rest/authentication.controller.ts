@@ -2,14 +2,14 @@ import { Body, Controller, Get, Post, Request } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { FastifyRequest } from 'fastify';
 
-import { PasswordIdentifierDTO } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
-import { RefreshTokenDTO } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/application/dto/refresh-token.dto';
-import { AuthenticationService } from 'apps/base-system/src/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+import { PasswordIdentifierDTO } from '@app/base-system/lib/bounded-contexts/iam/authentication/application/dto/password-identifier.dto';
+import { RefreshTokenDTO } from '@app/base-system/lib/bounded-contexts/iam/authentication/application/dto/refresh-token.dto';
+import { AuthenticationService } from '@app/base-system/lib/bounded-contexts/iam/authentication/application/service/authentication.service';
 
 import { CacheConstant } from '@lib/constants/cache.constant';
 import { USER_AGENT } from '@lib/constants/rest.constant';
 import { Public } from '@lib/infra/decorators/public.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { Ip2regionService } from '@lib/shared/ip2region/ip2region.service';
 import { RedisUtility } from '@lib/shared/redis/redis.util';
 import { IAuthentication } from '@lib/typings/global';

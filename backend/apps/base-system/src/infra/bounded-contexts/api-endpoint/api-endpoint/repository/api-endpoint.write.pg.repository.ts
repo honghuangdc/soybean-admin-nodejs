@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { ApiEndpoint } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/api-endpoint.model';
-import { ApiEndpointWriteRepoPort } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/ports/api-endpoint.write.repo-port';
+import { ApiEndpoint } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/domain/api-endpoint.model';
+import { ApiEndpointWriteRepoPort } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/ports/api-endpoint.write.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

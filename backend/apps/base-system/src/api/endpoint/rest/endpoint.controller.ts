@@ -9,18 +9,18 @@ import {
 import { QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { CasbinRuleApiEndpointService } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/application/service/casbin-rule-api-endpoint.service';
+import { CasbinRuleApiEndpointService } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/application/service/casbin-rule-api-endpoint.service';
 import {
   EndpointProperties,
   EndpointReadModel,
   EndpointTreeProperties,
-} from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
-import { EndpointsQuery } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.query';
-import { PageEndpointsQuery } from 'apps/base-system/src/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+} from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/domain/endpoint.read.model';
+import { EndpointsQuery } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/queries/endpoints.query';
+import { PageEndpointsQuery } from '@app/base-system/lib/bounded-contexts/api-endpoint/api-endpoint/queries/page-endpoints.query';
 
 import { AuthActionVerb, AuthZGuard, UsePermissions } from '@lib/infra/casbin';
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { PageEndpointsQueryDto } from '../dto/page-endpoint.dto';

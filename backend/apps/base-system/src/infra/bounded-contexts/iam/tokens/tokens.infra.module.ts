@@ -3,8 +3,8 @@ import { Module } from '@nestjs/common';
 import {
   TokensReadRepoPortToken,
   TokensWriteRepoPortToken,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/tokens/constants';
-import { TokensModule } from 'apps/base-system/src/lib/bounded-contexts/iam/tokens/tokens.module';
+} from '@app/base-system/lib/bounded-contexts/iam/tokens/constants';
+import { TokensModule } from '@app/base-system/lib/bounded-contexts/iam/tokens/tokens.module';
 
 import { TokensReadRepository } from './repository/tokens.read.pg.repository';
 import { TokensWriteRepository } from './repository/tokens.write.pg.repository';

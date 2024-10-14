@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 
-import { Domain } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/domain/domain.model';
-import { DomainWriteRepoPort } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/ports/domain.write.repo-port';
+import { Domain } from '@app/base-system/lib/bounded-contexts/iam/domain/domain/domain.model';
+import { DomainWriteRepoPort } from '@app/base-system/lib/bounded-contexts/iam/domain/ports/domain.write.repo-port';
 
 import { PrismaService } from '@lib/shared/prisma/prisma.service';
 

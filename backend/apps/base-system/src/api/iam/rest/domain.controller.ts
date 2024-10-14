@@ -12,17 +12,17 @@ import {
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
-import { DomainCreateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/commands/domain-create.command';
-import { DomainDeleteCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/commands/domain-delete.command';
-import { DomainUpdateCommand } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/commands/domain-update.command';
+import { DomainCreateCommand } from '@app/base-system/lib/bounded-contexts/iam/domain/commands/domain-create.command';
+import { DomainDeleteCommand } from '@app/base-system/lib/bounded-contexts/iam/domain/commands/domain-delete.command';
+import { DomainUpdateCommand } from '@app/base-system/lib/bounded-contexts/iam/domain/commands/domain-update.command';
 import {
   DomainProperties,
   DomainReadModel,
-} from 'apps/base-system/src/lib/bounded-contexts/iam/domain/domain/domain.read.model';
-import { PageDomainsQuery } from 'apps/base-system/src/lib/bounded-contexts/iam/domain/queries/page-domains.query';
-import { ApiRes } from 'libs/infra/rest/src/res.response';
+} from '@app/base-system/lib/bounded-contexts/iam/domain/domain/domain.read.model';
+import { PageDomainsQuery } from '@app/base-system/lib/bounded-contexts/iam/domain/queries/page-domains.query';
 
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
+import { ApiRes } from '@lib/infra/rest/res.response';
 import { PaginationResult } from '@lib/shared/prisma/pagination';
 
 import { DomainCreateDto, DomainUpdateDto } from '../dto/domain.dto';
