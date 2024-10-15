@@ -16,33 +16,46 @@ export function buildTree<T extends Record<string, any>>(
   idField: keyof T = 'id',
   orderField?: keyof T,
 ): TreeNode<T>[] {
-  const itemMap: Map<string, TreeNode<T>[]> = new Map();
+  const itemMap = new Map<string, TreeNode<T>>();
+  const rootNodes: TreeNode<T>[] = [];
 
   items.forEach((item) => {
-    const node: TreeNode<T> = { ...item, children: [] };
-    const parentId = String(item[parentIdField]);
+    const node: TreeNode<T> = { ...item };
+    const parentId = item[parentIdField] as string;
 
-    if (!itemMap.has(parentId)) {
-      itemMap.set(parentId, []);
+    if (parentId === '0') {
+      rootNodes.push(node);
+    } else {
+      let parent = itemMap.get(parentId);
+      if (!parent) {
+        parent = { [idField]: parentId } as TreeNode<T>;
+        itemMap.set(parentId, parent);
+      }
+      (parent.children || (parent.children = [])).push(node);
     }
-    itemMap.get(parentId)!.push(node);
+
+    itemMap.set(item[idField] as string, node);
   });
 
   if (orderField) {
-    itemMap.forEach((children) => {
-      children.sort((a, b) => {
-        return Number(a[orderField]) - Number(b[orderField]);
-      });
+    rootNodes.sort(
+      (a, b) => (a[orderField] as number) - (b[orderField] as number),
+    );
+    itemMap.forEach((node) => {
+      node.children?.sort(
+        (a, b) => (a[orderField] as number) - (b[orderField] as number),
+      );
     });
   }
 
-  function buildSubTree(parentId: string): TreeNode<T>[] {
-    const children = itemMap.get(parentId) || [];
-    children.forEach((child) => {
-      child.children = buildSubTree(String(child[idField]));
-    });
-    return children;
-  }
+  return rootNodes.map((rootNode) => {
+    buildSubTree(rootNode);
+    return rootNode;
+  });
+}
 
-  return buildSubTree('0');
+function buildSubTree<T extends Record<string, any>>(node: TreeNode<T>) {
+  if (node.children) {
+    node.children.forEach((child) => buildSubTree(child));
+  }
 }
