@@ -17,6 +17,12 @@ export class ApiEndpointEventHandler implements OnModuleInit {
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
+  /**
+   * 模块初始化时执行的方法
+   * 这里我们手动注册事件监听器，以确保能捕获到 API_ENDPOINT 事件
+   * 这种方法可以解决 @OnEvent 装饰器在某些情况下不生效的问题
+   * 或者另一种方案是在app.module.ts中将BootstrapModule放在最后，这样在模块初始化时，API_ENDPOINT事件已经emit了
+   */
   onModuleInit() {
     this.logger.log('ApiEndpointEventHandler initialized');
     this.eventEmitter.on(API_ENDPOINT, this.handleManually.bind(this));
