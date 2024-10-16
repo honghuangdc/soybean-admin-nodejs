@@ -44,6 +44,7 @@ export class ApiDataService implements OnModuleInit {
       });
 
       setImmediate(() => {
+        this.logger.log(`Emitting ${endpoints.length} API endpoints`);
         this.eventEmitter.emit(API_ENDPOINT, endpoints);
       });
     }
