@@ -13,13 +13,13 @@ import { fastifyApp } from '@lib/infra/adapter/fastify.adapter';
 import { RedisUtility } from '@lib/shared/redis/redis.util';
 import { isMainProcess } from '@lib/utils/env';
 
-import { BaseSystemModule } from './base-system.module';
+import { BaseDemoModule } from './base-demo.module';
 
 async function bootstrap() {
   await RedisUtility.client();
 
   const app = await NestFactory.create<NestFastifyApplication>(
-    BaseSystemModule,
+    BaseDemoModule,
     fastifyApp,
     { abortOnError: true },
   );
@@ -28,7 +28,7 @@ async function bootstrap() {
   const { port } = configService.get<IAppConfig>('app', { infer: true });
   const corsConfig = configService.get<ICorsConfig>('cors', { infer: true });
 
-  useContainer(app.select(BaseSystemModule), { fallbackOnErrors: true });
+  useContainer(app.select(BaseDemoModule), { fallbackOnErrors: true });
 
   if (corsConfig.enabled) {
     app.enableCors(corsConfig.corsOptions);

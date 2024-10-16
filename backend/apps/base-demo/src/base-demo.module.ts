@@ -27,8 +27,8 @@ import { JwtStrategy } from '@lib/infra/strategies/jwt.passport-strategy';
 import { IAuthentication } from '@lib/typings/global';
 import { getConfigPath } from '@lib/utils/env';
 
-import { BaseSystemController } from './base-system.controller';
-import { BaseSystemService } from './base-system.service';
+import { BaseDemoController } from './base-demo.controller';
+import { BaseDemoService } from './base-demo.service';
 
 const strategies = [JwtStrategy];
 
@@ -123,9 +123,9 @@ class ThrottlerStorageAdapter implements ThrottlerStorage {
 
     ApiKeyModule,
   ],
-  controllers: [BaseSystemController],
+  controllers: [BaseDemoController],
   providers: [
-    BaseSystemService,
+    BaseDemoService,
 
     ...strategies,
 
@@ -140,4 +140,4 @@ class ThrottlerStorageAdapter implements ThrottlerStorage {
     // { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
-export class BaseSystemModule {}
+export class BaseDemoModule {}
