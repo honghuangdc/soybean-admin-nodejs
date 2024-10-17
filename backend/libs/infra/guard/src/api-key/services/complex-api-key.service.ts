@@ -140,7 +140,9 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     const { signature, ...paramsToSign } = params;
 
     // Sort the keys
-    const sortedKeys = Object.keys(paramsToSign).sort();
+    const sortedKeys = Object.keys(paramsToSign).sort((a, b) =>
+      a.localeCompare(b, 'en', { sensitivity: 'base' }),
+    );
 
     // Build the signing string
     const signingString = sortedKeys
