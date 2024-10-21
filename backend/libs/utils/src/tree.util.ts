@@ -16,25 +16,35 @@ export function buildTree<T extends Record<string, any>>(
   idField: keyof T = 'id',
   orderField?: keyof T,
 ): TreeNode<T>[] {
-  const itemMap = new Map<string, TreeNode<T>>();
+  const itemMap = new Map<string | number, TreeNode<T>>();
   const rootNodes: TreeNode<T>[] = [];
 
   items.forEach((item) => {
-    const node: TreeNode<T> = { ...item };
-    const parentId = item[parentIdField] as string;
+    const nodeId = item[idField];
+    const node: TreeNode<T> = { ...item, children: [] };
+    itemMap.set(nodeId, node);
+  });
 
-    if (parentId === '0') {
-      rootNodes.push(node);
-    } else {
-      let parent = itemMap.get(parentId);
-      if (!parent) {
-        parent = { [idField]: parentId } as TreeNode<T>;
-        itemMap.set(parentId, parent);
+  items.forEach((item) => {
+    const nodeId = item[idField];
+    const parentId = item[parentIdField];
+    const node = itemMap.get(nodeId);
+
+    if (node) {
+      if (parentId === 0 || parentId === '0') {
+        rootNodes.push(node);
+      } else {
+        const parent = itemMap.get(parentId);
+        if (parent) {
+          if (!parent.children) {
+            parent.children = [];
+          }
+          parent.children.push(node);
+        } else {
+          console.error('Parent node not found for ID:', parentId);
+        }
       }
-      (parent.children || (parent.children = [])).push(node);
     }
-
-    itemMap.set(item[idField] as string, node);
   });
 
   if (orderField) {
