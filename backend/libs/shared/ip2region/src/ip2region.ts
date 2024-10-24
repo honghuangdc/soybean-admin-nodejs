@@ -60,13 +60,20 @@ class Searcher {
       const buf = Buffer.alloc(length);
       return new Promise((resolve, reject) => {
         ioStatus.ioCount += 1;
-        fs.read(fd, buf, 0, length, offset, (err) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(buf);
-          }
-        });
+        fs.read(
+          fd,
+          buf as unknown as NodeJS.ArrayBufferView,
+          0,
+          length,
+          offset,
+          (err) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(buf);
+            }
+          },
+        );
       });
     }
   }
@@ -194,7 +201,13 @@ const newWithBuffer = (buffer: Buffer): Searcher => {
 const loadVectorIndexFromFile = (dbPath: string): Buffer => {
   const fd = fs.openSync(dbPath, 'r');
   const buffer = Buffer.alloc(VectorIndexLength);
-  fs.readSync(fd, buffer, 0, VectorIndexLength, 256);
+  fs.readSync(
+    fd,
+    buffer as unknown as NodeJS.ArrayBufferView,
+    0,
+    VectorIndexLength,
+    256,
+  );
   fs.close(fd, function () {});
   return buffer;
 };
@@ -203,7 +216,13 @@ const loadContentFromFile = (dbPath: string): Buffer => {
   const stats = fs.statSync(dbPath);
   const buffer = Buffer.alloc(stats.size);
   const fd = fs.openSync(dbPath, 'r');
-  fs.readSync(fd, buffer, 0, stats.size, 0);
+  fs.readSync(
+    fd,
+    buffer as unknown as NodeJS.ArrayBufferView,
+    0,
+    stats.size,
+    0,
+  );
   fs.close(fd, function () {});
   return buffer;
 };
