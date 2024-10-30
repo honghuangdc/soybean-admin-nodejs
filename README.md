@@ -100,10 +100,27 @@ soybean-admin-nestjs/
 
 - Node.js: 18.x.x 或更高版本
 - PostgreSQL: 13.x 或更高版本
+- Redis: 6.x 或更高版本
 - pnpm: 8.x.x 或更高版本
-- Docker (可选): 20.x.x 或更高版本
+- Docker (推荐): 20.x.x 或更高版本
 
-### 安装依赖
+### 快速开始（推荐方式）
+
+使用 Docker Compose 一键启动所有服务（包含 PostgreSQL、Redis 等依赖）：
+
+```bash
+docker-compose -p soybean-admin-nest up -d
+```
+
+启动后即可访问：
+
+- 前端页面：`http://localhost:9527`
+- 后端接口：`http://localhost:9528/v1`
+- Swagger文档：`http://127.0.0.1:9528/api-docs`
+
+### 手动安装与配置
+
+#### 1. 安装依赖
 
 ```bash
 # 安装后端依赖
@@ -115,18 +132,47 @@ cd frontend
 pnpm install
 ```
 
-### 数据库设置
+#### 2. 配置环境
 
-1. 确保 PostgreSQL 服务已启动。
-2. 创建一个新的数据库。
-3. 更新 `.env` 数据库连接信息。
+1. 数据库配置：
+   - 确保 PostgreSQL 服务已启动
+   - 创建新的数据库
+   - 更新 `backend/.env` 中的数据库连接信息
 
-### 运行项目
+2. Redis配置：
+   - 确保 Redis 服务已启动
+   - 在 `backend/libs/config/src/redis.config.ts` 下修改 Redis 连接配置
+
+3. 其他配置：
+   - 检查并按需修改 `backend/libs/config/src` 下的其他配置文件
+
+#### 3. 数据库初始化
+
+```bash
+cd backend
+
+# 方式一：使用 Makefile（推荐）
+make init_migration
+
+# 方式二：直接使用 prisma 命令
+npx prisma migrate deploy --schema prisma/schema.prisma
+npx prisma db seed
+```
+
+#### 4. 生成 Prisma 客户端
+
+```bash
+pnpm prisma:generate
+```
+
+> 注意：此命令用于生成 Prisma 客户端代码，使 TypeScript 能够识别数据库模型，与数据库迁移无关。
+> 在首次运行或 schema 变更后必须执行此命令。
+
+#### 5. 运行项目
 
 ```bash
 # 后端
 cd backend
-pnpm prisma:generate #首次运行必须生成 prisma 相关文件
 pnpm start:dev
 
 # 前端
@@ -136,13 +182,30 @@ pnpm dev
 
 访问 `http://localhost:9527` 查看运行结果。
 
-### 使用 Docker 快速运行
+### 开发说明
 
-如果您已安装 Docker，可以使用以下命令一键启动项目：
+1. **数据库变更流程**：
+   - 修改 `prisma/schema.prisma`
+   - 执行 `make generate_migration` 生成迁移文件
+   - 执行 `make deploy_migration` 应用迁移
 
-```bash
-docker-compose -p soybean-admin-nest up -d
-```
+2. **配置文件说明**：
+   所有配置文件位于 `backend/libs/config`：
+   - `database.config.ts`: 数据库配置
+   - `redis.config.ts`: Redis 配置
+   - `jwt.config.ts`: JWT 配置
+   - 等等...
+
+3. **环境变量**：
+   - 开发环境：`.env`
+   - 生产环境：`.env.production` 自行创建
+   - 测试环境：`.env.test` 自行创建
+
+### 注意事项
+
+1. 首次运行必须执行数据库初始化
+2. 修改 schema 后需要重新生成 Prisma 客户端
+3. 建议使用 Docker 方式启动，可以避免环境配置问题
 
 ## 技术栈
 
