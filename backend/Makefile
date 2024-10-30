@@ -7,6 +7,10 @@ MIGRATION_DIR = prisma/migrations/$(shell cat $(TIMESTAMP_FILE))_migration
 # 迁移 SQL 文件的具体路径
 MIGRATION_PATH = $(MIGRATION_DIR)/migration.sql
 
+init_migration:
+	npx prisma migrate deploy --schema $(SCHEMA_PATH)
+	npx prisma db seed
+
 # 默认任务：生成迁移文件
 all: generate_migration
 
@@ -32,13 +36,13 @@ resolve_migration: check_timestamp
 
 # 部署迁移
 # 将所有未应用的迁移应用到数据库
-deploy_migration: check_timestamp
+deploy_migration:
 	npx prisma migrate deploy --schema $(SCHEMA_PATH)
 
-# 回滚迁移
-# 撤销最后一次迁移操作
-rollback_migration: check_timestamp
-	npx prisma migrate rollback --schema $(SCHEMA_PATH)
+# 重置数据库
+# 删除所有数据并重新应用所有迁移
+reset_database:
+	npx prisma migrate reset --schema $(SCHEMA_PATH) --force
 
 # 删除临时时间戳文件
 rm_temp_file:
@@ -52,4 +56,4 @@ clean: rm_temp_file
 
 # 声明这些目标是伪目标（不产生实际文件的目标）
 # 确保这些命令每次都会执行，而不会因为有同名文件而跳过
-.PHONY: all generate_migration deploy_migration resolve_migration rollback_migration clean check_timestamp
+.PHONY: all generate_migration deploy_migration resolve_migration reset_database clean check_timestamp
