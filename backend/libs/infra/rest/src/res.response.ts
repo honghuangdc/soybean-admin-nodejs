@@ -6,7 +6,7 @@ import {
 } from '@lib/constants/rest.constant';
 
 export class ApiRes<T> {
-  @ApiProperty({ type: 'object', description: 'data' })
+  @ApiProperty({ description: 'data' })
   data?: T;
 
   @ApiProperty({

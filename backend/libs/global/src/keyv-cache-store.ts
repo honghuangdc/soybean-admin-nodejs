@@ -1,4 +1,4 @@
-import KeyvRedis from '@keyv/redis';
+import KeyvRedis, { createClient, createCluster } from '@keyv/redis';
 import { CacheStore } from '@nestjs/cache-manager';
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
@@ -14,21 +14,17 @@ export class KeyvCacheStore implements CacheStore {
     const store =
       redisConfig.mode === 'cluster'
         ? new KeyvRedis(
-            new Redis.Cluster(
-              redisConfig.cluster.map((node) => ({
-                host: node.host,
-                port: node.port,
-                password: redisConfig.standalone.password,
-              })),
-            ),
+            // 集群模式：使用逗号分隔的连接字符串
+            redisConfig.cluster
+              .map(
+                (node) =>
+                  `redis://${redisConfig.standalone.password}@${node.host}:${node.port}`,
+              )
+              .join(','),
           )
         : new KeyvRedis(
-            new Redis({
-              host: redisConfig.standalone.host,
-              port: redisConfig.standalone.port,
-              password: redisConfig.standalone.password,
-              db: redisConfig.standalone.db,
-            }),
+            // 单机模式：使用单个连接字符串
+            `redis://${redisConfig.standalone.password}@${redisConfig.standalone.host}:${redisConfig.standalone.port}/${redisConfig.standalone.db}`,
           );
 
     this.keyv = new Keyv({ store });

@@ -21,6 +21,8 @@ import { User } from '../../domain/user';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 import { PasswordIdentifierDTO } from '../dto/password-identifier.dto';
 import { RefreshTokenDTO } from '../dto/refresh-token.dto';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 @Injectable()
 export class AuthenticationService {
@@ -129,6 +131,12 @@ export class AuthenticationService {
     );
     this.publisher.mergeObjectContext(userAggregate);
     userAggregate.commit();
+
+    const result = await this.repository.findRolesByUserId(user.id);
+    const key = `${CacheConstant.AUTH_TOKEN_PREFIX}${user.id}`;
+    await RedisUtility.instance.del(key);
+    await RedisUtility.instance.sadd(key, ...result);
+    await RedisUtility.instance.expire(key, this.securityConfig.jwtExpiresIn);
 
     return tokens;
   }

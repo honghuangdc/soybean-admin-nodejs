@@ -15,4 +15,6 @@ export interface UserReadRepoPort {
   pageUsers(query: PageUsersQuery): Promise<PaginationResult<UserProperties>>;
 
   getUserByUsername(username: string): Promise<Readonly<UserProperties> | null>;
+
+  findRolesByUserId(userId: string): Promise<Set<string>>;
 }

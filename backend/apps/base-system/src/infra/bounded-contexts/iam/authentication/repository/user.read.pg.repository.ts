@@ -114,4 +114,30 @@ export class UserReadRepository implements UserReadRepoPort {
       where: { username },
     });
   }
+
+  async findRolesByUserId(userId: string): Promise<Set<string>> {
+    const userRoles = await this.prisma.sysUserRole.findMany({
+      where: {
+        userId: userId,
+      },
+      select: {
+        roleId: true,
+      },
+    });
+
+    const roleIds = userRoles.map((userRole) => userRole.roleId);
+
+    const roles = await this.prisma.sysRole.findMany({
+      where: {
+        id: {
+          in: roleIds,
+        },
+      },
+      select: {
+        code: true,
+      },
+    });
+
+    return new Set(roles.map((role) => role.code));
+  }
 }

@@ -64,19 +64,16 @@ export class OperationLogReadModel {
 
   @ApiProperty({
     description: 'Parameters used in the operation',
-    type: 'object',
   })
   params: any;
 
   @ApiProperty({
     description: 'Body of the request used in the operation',
-    type: 'object',
   })
   body: any;
 
   @ApiProperty({
     description: 'Response returned from the operation',
-    type: 'object',
   })
   response: any;
 

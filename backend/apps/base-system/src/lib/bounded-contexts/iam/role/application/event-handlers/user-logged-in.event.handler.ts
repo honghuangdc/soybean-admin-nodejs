@@ -21,6 +21,7 @@ export class UserLoggedInHandler implements IEventHandler<UserLoggedInEvent> {
   async handle(event: UserLoggedInEvent) {
     const userId = event.userId;
     const result = await this.repository.findRolesByUserId(userId);
+    //TODO means?
     if (result.size > 0) {
       const key = `${CacheConstant.AUTH_TOKEN_PREFIX}${userId}`;
       await RedisUtility.instance.del(key);
