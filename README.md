@@ -15,6 +15,12 @@
   </a>
 </p>
 
+## 在线预览
+
+- 预览地址：[https://soybean-nest.bytebytebrew.com](https://soybean-nest.bytebytebrew.com)
+
+> **注意**：由于数据库(PostgreSQL)和缓存(Redis)部署在Vercel上，访问可能需要科学上网工具。如果遇到访问缓慢或者无法访问问题，建议使用本地部署方式进行体验。
+
 <p align="center">
   <a href="#简介">简介</a> •
   <a href="#特性">特性</a> •
