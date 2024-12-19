@@ -92,7 +92,8 @@ async function bootstrap() {
 
   // @ts-ignore
   await app.register(fastifyCompress);
-  await app.register(fastifyCsrf);
+  // TODO
+  await app.register(fastifyCsrf as any);
 
   await app.listen(port, '0.0.0.0', async () => {
     const url = await app.getUrl();
