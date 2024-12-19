@@ -19,6 +19,7 @@ import { ConfigKeyPaths, IAppConfig, ICorsConfig } from '@lib/config';
 import { fastifyApp } from '@lib/infra/adapter/fastify.adapter';
 import { RedisUtility } from '@lib/shared/redis/redis.util';
 import { isMainProcess } from '@lib/utils/env';
+import fastifyCsrf from '@fastify/csrf-protection';
 
 import { AppModule } from './app.module';
 
@@ -91,6 +92,7 @@ async function bootstrap() {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   await app.register(fastifyCompress);
+  await app.register(fastifyCsrf);
 
   await app.listen(port, '0.0.0.0', async () => {
     const url = await app.getUrl();

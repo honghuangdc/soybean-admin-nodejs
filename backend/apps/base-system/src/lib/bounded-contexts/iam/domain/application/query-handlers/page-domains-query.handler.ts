@@ -10,8 +10,7 @@ import { PageDomainsQuery } from '../../queries/page-domains.query';
 
 @QueryHandler(PageDomainsQuery)
 export class PageDomainsQueryHandler
-  implements
-    IQueryHandler<PageDomainsQuery, PaginationResult<DomainProperties>>
+  implements IQueryHandler<PageDomainsQuery, PaginationResult<DomainProperties>>
 {
   @Inject(DomainReadRepoPortToken)
   private readonly repository: DomainReadRepoPort;

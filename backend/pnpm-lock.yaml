@@ -11,6 +11,9 @@ importers:
       '@fastify/compress':
         specifier: ^7.0.3
         version: 7.0.3
+      '@fastify/csrf-protection':
+        specifier: ^6.3.0
+        version: 6.4.1
       '@fastify/multipart':
         specifier: ^8.3.0
         version: 8.3.0
@@ -472,6 +475,12 @@ packages:
 
   '@fastify/cors@9.0.1':
     resolution: {integrity: sha512-YY9Ho3ovI+QHIL2hW+9X4XqQjXLjJqsU+sMV/xFsxZkE8p3GNnYVFpoOxF7SsP5ZL76gwvbo3V9L+FIekBGU4Q==}
+
+  '@fastify/csrf-protection@6.4.1':
+    resolution: {integrity: sha512-nP1xjruddvWMvqjxTVzpLqWVLAX7P/XWkeTaARg3bXVrVmpDWjDMN7KfV3swIT/XexjDooMo+QG/n0n6ynZaiw==}
+
+  '@fastify/csrf@6.3.0':
+    resolution: {integrity: sha512-6w0gZZf4an8SGRYUS0nECTJb8eI45h/YIFkf2GJnba+mS+aJg0ArpS6Y8HXgLVvPxUGtQZYNB2z+UpISJ3v3Ug==}
 
   '@fastify/deepmerge@1.3.0':
     resolution: {integrity: sha512-J8TOSBq3SoZbDhM9+R/u77hP93gz/rajSA+K2kGyijPpORPWUXHUpTaleoj+92As0S9uPRP7Oi8IqMf0u+ro6A==}
@@ -4325,6 +4334,14 @@ snapshots:
     dependencies:
       fastify-plugin: 4.5.1
       mnemonist: 0.39.6
+
+  '@fastify/csrf-protection@6.4.1':
+    dependencies:
+      '@fastify/csrf': 6.3.0
+      '@fastify/error': 3.4.1
+      fastify-plugin: 4.5.1
+
+  '@fastify/csrf@6.3.0': {}
 
   '@fastify/deepmerge@1.3.0': {}
 
