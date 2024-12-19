@@ -11,6 +11,8 @@ import { TokensReadModel } from '@app/base-system/lib/bounded-contexts/iam/token
 import { TokensByRefreshTokenQuery } from '@app/base-system/lib/bounded-contexts/iam/tokens/queries/tokens.by-refresh_token.query';
 
 import { ISecurityConfig, SecurityConfig } from '@lib/config';
+import { CacheConstant } from '@lib/constants/cache.constant';
+import { RedisUtility } from '@lib/shared/redis/redis.util';
 import { IAuthentication } from '@lib/typings/global';
 
 import { TokenGeneratedEvent } from '../../../tokens/domain/events/token-generated.event';
@@ -21,8 +23,6 @@ import { User } from '../../domain/user';
 import { UserReadRepoPort } from '../../ports/user.read.repo-port';
 import { PasswordIdentifierDTO } from '../dto/password-identifier.dto';
 import { RefreshTokenDTO } from '../dto/refresh-token.dto';
-import { CacheConstant } from '@lib/constants/cache.constant';
-import { RedisUtility } from '@lib/shared/redis/redis.util';
 
 @Injectable()
 export class AuthenticationService {

@@ -26,7 +26,6 @@ export class SimpleApiKeyService implements OnModuleInit, IApiKeyService {
     keys.forEach((key) => this.apiKeys.add(key));
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async validateKey(apiKey: string, _?: ValidateKeyOptions): Promise<boolean> {
     return Promise.resolve(this.apiKeys.has(apiKey));
   }
@@ -41,7 +40,6 @@ export class SimpleApiKeyService implements OnModuleInit, IApiKeyService {
     this.apiKeys.delete(apiKey);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async updateKey(_apiKey: string, _newSecret: string): Promise<void> {
     // This method is not applicable for simple API key service.
     throw new Error('Update operation is not supported on simple API keys.');

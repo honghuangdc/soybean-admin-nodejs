@@ -136,7 +136,7 @@ export class ComplexApiKeyService implements OnModuleInit, IApiKeyService {
     algorithm: SignatureAlgorithm,
   ): string {
     // Exclude the 'signature' parameter from the params
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     const { signature, ...paramsToSign } = params;
 
     // Sort the keys

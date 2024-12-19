@@ -18,7 +18,6 @@ export class EndpointsQueryHandler
   private readonly repository: ApiEndpointReadRepoPort;
 
   async execute(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _: EndpointsQuery,
   ): Promise<Readonly<EndpointTreeProperties[]> | []> {
     const endpoints = await this.repository.findAllPermissionApi();

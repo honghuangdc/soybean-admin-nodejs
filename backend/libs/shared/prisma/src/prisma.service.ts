@@ -21,7 +21,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     });
 
     if (isDevEnvironment) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
       this.$on('query', (event: Prisma.QueryEvent) => {
         console.log('Query: ' + event.query);

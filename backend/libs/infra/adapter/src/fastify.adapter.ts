@@ -9,7 +9,6 @@ const app: FastifyAdapter = new FastifyAdapter({
 });
 export { app as fastifyApp };
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 app.register(fastifyMultipart, {
   limits: {

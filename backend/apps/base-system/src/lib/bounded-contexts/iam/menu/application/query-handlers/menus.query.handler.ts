@@ -14,10 +14,7 @@ export class MenusQueryHandler
 {
   @Inject(MenuReadRepoPortToken) private readonly repository: MenuReadRepoPort;
 
-  async execute(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    _: MenusQuery,
-  ): Promise<Readonly<MenuTreeProperties[]> | []> {
+  async execute(_: MenusQuery): Promise<Readonly<MenuTreeProperties[]> | []> {
     const menus = await this.repository.findAll();
     return buildTree<MenuTreeProperties>(menus, 'pid', 'id', 'order');
   }

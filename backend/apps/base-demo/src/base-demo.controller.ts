@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { BaseDemoService } from './base-demo.service';
 import { Public } from '@lib/infra/decorators/public.decorator';
+
+import { BaseDemoService } from './base-demo.service';
 
 @Controller()
 export class BaseDemoController {
