@@ -62,4 +62,8 @@ export class AccessKeyReadPostgresRepository implements AccessKeyReadRepoPort {
       where: { id },
     });
   }
+
+  async findAll(): Promise<AccessKeyProperties[]> {
+    return this.prisma.sysAccessKey.findMany();
+  }
 }

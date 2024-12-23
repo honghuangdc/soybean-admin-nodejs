@@ -12,4 +12,6 @@ export interface AccessKeyReadRepoPort {
   pageAccessKeys(
     query: PageAccessKeysQuery,
   ): Promise<PaginationResult<AccessKeyReadModel>>;
+
+  findAll(): Promise<AccessKeyProperties[]>;
 }
