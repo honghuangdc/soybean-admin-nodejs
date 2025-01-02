@@ -32,6 +32,7 @@
   "dependencies": {
     "@fastify/compress": "^7.0.3",
     "@fastify/csrf-protection": "^6.3.0",
+    "@fastify/helmet": "^11.1.1",
     "@fastify/multipart": "^8.3.0",
     "@fastify/static": "^7.0.4",
     "@keyv/redis": "^4.1.0",
