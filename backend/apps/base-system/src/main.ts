@@ -18,8 +18,9 @@ import { useContainer } from 'class-validator';
 import { initDocSwagger } from '@lib/bootstrap/swagger/init-doc.swagger';
 import { ConfigKeyPaths, IAppConfig, ICorsConfig } from '@lib/config';
 import { fastifyApp } from '@lib/infra/adapter/fastify.adapter';
+import { registerHelmet } from '@lib/infra/adapter/security.adapter';
 import { RedisUtility } from '@lib/shared/redis/redis.util';
-import { isMainProcess } from '@lib/utils/env';
+import { isDevEnvironment, isMainProcess } from '@lib/utils/env';
 
 import { AppModule } from './app.module';
 
@@ -94,6 +95,25 @@ async function bootstrap() {
   await app.register(fastifyCompress);
   // TODO
   await app.register(fastifyCsrf as any);
+
+  // 注册 Helmet 安全中间件
+  // @description 提供基本的安全防护，包括 XSS、CSP、HSTS 等
+  // @link https://github.com/helmetjs/helmet
+  // @link https://github.com/fastify/fastify-helmet
+  // 本地环境不开启,具体配置请参考官方文档
+  await registerHelmet(fastifyApp.getInstance(), {
+    contentSecurityPolicy: isDevEnvironment
+      ? false
+      : {
+          directives: {
+            defaultSrc: ["'self'"],
+            styleSrc: ["'self'", "'unsafe-inline'", 'https:'],
+            scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https:'],
+            imgSrc: ["'self'", 'data:', 'https:'],
+            connectSrc: ["'self'", 'https:', 'wss:'],
+          },
+        },
+  });
 
   await app.listen(port, '0.0.0.0', async () => {
     const url = await app.getUrl();
