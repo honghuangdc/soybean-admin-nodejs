@@ -1,4 +1,5 @@
 import cluster from 'node:cluster';
+// import { constants } from 'zlib';
 
 import fastifyCompress from '@fastify/compress';
 import fastifyCsrf from '@fastify/csrf-protection';
@@ -92,7 +93,8 @@ async function bootstrap() {
   initDocSwagger(app, configService);
 
   // @ts-ignore
-  await app.register(fastifyCompress);
+  await app.register(fastifyCompress, { encodings: ['gzip', 'deflate'] });
+  // await app.register(fastifyCompress, { brotliOptions: { params: { [constants.BROTLI_PARAM_QUALITY]: 4 } } });
   // TODO
   await app.register(fastifyCsrf as any);
 
