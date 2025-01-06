@@ -79,6 +79,12 @@
       "@lib/config/*": [
         "libs/config/src/*"
       ],
+      "@lib/logger": [
+        "libs/logger/src"
+      ],
+      "@lib/logger/*": [
+        "libs/logger/src/*"
+      ],
       "@lib/shared/redis": [
         "libs/shared/redis/src"
       ],

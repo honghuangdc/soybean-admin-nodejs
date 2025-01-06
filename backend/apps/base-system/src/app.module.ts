@@ -25,6 +25,7 @@ import { AllExceptionsFilter } from '@lib/infra/filters/all-exceptions.filter';
 import { ApiKeyModule } from '@lib/infra/guard/api-key/api-key.module';
 import { JwtAuthGuard } from '@lib/infra/guard/jwt.auth.guard';
 import { JwtStrategy } from '@lib/infra/strategies/jwt.passport-strategy';
+import { LoggerModule } from '@lib/logger';
 import { IAuthentication } from '@lib/typings/global';
 import { getConfigPath } from '@lib/utils/env';
 
@@ -47,6 +48,22 @@ class ThrottlerStorageAdapter implements ThrottlerStorage {
 
 @Module({
   imports: [
+    //根据实际需要进行日志配置
+    LoggerModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => {
+        return {
+          console: true,
+          file: true,
+          filename: 'logs/base-system-%DATE%.log',
+          level:
+            configService.get('NODE_ENV') === 'production' ? 'info' : 'debug',
+          maxSize: '50m',
+          maxFiles: '14d',
+        };
+      },
+    }),
     TerminusModule,
     ConfigModule.forRoot({
       isGlobal: true,

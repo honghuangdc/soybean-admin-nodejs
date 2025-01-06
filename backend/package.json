@@ -65,12 +65,15 @@
     "ioredis": "^5.4.2",
     "js-yaml": "^4.1.0",
     "keyv": "^5.2.3",
+    "nest-winston": "^1.9.7",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "systeminformation": "^5.25.3",
-    "ulid": "^2.3.0"
+    "ulid": "^2.3.0",
+    "winston": "^3.17.0",
+    "winston-daily-rotate-file": "^5.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.9",
@@ -135,6 +138,7 @@
       "^@lib/global(|/.*)$": "<rootDir>/libs/global/src/$1",
       "^@lib/constants(|/.*)$": "<rootDir>/libs/constants/src/$1",
       "^@lib/config(|/.*)$": "<rootDir>/libs/config/src/$1",
+      "^@lib/logger(|/.*)$": "<rootDir>/libs/logger/src/$1",
       "^@lib/shared/redis(|/.*)$": "<rootDir>/libs/shared/redis/src/$1",
       "^@lib/shared/prisma(|/.*)$": "<rootDir>/libs/shared/prisma/src/$1",
       "^@lib/shared/oss(|/.*)$": "<rootDir>/libs/shared/oss/src/$1",
