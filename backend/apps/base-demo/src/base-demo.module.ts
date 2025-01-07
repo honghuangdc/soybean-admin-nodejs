@@ -3,7 +3,11 @@ import { ExecutionContext, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_FILTER, APP_GUARD } from '@nestjs/core';
 import { TerminusModule } from '@nestjs/terminus';
-import { ThrottlerModule, ThrottlerStorage } from '@nestjs/throttler';
+import {
+  ThrottlerGuard,
+  ThrottlerModule,
+  ThrottlerStorage,
+} from '@nestjs/throttler';
 import { ThrottlerStorageRecord } from '@nestjs/throttler/dist/throttler-storage-record.interface';
 import * as casbin from 'casbin';
 import Redis from 'ioredis';
@@ -38,8 +42,20 @@ const strategies = [JwtStrategy];
 class ThrottlerStorageAdapter implements ThrottlerStorage {
   constructor(private readonly storageService: ThrottlerStorageRedisService) {}
 
-  async increment(key: string, ttl: number): Promise<ThrottlerStorageRecord> {
-    return this.storageService.increment(key, ttl, 10, 60, 'default');
+  async increment(
+    key: string,
+    ttl: number,
+    limit: number,
+    blockDuration: number,
+    throttlerName: string,
+  ): Promise<ThrottlerStorageRecord> {
+    return this.storageService.increment(
+      key,
+      ttl,
+      limit,
+      blockDuration,
+      throttlerName,
+    );
   }
 }
 
@@ -137,7 +153,7 @@ class ThrottlerStorageAdapter implements ThrottlerStorage {
     // { provide: APP_INTERCEPTOR, useClass: LogInterceptor },
 
     { provide: APP_GUARD, useClass: JwtAuthGuard },
-    // { provide: APP_GUARD, useClass: ThrottlerGuard },
+    { provide: APP_GUARD, useClass: ThrottlerGuard },
   ],
 })
 export class BaseDemoModule {}
