@@ -196,6 +196,15 @@
         "tsConfigPath": "libs/infra/strategies/tsconfig.lib.json"
       }
     },
+    "infra/crypto": {
+      "type": "library",
+      "root": "libs/infra/crypto",
+      "entryFile": "index",
+      "sourceRoot": "libs/infra/crypto/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/infra/crypto/tsconfig.lib.json"
+      }
+    },
     "base-system": {
       "type": "application",
       "root": "apps/base-system",

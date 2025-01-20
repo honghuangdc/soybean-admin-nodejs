@@ -151,7 +151,8 @@
       "^@lib/infra/guard(|/.*)$": "<rootDir>/libs/infra/guard/src/$1",
       "^@lib/infra/interceptors(|/.*)$": "<rootDir>/libs/infra/interceptors/src/$1",
       "^@lib/infra/rest(|/.*)$": "<rootDir>/libs/infra/rest/src/$1",
-      "^@lib/infra/strategies(|/.*)$": "<rootDir>/libs/infra/strategies/src/$1"
+      "^@lib/infra/strategies(|/.*)$": "<rootDir>/libs/infra/strategies/src/$1",
+      "^@lib/infra/crypto(|/.*)$": "<rootDir>/libs/infra/crypto/src/$1"
     },
     "roots": [
       "<rootDir>/libs/",

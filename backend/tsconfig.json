@@ -162,6 +162,12 @@
       ],
       "@lib/infra/strategies/*": [
         "libs/infra/strategies/src/*"
+      ],
+      "@lib/infra/crypto": [
+        "libs/infra/crypto/src"
+      ],
+      "@lib/infra/crypto/*": [
+        "libs/infra/crypto/src/*"
       ]
     },
     "resolveJsonModule": true
