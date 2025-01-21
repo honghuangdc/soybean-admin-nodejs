@@ -24,6 +24,12 @@ import config, {
 } from '@lib/config';
 import { SharedModule } from '@lib/global/shared.module';
 import { AUTHZ_ENFORCER, AuthZModule, PrismaAdapter } from '@lib/infra/casbin';
+import {
+  AESMode,
+  CryptoMethod,
+  CryptoModule,
+  PaddingMode,
+} from '@lib/infra/crypto';
 import { AllExceptionsFilter } from '@lib/infra/filters/all-exceptions.filter';
 import { ApiKeyModule } from '@lib/infra/guard/api-key/api-key.module';
 import { JwtAuthGuard } from '@lib/infra/guard/jwt.auth.guard';
@@ -138,6 +144,16 @@ class ThrottlerStorageAdapter implements ThrottlerStorage {
     SharedModule,
 
     ApiKeyModule,
+
+    CryptoModule.register({
+      isGlobal: true,
+      defaultMethod: CryptoMethod.AES,
+      aes: {
+        mode: AESMode.CBC,
+        padding: PaddingMode.PKCS7,
+        useRandomIV: false,
+      },
+    }),
   ],
   controllers: [BaseDemoController],
   providers: [

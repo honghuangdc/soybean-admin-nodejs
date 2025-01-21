@@ -1,11 +1,12 @@
 import { createHash } from 'crypto';
 import * as fs from 'fs/promises';
 
-import { Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { ApiConsumes, ApiOperation } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 import { FastifyRequest } from 'fastify';
 
+import { Crypto, CryptoMethod, CryptoDirection } from '@lib/infra/crypto';
 import { ApiResponseDoc } from '@lib/infra/decorators/api-result.decorator';
 import { Public } from '@lib/infra/decorators/public.decorator';
 import { ApiRes } from '@lib/infra/rest/res.response';
@@ -21,6 +22,24 @@ export class BaseDemoController {
   @Public()
   getHello(): string {
     return this.baseDemoService.getHello();
+  }
+
+  @Get('/crypto')
+  @Public()
+  @Crypto(CryptoMethod.AES, CryptoDirection.ENCRYPT)
+  getCrypto(): ApiRes<string> {
+    return ApiRes.success(this.baseDemoService.getHello());
+  }
+
+  @Post('/crypto')
+  @Public()
+  @Crypto(CryptoMethod.AES, CryptoDirection.BOTH)
+  postCrypto(@Body() data: string): ApiRes<any> {
+    // 由于使用了 @Crypto 装饰器，data 已经被自动解密
+    return ApiRes.success({
+      receivedData: data,
+      timestamp: new Date().toISOString(),
+    });
   }
 
   @Post('upload')
