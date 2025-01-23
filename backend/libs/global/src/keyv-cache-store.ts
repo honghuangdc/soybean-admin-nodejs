@@ -1,7 +1,6 @@
-import KeyvRedis, { createClient, createCluster } from '@keyv/redis';
+import KeyvRedis, { createCluster } from '@keyv/redis';
 import { CacheStore } from '@nestjs/cache-manager';
 import { Injectable } from '@nestjs/common';
-import Redis from 'ioredis';
 import Keyv from 'keyv';
 
 import { IRedisConfig } from '@lib/config/redis.config';
@@ -14,17 +13,14 @@ export class KeyvCacheStore implements CacheStore {
     const store =
       redisConfig.mode === 'cluster'
         ? new KeyvRedis(
-            // 集群模式：使用逗号分隔的连接字符串
-            redisConfig.cluster
-              .map(
-                (node) =>
-                  `redis://${redisConfig.standalone.password}@${node.host}:${node.port}`,
-              )
-              .join(','),
+            createCluster({
+              rootNodes: redisConfig.cluster.map((node) => ({
+                url: `redis://:${node.password}@${node.host}:${node.port}`,
+              })),
+            }),
           )
         : new KeyvRedis(
-            // 单机模式：使用单个连接字符串
-            `redis://${redisConfig.standalone.password}@${redisConfig.standalone.host}:${redisConfig.standalone.port}/${redisConfig.standalone.db}`,
+            `redis://:${redisConfig.standalone.password}@${redisConfig.standalone.host}:${redisConfig.standalone.port}/${redisConfig.standalone.db}`,
           );
 
     this.keyv = new Keyv({ store });
@@ -40,5 +36,9 @@ export class KeyvCacheStore implements CacheStore {
 
   async del(key: string): Promise<void> {
     await this.keyv.delete(key);
+  }
+
+  async reset(): Promise<void> {
+    await this.keyv.clear();
   }
 }
